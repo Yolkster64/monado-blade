@@ -1,0 +1,5 @@
+C:\Windows\System32\MonadoBlade\src\Week6_CostOptimization\obj\Debug\net8.0\MonadoBlade.Week6.csproj.AssemblyReference.cache
+C:\Windows\System32\MonadoBlade\src\Week6_CostOptimization\obj\Debug\net8.0\MonadoBlade.Week6.GeneratedMSBuildEditorConfig.editorconfig
+C:\Windows\System32\MonadoBlade\src\Week6_CostOptimization\obj\Debug\net8.0\MonadoBlade.Week6.AssemblyInfoInputs.cache
+C:\Windows\System32\MonadoBlade\src\Week6_CostOptimization\obj\Debug\net8.0\MonadoBlade.Week6.AssemblyInfo.cs
+C:\Windows\System32\MonadoBlade\src\Week6_CostOptimization\obj\Debug\net8.0\MonadoBlade.Week6.csproj.CoreCompileInputs.cache

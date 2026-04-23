@@ -151,7 +151,7 @@ namespace MonadoBlade.Week6.Services
                 DailyLimitType = _dailyLimitType,
                 ProviderBudgets = _providerBudgets.Values.ToList(),
                 UserBudgets = _userBudgets.Values.ToList(),
-                BurnRate = dailyAverage,
+                BurnRate = (double)dailyAverage,
                 DaysUntilExceeded = daysUntilExceeded
             });
         }

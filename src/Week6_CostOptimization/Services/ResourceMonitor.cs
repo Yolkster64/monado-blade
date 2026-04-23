@@ -50,9 +50,9 @@ namespace MonadoBlade.Week6.Services
                 // Mock system memory (would use performance counters in production)
                 var info = new MemoryUsageInfo
                 {
-                    TotalMemory = 16 * 1024 * 1024 * 1024, // 16 GB
-                    UsedMemory = 12 * 1024 * 1024 * 1024,  // 12 GB
-                    AvailableMemory = 4 * 1024 * 1024 * 1024, // 4 GB
+                    TotalMemory = 16L * 1024 * 1024 * 1024, // 16 GB
+                    UsedMemory = 12L * 1024 * 1024 * 1024,  // 12 GB
+                    AvailableMemory = 4L * 1024 * 1024 * 1024, // 4 GB
                     UsagePercentage = 75.0,
                     PossibleLeak = false,
                     LeakGrowthRate = 0.5,

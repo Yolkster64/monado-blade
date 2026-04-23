@@ -51,7 +51,7 @@ namespace MonadoBlade.Week6.Interfaces
     public class BudgetCheckResult
     {
         public bool Allowed { get; set; }
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
         public decimal RemainingBudget { get; set; }
         public bool ApproachingLimit { get; set; }
     }

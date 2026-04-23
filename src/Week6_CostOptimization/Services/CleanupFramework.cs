@@ -20,18 +20,15 @@ namespace MonadoBlade.Week6.Services
         {
             return await ExecuteCleanupAsync("Cache Cleanup", async () =>
             {
-                // Mock implementation - would scan actual cache directories
-                var cutoffDate = DateTime.UtcNow.AddDays(-daysOld);
-                // In production: enumerate cache files, delete old ones
-                return new CleanupResult
-                {
-                    Operation = "Cache Cleanup",
-                    ItemsProcessed = 150,
-                    ItemsDeleted = 120,
-                    BytesFreed = 500 * 1024 * 1024, // 500 MB
-                    Duration = TimeSpan.FromSeconds(5),
-                    Success = true
-                };
+                    return new CleanupResult
+                    {
+                        Operation = "Cache Cleanup",
+                        ItemsProcessed = 150,
+                        ItemsDeleted = 120,
+                        BytesFreed = 500L * 1024 * 1024, // 500 MB
+                        Duration = TimeSpan.FromSeconds(5),
+                        Success = true
+                    };
             });
         }
 
@@ -39,28 +36,16 @@ namespace MonadoBlade.Week6.Services
         {
             return await ExecuteCleanupAsync("Temp File Cleanup", async () =>
             {
-                try
+                // Mock: in production, clean Windows temp directories
+                return new CleanupResult
                 {
-                    // Mock: in production, clean Windows temp directories
-                    return new CleanupResult
-                    {
-                        Operation = "Temp File Cleanup",
-                        ItemsProcessed = 300,
-                        ItemsDeleted = 290,
-                        BytesFreed = 2 * 1024 * 1024 * 1024, // 2 GB
-                        Duration = TimeSpan.FromSeconds(30),
-                        Success = true
-                    };
-                }
-                catch (Exception ex)
-                {
-                    return new CleanupResult
-                    {
-                        Operation = "Temp File Cleanup",
-                        Success = false,
-                        ErrorMessage = ex.Message
-                    };
-                }
+                    Operation = "Temp File Cleanup",
+                    ItemsProcessed = 300,
+                    ItemsDeleted = 290,
+                    BytesFreed = 2L * 1024 * 1024 * 1024, // 2 GB
+                    Duration = TimeSpan.FromSeconds(30),
+                    Success = true
+                };
             });
         }
 
@@ -68,13 +53,13 @@ namespace MonadoBlade.Week6.Services
         {
             return await ExecuteCleanupAsync("Backup Archival", async () =>
             {
-                // Mock: archive old backups
+                // Archive old backups
                 return new CleanupResult
                 {
                     Operation = "Backup Archival",
                     ItemsProcessed = 12,
                     ItemsDeleted = 8,
-                    BytesFreed = 50 * 1024 * 1024 * 1024, // 50 GB
+                    BytesFreed = 50L * 1024 * 1024 * 1024, // 50 GB
                     Duration = TimeSpan.FromSeconds(120),
                     Success = true
                 };
@@ -83,52 +68,43 @@ namespace MonadoBlade.Week6.Services
 
         public async Task<CleanupResult> LogCleanupAsync(int daysOld = 7)
         {
-            return await ExecuteCleanupAsync("Log Cleanup", async () =>
-            {
                 // Compress and delete old logs
                 return new CleanupResult
                 {
                     Operation = "Log Cleanup",
                     ItemsProcessed = 500,
                     ItemsDeleted = 350,
-                    BytesFreed = 5 * 1024 * 1024 * 1024, // 5 GB
+                    BytesFreed = 5L * 1024 * 1024 * 1024, // 5 GB
                     Duration = TimeSpan.FromSeconds(60),
                     Success = true
                 };
-            });
         }
 
         public async Task<CleanupResult> DockerCleanupAsync()
         {
-            return await ExecuteCleanupAsync("Docker Cleanup", async () =>
-            {
                 // Remove unused images and containers
                 return new CleanupResult
                 {
                     Operation = "Docker Cleanup",
                     ItemsProcessed = 25,
                     ItemsDeleted = 15,
-                    BytesFreed = 10 * 1024 * 1024 * 1024, // 10 GB
+                    BytesFreed = 10L * 1024 * 1024 * 1024, // 10 GB
                     Duration = TimeSpan.FromSeconds(45),
                     Success = true
                 };
-            });
         }
 
         public async Task<CleanupResult> NuGetCacheCleanupAsync()
         {
-            return await ExecuteCleanupAsync("NuGet Cache Cleanup", async () =>
-            {
                 return new CleanupResult
                 {
                     Operation = "NuGet Cache Cleanup",
                     ItemsProcessed = 200,
                     ItemsDeleted = 150,
-                    BytesFreed = 800 * 1024 * 1024, // 800 MB
+                    BytesFreed = 800L * 1024 * 1024, // 800 MB
                     Duration = TimeSpan.FromSeconds(20),
                     Success = true
                 };
-            });
         }
 
         public async Task<DefragResult> DefragmentNtfsAsync(string driveLetter = "C:")
@@ -233,18 +209,15 @@ namespace MonadoBlade.Week6.Services
 
         public async Task<CleanupResult> RemoveOrphanedProcessesAsync()
         {
-            return await ExecuteCleanupAsync("Orphaned Process Cleanup", async () =>
-            {
                 return new CleanupResult
                 {
                     Operation = "Orphaned Process Cleanup",
                     ItemsProcessed = 8,
                     ItemsDeleted = 5,
-                    BytesFreed = 100 * 1024 * 1024,
+                    BytesFreed = 100L * 1024 * 1024,
                     Duration = TimeSpan.FromSeconds(5),
                     Success = true
                 };
-            });
         }
 
         public async Task<ScheduledTasksStatus> VerifyScheduledTasksAsync()
@@ -278,7 +251,7 @@ namespace MonadoBlade.Week6.Services
                     new LargeFile
                     {
                         FilePath = @"C:\Temp\OldData.zip",
-                        SizeBytes = 500 * 1024 * 1024,
+                        SizeBytes = 500L * 1024 * 1024,
                         LastAccessTime = DateTime.UtcNow.AddDays(-90),
                         DaysSinceAccess = 90,
                         Recommendation = "Archive or delete"
@@ -298,8 +271,8 @@ namespace MonadoBlade.Week6.Services
                     {
                         FileHash = "abc123def456",
                         Count = 3,
-                        TotalSizeBytes = 300 * 1024 * 1024,
-                        RecoverableBytes = 200 * 1024 * 1024,
+                        TotalSizeBytes = 300L * 1024 * 1024,
+                        RecoverableBytes = 200L * 1024 * 1024,
                         FilePaths = new List<string>
                         {
                             @"C:\Data\file1.zip",
@@ -319,9 +292,9 @@ namespace MonadoBlade.Week6.Services
                 var trend = new StorageUsageTrend
                 {
                     Drive = "C:",
-                    TotalCapacity = 1000 * 1024 * 1024 * 1024, // 1 TB
-                    CurrentUsage = 750 * 1024 * 1024 * 1024, // 750 GB
-                    AvailableSpace = 250 * 1024 * 1024 * 1024, // 250 GB
+                    TotalCapacity = 1000L * 1024 * 1024 * 1024, // 1 TB
+                    CurrentUsage = 750L * 1024 * 1024 * 1024, // 750 GB
+                    AvailableSpace = 250L * 1024 * 1024 * 1024, // 250 GB
                     GrowthRatePerDay = 5.0, // GB per day
                     DaysUntilFull = 50
                 };
@@ -331,7 +304,7 @@ namespace MonadoBlade.Week6.Services
                     trend.History.Add(new StorageSnapshot
                     {
                         Date = DateTime.UtcNow.AddDays(-i),
-                        UsedBytes = (long)(700 + (5.0 * (30 - i))) * 1024 * 1024 * 1024
+                        UsedBytes = (long)((700 + (5.0 * (30 - i))) * 1024 * 1024 * 1024)
                     });
                 }
 

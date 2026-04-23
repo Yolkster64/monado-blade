@@ -55,7 +55,7 @@ namespace MonadoBlade.Week6.Interfaces
 
     public class ServiceResourceUsage
     {
-        public string ServiceName { get; set; }
+        public string? ServiceName { get; set; }
         public double CpuPercentage { get; set; }
         public long MemoryBytes { get; set; }
         public int ProcessId { get; set; }
@@ -77,7 +77,7 @@ namespace MonadoBlade.Week6.Interfaces
 
     public class DiskUsageInfo
     {
-        public string Drive { get; set; }
+        public string? Drive { get; set; }
         public long TotalCapacity { get; set; }
         public long UsedSpace { get; set; }
         public long AvailableSpace { get; set; }
@@ -98,7 +98,7 @@ namespace MonadoBlade.Week6.Interfaces
 
     public class ServiceNetworkUsage
     {
-        public string ServiceName { get; set; }
+        public string? ServiceName { get; set; }
         public double BandwidthGbps { get; set; }
         public long BytesSent { get; set; }
         public long BytesReceived { get; set; }
@@ -118,7 +118,7 @@ namespace MonadoBlade.Week6.Interfaces
     public class GpuProcess
     {
         public int ProcessId { get; set; }
-        public string ProcessName { get; set; }
+        public string? ProcessName { get; set; }
         public long MemoryUsedMb { get; set; }
         public double UtilizationPercentage { get; set; }
     }
@@ -128,12 +128,12 @@ namespace MonadoBlade.Week6.Interfaces
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public ResourceAlertType Type { get; set; }
         public AlertSeverity Severity { get; set; }
-        public string Message { get; set; }
+        public string? Message { get; set; }
         public double CurrentValue { get; set; }
         public double Threshold { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
         public bool Acknowledged { get; set; }
-        public string RecommendedAction { get; set; }
+        public string? RecommendedAction { get; set; }
     }
 
     public enum ResourceAlertType { HighCpu, HighMemory, DiskFull, NetworkSaturated, GpuOvertemp, MemoryLeak }
@@ -142,9 +142,9 @@ namespace MonadoBlade.Week6.Interfaces
     public class RemediationResult
     {
         public bool Success { get; set; }
-        public string Action { get; set; }
-        public string Details { get; set; }
-        public ResourceAlert AlertAfterRemediation { get; set; }
+        public string? Action { get; set; }
+        public string? Details { get; set; }
+        public ResourceAlert? AlertAfterRemediation { get; set; }
     }
 
     public class CapacityForecast

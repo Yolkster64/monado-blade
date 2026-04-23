@@ -91,13 +91,13 @@ namespace MonadoBlade.Week6.Interfaces
     /// <summary>Recommendation to switch providers for cost or performance.</summary>
     public class ProviderSwitchRecommendation
     {
-        public string CurrentProvider { get; set; }
-        public string SuggestedProvider { get; set; }
-        public string Model { get; set; }
+        public string? CurrentProvider { get; set; }
+        public string? SuggestedProvider { get; set; }
+        public string? Model { get; set; }
         public decimal CurrentMonthlyCost { get; set; }
         public decimal EstimatedCostAfterSwitch { get; set; }
         public decimal MonthlySavings { get; set; }
         public double CapabilityDifference { get; set; } // 1.0 = same, 0.9 = 10% loss
-        public string Reasoning { get; set; }
+        public string? Reasoning { get; set; }
     }
 }

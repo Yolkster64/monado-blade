@@ -1,0 +1,100 @@
+{
+  "week6": {
+    "version": "2.2.0",
+    "description": "Cost Tracking, Optimization & SysOps Cleanup",
+    "costTracking": {
+      "enabled": true,
+      "trackingInterval": "immediate",
+      "exportFormats": ["CSV", "JSON", "BiReport"],
+      "retentionDays": 365,
+      "providers": [
+        {
+          "name": "Claude",
+          "costPerToken": 0.003,
+          "models": ["claude-3-opus", "claude-3-sonnet"]
+        },
+        {
+          "name": "GPT-4",
+          "costPerToken": 0.015,
+          "models": ["gpt-4", "gpt-4-turbo"]
+        },
+        {
+          "name": "Hermes",
+          "costPerToken": 0.0,
+          "models": ["hermes-7b", "hermes-13b"]
+        }
+      ]
+    },
+    "budgetManagement": {
+      "monthlyBudget": 10000.0,
+      "monthlyLimitType": "Soft",
+      "dailyBudget": 500.0,
+      "dailyLimitType": "Soft",
+      "alertThresholds": {
+        "warning": 90,
+        "critical": 100
+      },
+      "resetSchedule": "monthly"
+    },
+    "optimization": {
+      "autoOptimizationEnabled": true,
+      "recommendations": {
+        "providerSwitching": true,
+        "cachingOptimization": true,
+        "batchingRequests": true,
+        "localModelUsage": true
+      }
+    },
+    "cleanup": {
+      "automaticCleanup": true,
+      "cacheCleanupDays": 7,
+      "logCleanupDays": 7,
+      "backupArchivalDays": 30,
+      "defragmentationFrequency": "monthly",
+      "databaseIndexRebuildFrequency": "weekly"
+    },
+    "maintenance": {
+      "maintenanceWindows": [
+        {
+          "name": "Daily Cleanup",
+          "schedule": "0 3 * * ?",
+          "duration": "15 minutes",
+          "type": "CacheCleanup"
+        },
+        {
+          "name": "Weekly Optimization",
+          "schedule": "0 2 ? * 0",
+          "duration": "1 hour",
+          "type": "DatabaseMaintenance"
+        },
+        {
+          "name": "Monthly Full Maintenance",
+          "schedule": "0 2 1 * ?",
+          "duration": "2 hours",
+          "type": "FullMaintenance"
+        }
+      ],
+      "notificationHoursBefore": 24,
+      "allowUserDeferral": true
+    },
+    "monitoring": {
+      "continuousMonitoring": true,
+      "thresholds": {
+        "cpu": 85,
+        "memory": 80,
+        "disk": 90,
+        "networkGbps": 1.0,
+        "gpuTemp": 85
+      },
+      "autoRemediation": true,
+      "alertingEnabled": true
+    },
+    "retention": {
+      "costDataRetentionYears": 5,
+      "logRetentionDays": 365,
+      "auditLogRetentionYears": 7,
+      "backupRetentionDays": 30,
+      "archiveLocation": "cold-storage"
+    }
+  }
+}
