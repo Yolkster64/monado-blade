@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade.Boot</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.Boot.Abstractions.IBootService">
+            <summary>
+            Marker interface for boot-related services.
+            </summary>
+        </member>
+    </members>
+</doc>

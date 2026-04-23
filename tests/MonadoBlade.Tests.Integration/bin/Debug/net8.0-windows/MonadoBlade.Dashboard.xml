@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade.Dashboard</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.Dashboard.Abstractions.IDashboardService">
+            <summary>
+            Marker interface for dashboard-related services.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade.Tools</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.Tools.Abstractions.IToolsService">
+            <summary>
+            Marker interface for utility tools-related services.
+            </summary>
+        </member>
+    </members>
+</doc>

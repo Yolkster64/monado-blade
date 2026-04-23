@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade.Security</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.Security.Abstractions.ISecurityService">
+            <summary>
+            Marker interface for security-related services.
+            </summary>
+        </member>
+    </members>
+</doc>
