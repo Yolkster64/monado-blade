@@ -1,79 +1,88 @@
 /**
  * STORAGE ARCHITECTURE CLARIFICATION
  * 
- * IMPORTANT: DevDrive (E:) is ReFS, NOT a VHDX
+ * IMPORTANT: DevDrive (E:) is a VHDX with ReFS filesystem
  * 
  * Physical Partitions (Native Filesystems):
  *   C: → NTFS (Windows system)
  *   D: → NTFS (User data)
- *   E: → ReFS (DevDrive, acceleration enabled) ← NATIVE PARTITION, NOT VHDX
  * 
- * Virtual Containers (VHDX Files):
- *   V: → Vault.vhdx (encrypted, isolated storage)
- *   Q: → Quarantine.vhdx (threat isolation, always mounted)
- *   S: → Sandbox.vhdx (disposable execution, per-session)
+ * Virtual Containers (VHDX Files - All stored on D: partition):
+ *   E: → DevDrive.vhdx (400GB dynamic, ReFS filesystem) ← HIGH-PERFORMANCE DEV STORAGE
+ *   V: → Vault.vhdx (50-500GB dynamic, NTFS filesystem, encrypted with BitLocker)
+ *   Q: → Quarantine.vhdx (20-200GB dynamic, NTFS filesystem, forensic analysis)
+ *   S: → Sandbox.vhdx (50GB fixed, NTFS filesystem, disposable per-session)
  * 
  * Storage Layout on 1TB SSD:
- *   C: Windows (100GB, NTFS)
- *   D: User Data (400GB, NTFS) ← Contains D:\Monado\Containers\*.vhdx
- *   E: DevDrive (400GB, ReFS) ← Native ReFS partition
+ *   C: Windows System (100GB, NTFS, native partition)
+ *   D: User Data (400GB, NTFS, native partition)
+ *     └─ Contains: D:\Monado\Containers\*.vhdx
+ *        ├─ DevDrive.vhdx (400GB, ReFS)
+ *        ├─ Vault.vhdx (50-500GB, NTFS, encrypted)
+ *        ├─ Sandbox.vhdx (50GB, NTFS)
+ *        └─ Quarantine.vhdx (20-200GB, NTFS)
  *   Free: 100GB (system reserved)
  * 
- * VHDX Containers Location:
- *   All VHDX files stored in D:\Monado\Containers\
- *   ├─ Vault.vhdx (50-500GB dynamic, encrypted, BitLocker)
- *   ├─ Sandbox.vhdx (50GB fixed, disposable)
- *   └─ Quarantine.vhdx (20-200GB dynamic, forensic)
- * 
- * Key Differences:
- * 
- * DevDrive (E: ReFS):
- *   • Direct native partition (not virtualized)
- *   • 40% faster than NTFS (measured, acceleration mode)
- *   • High-performance storage (builds, dev work)
- *   • NO encryption by default (data at risk if device stolen)
- *   • No I/O overhead (native speed)
- * 
- * VHDX Containers (V: Q: S:):
- *   • Virtual disks stored as files in D: partition
- *   • Portable (can move, backup, copy to external drives)
- *   • Isolated (complete separation from main system)
- *   • Encrypted (Vault with BitLocker, optional for others)
- *   • 5-10% I/O overhead (acceptable for security/isolation value)
- *   • Can snapshot and restore to known-good state
- * 
- * Use Case Guidance:
- *   Use DevDrive (E: ReFS) for:
- *     ✓ Build artifacts (40% faster compilation)
- *     ✓ node_modules (high I/O, needs speed)
- *     ✓ Compiler caches (frequent access)
- *     ✓ Docker images (large sequential reads)
- *     ✓ Development work (any performance-critical task)
- *   
- *   Use VHDX Vault (V:) for:
- *     ✓ Credentials (Office 365, GitHub, AWS keys)
- *     ✓ Encryption keys (system master keys)
- *     ✓ Personal documents (banking, medical, legal)
- *     ✓ Backups (system configuration backups)
- *     ✓ Performance not critical (encrypted storage trade-off OK)
- *   
- *   Use VHDX Sandbox (S:) for:
- *     ✓ Untrusted applications
- *     ✓ Experimental software
- *     ✓ Downloaded files (before analysis)
- *     ✓ One-time testing (auto-reset after session)
- *   
- *   Use VHDX Quarantine (Q:) for:
- *     ✓ Detected malware
- *     ✓ Suspicious files
- *     ✓ Forensic analysis
- *     ✓ Evidence preservation (read-only)
- * 
- * Boot Mount Points After Windows Starts:
- *   C: → Windows (NTFS)
- *   D: → User Data (NTFS)
- *   E: → DevDrive (ReFS, acceleration enabled)
+ * Mount Points After Boot:
+ *   C: → Windows (NTFS native)
+ *   D: → User Data (NTFS native)
+ *   E: → DevDrive.vhdx (ReFS accelerated, mounted as virtual drive)
+ *   V: → Vault.vhdx (encrypted, requires authentication)
  *   Q: → Quarantine.vhdx (always mounted, read-only)
- *   V: → Vault.vhdx (on-demand, encrypted, requires auth)
  *   S: → Sandbox.vhdx (on-demand per session, auto-reset)
+ * 
+ * VHDX Container Specifications:
+ * 
+ * DevDrive (E: ReFS/VHDX):
+ *   • VHDX container with ReFS filesystem
+ *   • 40% faster than NTFS (ReFS acceleration)
+ *   • Dynamic sizing (starts small, grows to 400GB)
+ *   • High-performance development storage
+ *   • Located: D:\Monado\Containers\DevDrive.vhdx
+ *   • Best for: Builds, node_modules, Docker images, compilation
+ *   • Portable (can move/backup entire container)
+ *   • 5-10% I/O overhead (acceptable for ReFS speed gain)
+ *   • No encryption by default (encrypt if needed)
+ * 
+ * Vault (V: NTFS/VHDX, Encrypted):
+ *   • VHDX container with NTFS filesystem
+ *   • BitLocker AES-256 + TPM 2.0 encryption
+ *   • 50-500GB dynamic sizing
+ *   • Credentials, keys, sensitive documents
+ *   • Located: D:\Monado\Containers\Vault.vhdx
+ *   • Portable (can backup to external drive)
+ *   • 5-10% I/O overhead + encryption overhead
+ *   • On-demand mount (requires authentication)
+ *   • Network blocked when mounted
+ * 
+ * Quarantine (Q: NTFS/VHDX, Read-Only):
+ *   • VHDX container with NTFS filesystem
+ *   • 20-200GB dynamic sizing
+ *   • Threat isolation and forensic analysis
+ *   • Always mounted as read-only (Q: drive)
+ *   • Located: D:\Monado\Containers\Quarantine.vhdx
+ *   • Evidence preservation (tamper-proof)
+ *   • Admin/Malwarebytes access only
+ *   • 5-10% I/O overhead
+ * 
+ * Sandbox (S: NTFS/VHDX, Disposable):
+ *   • VHDX container with NTFS filesystem
+ *   • 50GB fixed sizing
+ *   • Isolated execution environment for untrusted apps
+ *   • Located: D:\Monado\Containers\Sandbox.vhdx
+ *   • Auto-reset after each session (no persistence)
+ *   • Per-session mounting (on-demand)
+ *   • Read-only access to host OS (C: D: E: protected)
+ *   • Network disabled by default
+ *   • 5-10% I/O overhead
+ * 
+ * Storage Architecture Benefits:
+ *   ✓ All VHDX containers portable (backup, move, replicate)
+ *   ✓ DevDrive provides high-speed ReFS performance
+ *   ✓ Vault provides encrypted credential storage
+ *   ✓ Sandbox provides complete application isolation
+ *   ✓ Quarantine provides forensic evidence preservation
+ *   ✓ All located on same partition (D:) for easy management
+ *   ✓ Can snapshot/restore any container to known-good state
+ *   ✓ Performance trade-off (5-10% overhead) < security/isolation value
  */
