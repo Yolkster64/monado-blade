@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>2.2.0</Version>
+    <Authors>MonadoBlade Team</Authors>
+    <Description>Track B - Cross-partition SDK organization (50+ SDKs)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\MonadoBlade.Core.csproj" />
+  </ItemGroup>
+
+</Project>
