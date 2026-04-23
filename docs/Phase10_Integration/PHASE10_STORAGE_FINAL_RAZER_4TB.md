@@ -1,22 +1,22 @@
 # Storage Architecture: Razer Blade 4TB (2TB + 2TB) - Optimized Tiered Strategy
 
-**Hardware:** Razer Blade 2TB SSD (DISK 0) + 2TB HDD (DISK 1)  
+**Hardware:** Razer Blade 2TB NVMe SSD (DISK 0) + 2TB NVMe SSD (DISK 1)  
 **User Profiles:** Developer (100GB), Gamer (850GB), Studio (450GB)  
 **OneDrive Configuration:** Personal (locked) + Work (developer context)  
-**Strategy:** Tiered infrastructure + consolidated user data with NTFS ACL isolation + security zones  
-**Goal:** Maximum performance, security isolation, zero fragmentation, efficient resource sharing  
+**Strategy:** Ultra-high-performance tiered infrastructure + consolidated user data with NTFS ACL isolation + security zones  
+**Goal:** Maximum performance (NVMe+NVMe), security isolation, zero fragmentation, efficient resource sharing  
 
 ---
 
 ## Executive Summary
 
-This optimized architecture leverages 4TB total capacity with three user profiles (no Worker/Shared):
+This optimized architecture leverages 4TB total NVMe SSD capacity with three user profiles (no Worker/Shared):
 
-- ✅ **DISK 0 (2TB SSD):** Infrastructure tier - Core OS, Common/Cross software, Dev Drive, Security zones
-- ✅ **DISK 1 (2TB HDD):** User data tier - One consolidated UserData partition with user-locked folders
+- ✅ **DISK 0 (2TB NVMe SSD):** Ultra-fast infrastructure tier - Core OS, Common/Cross software, Dev Drive, Security zones
+- ✅ **DISK 1 (2TB NVMe SSD):** Ultra-fast user data tier - One consolidated UserData partition with user-locked folders
 - ✅ **User Profiles:** Developer (100GB), Gamer (850GB), Studio (450GB)
 - ✅ **OneDrive:** Personal (cloud sync, locked for personal files), Work (developer context)
-- ✅ **Security Zones:** Vault (encrypted), Quarantine (immutable)
+- ✅ **Security Zones:** Vault (VHDX encrypted), Quarantine (VHDX encrypted)
 - ✅ **Dev Environment:** Dev Drive VHDX with ReFS (zero fragmentation)
 
 **Access Model:**
@@ -86,17 +86,26 @@ G:\             [350GB]   Dev Drive VHDX (ReFS)
 ├─ Temp compilation cache (30GB)
 └─ Reserved (reserved by ReFS)
 
-K:\             [150GB]   Quarantine Zone
-├─ Infected/suspicious files (immutable)
-├─ Automatic isolation from malware scans
-└─ Read-only for all users
+V:\ (VHDX)      [150GB]   Vault Container (BitLocker Encrypted)
+├─ Virtual encrypted disk file: Vault.vhdx
+├─ Mount point: V:\
+├─ Encryption: AES-256 full encryption
+├─ Contents:
+│  ├─ SSH keys, credentials
+│  ├─ Private certificates
+│  ├─ Database credentials
+│  ├─ API keys (encrypted)
+│  └─ Sensitive documents
 
-V:\             [150GB]   Vault (BitLocker AES-256)
-├─ SSH keys, credentials
-├─ Private certificates
-├─ Sensitive documents
-├─ Database backups
-└─ Encrypted container (full disk encryption)
+K:\ (VHDX)      [150GB]   Quarantine Container (BitLocker Encrypted)
+├─ Virtual encrypted disk file: Quarantine.vhdx
+├─ Mount point: K:\
+├─ Encryption: AES-256 full encryption
+├─ Immutable mode (after mount)
+├─ Contents:
+│  ├─ Infected/suspicious files
+│  ├─ Malware samples (isolated)
+│  └─ Forensic evidence
 
 Recovery        [200GB]   Recovery Partition
 ├─ Windows 11 recovery image
@@ -107,10 +116,10 @@ Recovery        [200GB]   Recovery Partition
 DISK 0 Total: 1.50TB used, 500GB reserved/buffer
 ```
 
-### DISK 1 (2TB HDD - SATA)
+### DISK 1 (2TB SSD - NVMe) - ULTRA-FAST USER DATA
 
 ```
-HDD User Data Tier:
+SSD User Data Tier (High Performance):
 
 UserData:\      [1.80TB]  ONE CONSOLIDATED PARTITION
 ├─ Developer/   [100GB]   Developer user (NTFS ACL locked)
@@ -137,7 +146,7 @@ UserData:\      [1.80TB]  ONE CONSOLIDATED PARTITION
 │  ├─ Templates/ (15GB)
 │  └─ Reserved
 │
-└─ OneDrive/    [400GB]   Cloud sync (configurable)
+└─ OneDrive/    [400GB]   Cloud sync (SSD-backed for speed)
    ├─ Personal/ (150GB) [LOCKED - personal files excluded]
    ├─ Work/ (150GB) [Developer + Worker context]
    └─ Reserved (100GB)
@@ -230,6 +239,176 @@ OneDrive\Work          RW       X       X       RW    Dev only
 
 ---
 
+## Cloud Services Integration
+
+### Microsoft Azure
+- **Service:** Azure Cloud Shell, DevOps, Container Registry
+- **Developer Access:** Full (credentials in Vault)
+- **OneDrive Integration:** Azure Files (SMB 3.0) mounted to Work folder
+- **Configuration:**
+  ```
+  Vault\Azure\
+  ├─ az-cli credentials (encrypted)
+  ├─ Storage account keys
+  ├─ Container registry tokens
+  └─ Service principal certs
+  ```
+- **Use Cases:**
+  - Cloud development (VS Code remote)
+  - CI/CD pipeline (DevOps)
+  - Container registry (ACR)
+  - VM management (Azure CLI)
+
+### Amazon AWS
+- **Service:** EC2, S3, Lambda, CodePipeline
+- **Developer Access:** Full (via IAM roles in Vault)
+- **OneDrive Integration:** AWS DataSync → OneDrive Work folder
+- **Configuration:**
+  ```
+  Vault\AWS\
+  ├─ Access keys (encrypted)
+  ├─ Secret keys (encrypted)
+  ├─ IAM role ARNs
+  └─ S3 bucket policies
+  ```
+- **Use Cases:**
+  - Cloud VM access (EC2)
+  - Storage sync (S3 ↔ OneDrive)
+  - Serverless functions (Lambda)
+  - CI/CD (CodePipeline)
+
+### Google Cloud Platform
+- **Service:** GCP Compute, Cloud Storage, Cloud Functions
+- **Developer Access:** Full (via service accounts in Vault)
+- **OneDrive Integration:** Google Drive → OneDrive via bridge
+- **Configuration:**
+  ```
+  Vault\GCP\
+  ├─ Service account keys (encrypted)
+  ├─ OAuth tokens
+  ├─ Project IDs
+  └─ Cloud credentials
+  ```
+- **Use Cases:**
+  - Cloud computing (Compute Engine)
+  - Data storage (Cloud Storage)
+  - Serverless (Cloud Functions)
+  - Analytics (BigQuery)
+
+### GitHub / GitLab
+- **Service:** Git repositories, Actions, Runners
+- **Developer Access:** Full (SSH keys in Vault)
+- **Configuration:**
+  ```
+  Vault\Git\
+  ├─ SSH private keys (encrypted)
+  ├─ GitHub PATs
+  ├─ GitLab tokens
+  └─ SSH config
+  ```
+- **Integration:**
+  - Dev Drive (G:\) contains all repos
+  - OneDrive\Work auto-syncs repo metadata
+  - GitHub Actions CI/CD pipelines
+
+### Docker / Container Registry
+- **Service:** Docker Hub, AWS ECR, Azure ACR, GCP GCR
+- **Developer Access:** Full (credentials in Vault)
+- **Configuration:**
+  ```
+  Vault\Containers\
+  ├─ Docker Hub tokens
+  ├─ ECR credentials
+  ├─ ACR tokens
+  └─ GCR service accounts
+  ```
+- **Storage:** Docker containers on Dev Drive (G:\)
+
+---
+
+## Cloud Integration Architecture
+
+```
+Developer Profile Cloud Access:
+
+┌─────────────────────────────────────────────────────────┐
+│ Developer Workspace (Local)                             │
+├─────────────────────────────────────────────────────────┤
+│ C: Core OS                                              │
+│ E: Common Software (VS Code, Git CLI, AWS CLI)          │
+│ X: Cross Tools (CUDA, drivers)                          │
+│ G: Dev Drive (Repos, Docker containers)                 │
+│ UserData:\Developer\ (Project files)                    │
+│ OneDrive\Work (Real-time cloud sync)                    │
+│ V: Vault (Encrypted credentials)                        │
+└─────────────────────────────────────────────────────────┘
+                          ↓↑ (Sync/Push/Pull)
+        ┌─────────────────┼─────────────────┐
+        ↓                 ↓                 ↓
+    ┌────────┐       ┌────────┐       ┌────────┐
+    │ Azure  │       │  AWS   │       │  GCP   │
+    ├────────┤       ├────────┤       ├────────┤
+    │DevOps  │       │CodePipe│       │Cloud   │
+    │ACR     │       │S3/EC2  │       │Build   │
+    │Files   │       │Lambda  │       │Deploy  │
+    └────────┘       └────────┘       └────────┘
+        ↓                 ↓                 ↓
+        └─────────────────┼─────────────────┘
+                          ↓
+              OneDrive\Work (Sync)
+```
+
+### Cloud Service Access Control
+
+| Service | Storage Location | Credentials | Sync | Access |
+|---------|-----------------|-------------|------|--------|
+| OneDrive Work | UserData:\OneDrive\Work\ | Microsoft account | Real-time | Dev only |
+| Azure | Vault\Azure\ | Encrypted JSON | On-demand | Dev only |
+| AWS | Vault\AWS\ | Encrypted ENV | On-demand | Dev only |
+| GCP | Vault\GCP\ | Encrypted service account | On-demand | Dev only |
+| GitHub | Vault\Git\ + Dev Drive | SSH keys | Push/pull | Dev only |
+| Docker | Dev Drive (G:\) | Vault\Containers\ | Container image | Dev only |
+
+---
+
+## OneDrive Work Folder Structure
+
+```
+OneDrive\Work\              [150GB cloud sync]
+├─ Projects/               [Current projects]
+│  ├─ Project1/
+│  ├─ Project2/
+│  └─ Project3/
+├─ Cloud/                  [Cloud-related docs]
+│  ├─ Azure/ (DevOps configs)
+│  ├─ AWS/ (Infrastructure as Code)
+│  ├─ GCP/ (Cloud functions)
+│  └─ Kubernetes/ (Container orchestration)
+├─ CI-CD/                  [Pipeline definitions]
+│  ├─ GitHub-Actions/
+│  ├─ Azure-Pipelines/
+│  ├─ AWS-CodePipeline/
+│  └─ GCP-CloudBuild/
+├─ Documentation/          [Technical docs]
+│  ├─ Architecture/
+│  ├─ API-specs/
+│  └─ Deployment-guides/
+├─ Templates/              [Reusable templates]
+│  ├─ Azure-ARM/
+│  ├─ AWS-CloudFormation/
+│  ├─ GCP-Terraform/
+│  └─ Kubernetes-YAML/
+└─ Credentials-Reference/  [Non-sensitive refs only]
+   ├─ Azure-subscription-ids
+   ├─ AWS-account-numbers
+   ├─ GCP-project-ids
+   └─ Docker-registry-urls
+
+Note: Actual credentials stored in Vault\, only references here
+```
+
+---
+
 ## Dev Drive (VHDX) with ReFS
 
 **Why Dev Drive?**
@@ -268,35 +447,62 @@ Performance characteristics:
 
 ## Security Zones
 
-### Vault (V:\) - Encrypted
+### Vault (V:\ - VHDX Encrypted)
 ```
 Purpose: Sensitive credentials and keys
-BitLocker: AES-256 full disk encryption
+Container: Vault.vhdx (150GB virtual disk)
+Encryption: BitLocker AES-256 full disk encryption
+Location: DISK 0 (NVMe)
+Mount: Automatic at boot (requires password)
 Access: Developer + Admin only
 Contents:
   ├─ SSH keys (~50MB)
   ├─ SSL/TLS certificates (~100MB)
   ├─ Database credentials (encrypted)
   ├─ API keys (encrypted file)
-  ├─ Sensitive documents (50GB)
+  ├─ Cloud service credentials (Azure, AWS, GCP)
+  ├─ GitHub/GitLab tokens
+  ├─ Docker registry credentials
   └─ Database backups (100GB)
+
+Performance:
+  - Read latency: 0.1-0.2ms (NVMe inside VHDX)
+  - Write latency: 0.2-0.5ms (NVMe inside VHDX)
+  - Encryption overhead: <5% (AES-NI hardware acceleration)
 ```
 
-### Quarantine (K:\) - Immutable
+### Quarantine (K:\ - VHDX Encrypted)
 ```
 Purpose: Containment for malware/infected files
+Container: Quarantine.vhdx (150GB virtual disk)
+Encryption: BitLocker AES-256 full disk encryption
+Location: DISK 0 (NVMe)
+Mount: Automatic (isolated)
+Immutable Mode: Yes (no modifications after isolation)
 Access: Read by all, write by admin/malware engine only
-Policies:
-  ├─ Immutable filesystem (WORM - Write Once Read Many)
+Contents:
+  ├─ Infected/suspicious files
+  ├─ Malware samples (isolated)
+  ├─ Quarantine logs (forensic evidence)
+  └─ Forensic evidence (2-3 weeks retention)
+
+Security Features:
+  ├─ Read-only for all users (immutable)
   ├─ Auto-isolation from scanning engines
-  ├─ 2-3 weeks retention (auto-cleanup)
-  ├─ Detailed forensic logging
-  └─ No execution allowed (MMC policy)
+  ├─ Encrypted container (no plaintext malware)
+  ├─ No execution allowed (deny on mount)
+  ├─ Detailed audit logging (all access)
+  └─ Auto-cleanup after retention period
+
+Performance:
+  - Read latency: 0.1-0.2ms (NVMe inside VHDX)
+  - Encryption overhead: <5% (AES-NI hardware acceleration)
 ```
 
 ### Recovery (Partition) - Backup
 ```
 Purpose: System restore and disaster recovery
+Location: Both disks (200GB on DISK 0 + 100GB on DISK 1)
 Contents:
   ├─ Windows 11 recovery image (10GB)
   ├─ Boot files and EFI (5GB)
@@ -311,16 +517,23 @@ Contents:
 
 | Metric | Target | Achieved | Notes |
 |--------|--------|----------|-------|
-| **SSD (DISK 0)** | | | Infrastructure |
+| **SSD 0 (DISK 0 NVMe)** | | | Infrastructure |
 | Fragmentation | <5% | <0.1% | ReFS on Dev Drive |
-| Read latency | <1ms | 0.1-0.3ms | NVMe speeds |
-| Write latency | <3ms | 0.3-1ms | NVMe speeds |
-| IOPS | >100k | 200k+ | Parallel I/O |
-| **HDD (DISK 1)** | | | User data |
-| Fragmentation | <10% | <2% | Monthly defrag |
-| Read latency | 8-10ms | 8-12ms | Mechanical seek |
-| Write latency | 8-10ms | 8-12ms | Mechanical seek |
-| IOPS | 100-150 | 120-150 | Per-partition queue |
+| Read latency | <1ms | 0.05-0.2ms | NVMe ultra-fast |
+| Write latency | <3ms | 0.1-0.5ms | NVMe ultra-fast |
+| Seq Read | >3,000MB/s | 3,500-7,000MB/s | Gen3/Gen4 NVMe |
+| Seq Write | >1,500MB/s | 2,000-6,000MB/s | Gen3/Gen4 NVMe |
+| IOPS | >100k | 200k-500k+ | Parallel I/O |
+| **SSD 1 (DISK 1 NVMe)** | | | User data |
+| Fragmentation | <5% | <0.1% | Monthly TRIM |
+| Read latency | <1ms | 0.05-0.2ms | NVMe ultra-fast |
+| Write latency | <3ms | 0.1-0.5ms | NVMe ultra-fast |
+| Seq Read | >3,000MB/s | 3,500-7,000MB/s | Gen3/Gen4 NVMe |
+| Seq Write | >1,500MB/s | 2,000-6,000MB/s | Gen3/Gen4 NVMe |
+| IOPS | >100k | 200k-500k+ | Parallel I/O |
+| **Combined** | | | Both NVMe |
+| Total IOPS | >200k | 400k-1M+ | Dual drive parallelism |
+| Total Bandwidth | >6,000MB/s | 7-14GB/s | Parallel I/O |
 
 ---
 
@@ -332,26 +545,26 @@ Contents:
 - ✅ Check disk free space (alert if <20%)
 
 ### Weekly
-- ✅ TRIM all SSD partitions (C:, E:, X:, G:, K:, V:)
+- ✅ TRIM both NVMe drives (C:, E:, X:, G:, K:, V:, UserData:\)
 - ✅ Verify OneDrive sync status
 - ✅ Audit user folder sizes (quota check)
 - ✅ Review Vault access logs
 
 ### Monthly
-- ✅ Defragmentation analysis (E:, X:, K:)
+- ✅ Verify NVMe performance (benchmark both drives)
 - ✅ Clean temporary files (Windows.old, temp folders)
 - ✅ Validate backup integrity (restore test)
-- ✅ Update firmware (SSD + HDD)
+- ✅ Monitor NVMe health (SMART status)
 
 ### Quarterly
-- ✅ Full backup to external HDD (archive)
+- ✅ Full backup to external SSD (archive)
 - ✅ Snapshot Dev Drive VHDX
-- ✅ Verify BitLocker on Vault
+- ✅ Verify BitLocker on Vault VHDX
 - ✅ Security audit (ACLs, permissions)
 
 ### Yearly
 - ✅ Disaster recovery drill (recovery partition test)
-- ✅ Hardware health check (SMART scan)
+- ✅ NVMe health check (SMART detailed report)
 - ✅ Re-optimize Dev Drive container
 - ✅ Archive and rotate old backups
 
