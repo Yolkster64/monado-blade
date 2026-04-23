@@ -79,7 +79,7 @@ X:\             [200GB]   Cross-Software Tools
 ├─ Audio drivers (10GB)
 └─ Reserved (25GB)
 
-G:\             [350GB]   Dev Drive VHDX (ReFS)
+G:\             [350GB]   Dev Drive VHDX (ReFS - Resilient File System)
 ├─ Git repositories (200GB)
 ├─ Docker containers (80GB)
 ├─ Build artifacts (40GB)
@@ -411,13 +411,20 @@ Note: Actual credentials stored in Vault\, only references here
 
 ## Dev Drive (VHDX) with ReFS
 
-**Why Dev Drive?**
-- Zero external fragmentation guaranteed
+**Why Dev Drive with ReFS?**
+- Zero external fragmentation guaranteed (ReFS automatic)
 - Native Visual Studio 2022 + VS Code support
-- Snapshot and copy-on-write capabilities
-- Automatic disk management
+- Snapshot and copy-on-write capabilities (ReFS feature)
+- Automatic disk management (ReFS resilience)
+- Integrity streams (data corruption detection)
 
-**Configuration:**
+**ReFS (Resilient File System) Advantages:**
+- 64-bit architecture (supports massive files)
+- Automatic defragmentation (no manual TRIM needed)
+- Integrity streams (automatic checksums)
+- Copy-on-write (atomic operations)
+- Sparse files (efficient storage)
+- Snapshot support (point-in-time recovery)
 ```
 Location: G:\DevDrive.vhdx (350GB container)
 Filesystem: ReFS (Resilient File System)
