@@ -253,13 +253,13 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.2.0",
+    "version": "3.2.0",
     "restore": {
-      "projectUniqueName": "C:\\Windows\\System32\\MonadoBlade\\src\\Core\\MonadoBlade.Core.csproj",
-      "projectName": "MonadoBlade.Core",
-      "projectPath": "C:\\Windows\\System32\\MonadoBlade\\src\\Core\\MonadoBlade.Core.csproj",
+      "projectUniqueName": "C:\\Windows\\System32\\MonadoBlade\\src\\Security\\MonadoBlade.Security.csproj",
+      "projectName": "MonadoBlade.Security",
+      "projectPath": "C:\\Windows\\System32\\MonadoBlade\\src\\Security\\MonadoBlade.Security.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "C:\\Windows\\System32\\MonadoBlade\\src\\Core\\obj\\",
+      "outputPath": "C:\\Windows\\System32\\MonadoBlade\\src\\Security\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

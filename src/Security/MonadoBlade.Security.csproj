@@ -6,10 +6,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\MonadoBlade.Core.xml</DocumentationFile>
-    <Version>2.2.0</Version>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\MonadoBlade.Security.xml</DocumentationFile>
+    <Version>3.2.0</Version>
     <Authors>MonadoBlade Team</Authors>
-    <Description>Foundation layer for Monado Blade - enterprise-grade architecture for 4-track parallel development</Description>
+    <Description>Security hardening layer for MonadoBlade - SGX/SEV enclave operations, zero-trust boot verification</Description>
   </PropertyGroup>
 
   <ItemGroup>

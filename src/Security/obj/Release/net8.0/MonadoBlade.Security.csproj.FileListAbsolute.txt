@@ -1,0 +1,13 @@
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\MonadoBlade.Security.csproj.AssemblyReference.cache
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\MonadoBlade.Security.GeneratedMSBuildEditorConfig.editorconfig
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\MonadoBlade.Security.AssemblyInfoInputs.cache
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\MonadoBlade.Security.AssemblyInfo.cs
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\MonadoBlade.Security.csproj.CoreCompileInputs.cache
+C:\Windows\System32\MonadoBlade\src\Security\bin\Release\net8.0\MonadoBlade.Security.xml
+C:\Windows\System32\MonadoBlade\src\Security\bin\Release\net8.0\MonadoBlade.Security.deps.json
+C:\Windows\System32\MonadoBlade\src\Security\bin\Release\net8.0\MonadoBlade.Security.dll
+C:\Windows\System32\MonadoBlade\src\Security\bin\Release\net8.0\MonadoBlade.Security.pdb
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\MonadoBlade.Security.dll
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\refint\MonadoBlade.Security.dll
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\MonadoBlade.Security.pdb
+C:\Windows\System32\MonadoBlade\src\Security\obj\Release\net8.0\ref\MonadoBlade.Security.dll
