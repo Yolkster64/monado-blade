@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade.Core</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.Core.Abstractions.IService">
+            <summary>
+            Marker interface for all service abstractions in the system.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Abstractions.IInitializable">
+            <summary>
+            Base interface for services that require initialization.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Abstractions.IInitializable.InitializeAsync">
+            <summary>
+            Initializes the service.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Abstractions.ILifecycleService">
+            <summary>
+            Base interface for services that manage their lifecycle.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Abstractions.ILifecycleService.IsInitialized">
+            <summary>
+            Indicates whether the service is initialized and ready.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Configuration.ConfigurationExtensions">
+            <summary>
+            Configures application settings from appsettings.json files.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Configuration.ConfigurationExtensions.BuildConfiguration(System.String,System.String)">
+            <summary>
+            Creates an IConfiguration instance from appsettings.json.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Configuration.ConfigurationExtensions.GetSection``1(Microsoft.Extensions.Configuration.IConfiguration,System.String)">
+            <summary>
+            Binds configuration section to a strongly-typed object.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.DependencyInjection.CoreServiceExtensions">
+            <summary>
+            Registers core infrastructure services into the dependency injection container.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.DependencyInjection.CoreServiceExtensions.AddCoreInfrastructure(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.String)">
+            <summary>
+            Registers all core infrastructure services.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Logging.LoggingConfiguration">
+            <summary>
+            Configures and manages Serilog logging for the application.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Logging.LoggingConfiguration.CreateLogger(System.String)">
+            <summary>
+            Creates a configured logger instance with console and file sinks.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Logging.LoggingConfiguration.AddSerilog(Microsoft.Extensions.Logging.ILoggingBuilder,System.String)">
+            <summary>
+            Extends Microsoft.Extensions.Logging with Serilog.
+            </summary>
+        </member>
+    </members>
+</doc>

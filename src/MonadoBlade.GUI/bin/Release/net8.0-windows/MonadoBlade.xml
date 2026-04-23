@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.GUI.App">
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.GUI.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.GUI.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.GUI.MainWindow">
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.GUI.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>
