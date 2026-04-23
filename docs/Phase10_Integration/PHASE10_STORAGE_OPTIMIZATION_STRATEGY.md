@@ -25,17 +25,17 @@ This document defines an optimized multi-disk partition strategy that:
 DISK 0 (900GB - SSD NVMe):
 ├─ C:\        [200GB]  Windows OS + Core Services
 ├─ E:\        [150GB]  Software (CUDA, spatial audio, common drivers)
-├─ G:\        [250GB]  Dev Drive (VHDX virtual filesystem - no fragmentation)
+├─ G:\        [250GB]  Dev Drive (VHDX ReFS - zero fragmentation)
 ├─ K:\        [150GB]  Quarantine (immutable, isolated)
-└─ Z:\        [150GB]  Sandbox (ephemeral, auto-cleanup)
+└─ V:\        [150GB]  Vault (encrypted, BitLocker)
 
 DISK 1 (1.87TB - HDD/SATA):
-├─ D:\        [700GB]  Data (documents, documents, projects)
-├─ S:\        [400GB]  Steam/Games
-├─ R:\        [400GB]  Reaper + Audio Plugins
-├─ P:\        [ 50GB]  Personal (archives, private)
-├─ F:\        [200GB]  OneDrive (synced, contained)
-└─ Recovery   [ 20GB]  Recovery partition (hidden)
+├─ Production [900GB]  Games/Steam + Reaper/Music + Projects
+├─ Developer  [350GB]  Developer profile workspace
+├─ Studio     [250GB]  Audio/video creator workspace
+├─ Worker     [150GB]  Office/web worker workspace
+├─ Gamer      [150GB]  Gaming profile workspace
+└─ Recovery   [ 20GB]  Disaster recovery partition
 ```
 
 ---
