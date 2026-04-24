@@ -5,6 +5,7 @@
 // complete theming, component styling, and animation integration.
 
 using System;
+using System.Windows;
 using System.Windows.Media;
 
 namespace MonadoBlade.GUI.Design

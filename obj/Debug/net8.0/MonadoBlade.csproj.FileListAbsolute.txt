@@ -1,0 +1,6 @@
+C:\Users\ADMIN\MonadoBlade\obj\Debug\net8.0\MonadoBlade.csproj.AssemblyReference.cache
+C:\Users\ADMIN\MonadoBlade\obj\Debug\net8.0\MonadoBlade.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\MonadoBlade\obj\Debug\net8.0\MonadoBlade.AssemblyInfoInputs.cache
+C:\Users\ADMIN\MonadoBlade\obj\Debug\net8.0\MonadoBlade.AssemblyInfo.cs
+C:\Users\ADMIN\MonadoBlade\obj\Debug\net8.0\MonadoBlade.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\MonadoBlade\obj\Debug\net8.0\MonadoBlade.sourcelink.json
