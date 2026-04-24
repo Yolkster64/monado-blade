@@ -75,3 +75,4 @@ C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Debug\net8.0-windows\MonadoBl
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Debug\net8.0-windows\MonadoBlade.pdb
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Debug\net8.0-windows\MonadoBlade.GUI.genruntimeconfig.cache
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Debug\net8.0-windows\ref\MonadoBlade.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Debug\net8.0-windows\MonadoBlade.GUI.sourcelink.json

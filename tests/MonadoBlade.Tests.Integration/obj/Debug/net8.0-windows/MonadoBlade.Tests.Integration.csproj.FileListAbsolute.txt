@@ -162,3 +162,4 @@ C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Integration\obj\Debug\net8.0-
 C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Integration\obj\Debug\net8.0-windows\MonadoBlade.Tests.Integration.pdb
 C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Integration\obj\Debug\net8.0-windows\MonadoBlade.Tests.Integration.genruntimeconfig.cache
 C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Integration\obj\Debug\net8.0-windows\ref\MonadoBlade.Tests.Integration.dll
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Integration\obj\Debug\net8.0-windows\MonadoBlade.Tests.Integration.sourcelink.json

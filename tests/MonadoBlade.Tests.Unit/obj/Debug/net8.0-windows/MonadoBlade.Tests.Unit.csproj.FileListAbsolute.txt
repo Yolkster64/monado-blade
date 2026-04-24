@@ -154,3 +154,4 @@ C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Debug\net8.0-windows
 C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Debug\net8.0-windows\MonadoBlade.Tests.Unit.pdb
 C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Debug\net8.0-windows\MonadoBlade.Tests.Unit.genruntimeconfig.cache
 C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Debug\net8.0-windows\ref\MonadoBlade.Tests.Unit.dll
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Debug\net8.0-windows\MonadoBlade.Tests.Unit.sourcelink.json
