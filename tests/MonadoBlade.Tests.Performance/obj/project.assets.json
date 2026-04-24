@@ -40,6 +40,23 @@
           }
         }
       },
+      "BenchmarkDotNet.Diagnostics.Windows/0.13.12": {
+        "type": "package",
+        "dependencies": {
+          "BenchmarkDotNet": "0.13.12",
+          "Microsoft.Diagnostics.Tracing.TraceEvent": "3.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/BenchmarkDotNet.Diagnostics.Windows.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/BenchmarkDotNet.Diagnostics.Windows.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Castle.Core/5.1.1": {
         "type": "package",
         "dependencies": {
@@ -1472,6 +1489,20 @@
         "lib/netstandard1.0/BenchmarkDotNet.Annotations.xml",
         "lib/netstandard2.0/BenchmarkDotNet.Annotations.dll",
         "lib/netstandard2.0/BenchmarkDotNet.Annotations.xml",
+        "package-icon.png"
+      ]
+    },
+    "BenchmarkDotNet.Diagnostics.Windows/0.13.12": {
+      "sha512": "HdARbwcGFymgrSFoLVtuJaacyNW9WLuGljX0hsTarSO+80nI2OmbDS09R+I9kIeJ8Gn/1zJFjKgefmAlADhlww==",
+      "type": "package",
+      "path": "benchmarkdotnet.diagnostics.windows/0.13.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "benchmarkdotnet.diagnostics.windows.0.13.12.nupkg.sha512",
+        "benchmarkdotnet.diagnostics.windows.nuspec",
+        "lib/netstandard2.0/BenchmarkDotNet.Diagnostics.Windows.dll",
+        "lib/netstandard2.0/BenchmarkDotNet.Diagnostics.Windows.xml",
         "package-icon.png"
       ]
     },
@@ -3705,6 +3736,7 @@
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "BenchmarkDotNet >= 0.13.12",
+      "BenchmarkDotNet.Diagnostics.Windows >= 0.13.12",
       "Microsoft.NET.Test.Sdk >= 17.8.2",
       "MonadoBlade.Core >= 1.0.0",
       "MonadoBlade.Security >= 1.0.0",
@@ -3772,6 +3804,10 @@
         "targetAlias": "net8.0-windows",
         "dependencies": {
           "BenchmarkDotNet": {
+            "target": "Package",
+            "version": "[0.13.12, )"
+          },
+          "BenchmarkDotNet.Diagnostics.Windows": {
             "target": "Package",
             "version": "[0.13.12, )"
           },

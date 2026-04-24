@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MonadoBlade.Tests.Unit")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+023083e54e9283cc8f7ace7c09ef2079e23264b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b16c977ef3490236d99f2452260c556cb1a73927")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonadoBlade.Tests.Unit")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonadoBlade.Tests.Unit")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

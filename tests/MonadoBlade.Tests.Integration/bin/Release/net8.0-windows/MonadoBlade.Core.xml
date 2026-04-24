@@ -29,6 +29,690 @@
             Indicates whether the service is initialized and ready.
             </summary>
         </member>
+        <member name="T:MonadoBlade.Core.Caching.CacheEntry`1">
+            <summary>
+            Represents a generic cache entry with expiration and dependency tracking.
+            </summary>
+            <typeparam name="T">The type of value stored in the cache entry.</typeparam>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.Key">
+            <summary>
+            Gets the unique key for this cache entry.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.Value">
+            <summary>
+            Gets the cached value.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.CreatedAt">
+            <summary>
+            Gets the timestamp when this entry was created.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.ExpiresAt">
+            <summary>
+            Gets the timestamp when this entry expires.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.Dependencies">
+            <summary>
+            Gets the list of cache keys that this entry depends on.
+            When any of these dependencies are invalidated, this entry becomes invalid.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.AccessCount">
+            <summary>
+            Gets the number of times this entry has been accessed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.LastAccessedAt">
+            <summary>
+            Gets the timestamp of the last access.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.CacheEntry`1.#ctor(System.String,`0,System.DateTime,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MonadoBlade.Core.Caching.CacheEntry`1"/> class.
+            </summary>
+            <param name="key">The unique cache key.</param>
+            <param name="value">The value to cache.</param>
+            <param name="expiresAt">The expiration time.</param>
+            <param name="dependencies">Optional list of cache keys this entry depends on.</param>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.IsValid">
+            <summary>
+            Gets a value indicating whether this cache entry is still valid.
+            An entry is valid if it hasn't expired.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.IsExpired">
+            <summary>
+            Gets a value indicating whether this cache entry has expired.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.TimeToExpiration">
+            <summary>
+            Gets the time remaining until this entry expires.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.CacheEntry`1.RecordAccess">
+            <summary>
+            Records an access to this cache entry.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.CacheEntry`1.GetDependencyKeys">
+            <summary>
+            Gets the dependency keys for this entry.
+            </summary>
+            <returns>A list of cache keys that this entry depends on.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.CacheEntry`1.DependsOn(System.String)">
+            <summary>
+            Checks if this entry depends on a specific cache key.
+            </summary>
+            <param name="dependencyKey">The cache key to check.</param>
+            <returns>True if this entry depends on the specified key; otherwise, false.</returns>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheEntry`1.Age">
+            <summary>
+            Gets the age of this cache entry.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.CacheEntry`1.ToString">
+            <summary>
+            Gets a string representation of this cache entry.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Caching.DependencyTracker">
+            <summary>
+            Tracks dependencies between cache entries and provides intelligent invalidation.
+            Uses smart logic to determine whether full or partial cache invalidation is needed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.DependencyTracker.InvalidationCount">
+            <summary>
+            Gets the total number of invalidation operations performed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.DependencyTracker.PartialInvalidationCount">
+            <summary>
+            Gets the number of partial invalidation operations performed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.DependencyTracker.FullInvalidationCount">
+            <summary>
+            Gets the number of full invalidation operations performed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.DependencyTracker.TotalKeysAffected">
+            <summary>
+            Gets the total number of keys affected by invalidation operations.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.DependencyTracker.TrackingCount">
+            <summary>
+            Gets the current number of tracked keys.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.RegisterDependency(System.String,System.String)">
+            <summary>
+            Registers a dependency relationship: keyA depends on keyB.
+            </summary>
+            <param name="key">The cache key being registered.</param>
+            <param name="dependsOn">The cache key that this key depends on.</param>
+            <exception cref="T:System.ArgumentException">Thrown when key or dependsOn is null or empty.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when circular dependency is detected.</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.GetDependents(System.String)">
+            <summary>
+            Gets all cache keys that depend on the specified key.
+            </summary>
+            <param name="key">The cache key to check.</param>
+            <returns>A set of cache keys that depend on the specified key.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.GetDependencies(System.String)">
+            <summary>
+            Gets the dependencies for a specific cache key.
+            </summary>
+            <param name="key">The cache key to check.</param>
+            <returns>A set of cache keys that this key depends on.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.InvalidateKey(System.String,System.Int32)">
+            <summary>
+            Invalidates a cache key and returns the set of all keys that should be invalidated.
+            Uses smart logic: returns full invalidation signal if too many keys are affected,
+            otherwise returns partial invalidation with specific keys.
+            </summary>
+            <param name="key">The cache key to invalidate.</param>
+            <param name="totalCacheSize">The total number of keys in the cache.</param>
+            <returns>An object containing invalidation information.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.UnregisterDependency(System.String,System.String)">
+            <summary>
+            Unregisters a specific dependency.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="dependsOn">The dependency to remove.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.RemoveKey(System.String)">
+            <summary>
+            Removes all dependencies for a specific key.
+            </summary>
+            <param name="key">The cache key to clean up.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.Clear">
+            <summary>
+            Clears all tracked dependencies.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.WouldCreateCircularDependency(System.String,System.String)">
+            <summary>
+            Checks if registering a dependency would create a circular reference.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.DependencyTracker.Dispose">
+            <summary>
+            Disposes the dependency tracker and releases managed resources.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Caching.InvalidationResult">
+            <summary>
+            Represents the result of a cache invalidation operation.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.InvalidationResult.KeysToInvalidate">
+            <summary>
+            Gets the set of cache keys that should be invalidated.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.InvalidationResult.ShouldClearAll">
+            <summary>
+            Gets a value indicating whether a full cache clear is recommended.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.InvalidationResult.InvalidationRatio">
+            <summary>
+            Gets the ratio of affected keys to total cache size.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.InvalidationResult.#ctor(System.Collections.Generic.IReadOnlySet{System.String},System.Boolean,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MonadoBlade.Core.Caching.InvalidationResult"/> class.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Caching.IntelligentCache">
+            <summary>
+            A thread-safe in-memory cache implementation with intelligent dependency-based invalidation.
+            Tracks cache hit rates and uses partial invalidation to improve performance.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.IntelligentCache.Hits">
+            <summary>
+            Gets the number of cache hits.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.IntelligentCache.Misses">
+            <summary>
+            Gets the number of cache misses.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.IntelligentCache.HitRate">
+            <summary>
+            Gets the cache hit rate as a percentage (0-100).
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.IntelligentCache.InvalidationCount">
+            <summary>
+            Gets the number of invalidation operations.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.IntelligentCache.InvalidatedKeysCount">
+            <summary>
+            Gets the total number of keys invalidated.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.IntelligentCache.CacheSize">
+            <summary>
+            Gets the current cache size.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.IntelligentCache.DependencyTracker">
+            <summary>
+            Gets the dependency tracker used by this cache.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.IntelligentCache.TryGetValue``1(System.String,``0@)">
+            <summary>
+            Gets a value from the cache if it exists and is valid.
+            </summary>
+            <typeparam name="T">The type of value to retrieve.</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The cached value, if found.</param>
+            <returns>True if the value was found and is valid; otherwise, false.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.IntelligentCache.Set``1(System.String,``0,System.DateTime,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Sets a value in the cache with the specified expiration and dependencies.
+            </summary>
+            <typeparam name="T">The type of value to cache.</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The value to cache.</param>
+            <param name="expiresAt">When the cache entry should expire.</param>
+            <param name="dependencies">Optional cache keys this entry depends on.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.IntelligentCache.Set``1(System.String,``0,System.TimeSpan,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Sets a value in the cache with a duration-based expiration.
+            </summary>
+            <typeparam name="T">The type of value to cache.</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The value to cache.</param>
+            <param name="duration">How long the entry should be valid.</param>
+            <param name="dependencies">Optional cache keys this entry depends on.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.IntelligentCache.InvalidateKey(System.String)">
+            <summary>
+            Invalidates a cache key using intelligent dependency tracking.
+            May perform either full or partial invalidation based on impact.
+            </summary>
+            <param name="key">The cache key to invalidate.</param>
+            <returns>The number of keys that were invalidated.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.IntelligentCache.Clear">
+            <summary>
+            Clears the entire cache.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.IntelligentCache.GetEntry``1(System.String)">
+            <summary>
+            Gets a cache entry without recording a hit/miss.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.IntelligentCache.GetMetrics">
+            <summary>
+            Gets the metrics for this cache.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.IntelligentCache.Dispose">
+            <summary>
+            Disposes the cache and releases managed resources.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Caching.CacheMetrics">
+            <summary>
+            Represents cache metrics and statistics.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.Hits">
+            <summary>
+            Gets the number of cache hits.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.Misses">
+            <summary>
+            Gets the number of cache misses.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.HitRate">
+            <summary>
+            Gets the cache hit rate as a percentage.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.CacheSize">
+            <summary>
+            Gets the current cache size.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.InvalidationOperations">
+            <summary>
+            Gets the number of invalidation operations.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.TotalKeysInvalidated">
+            <summary>
+            Gets the total number of keys invalidated.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.PartialInvalidations">
+            <summary>
+            Gets the number of partial invalidations.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.FullInvalidations">
+            <summary>
+            Gets the number of full invalidations.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Caching.CacheMetrics.TrackedDependencies">
+            <summary>
+            Gets the number of tracked dependencies.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Caching.CacheMetrics.ToString">
+            <summary>
+            Gets a string representation of the metrics.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Concurrency.ContentionMetrics">
+            <summary>
+            Metrics for lock-free collection contention.
+            Tracks contention events, wait times, and operation counts.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ContentionMetrics.TotalOperations">
+            <summary>
+            Total number of operations performed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ContentionMetrics.ContentionEvents">
+            <summary>
+            Number of contention events detected (for compatibility checking).
+            In lock-free implementations, this will be 0.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ContentionMetrics.TotalWaitTimeMs">
+            <summary>
+            Estimated total wait time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ContentionMetrics.AverageWaitTimeMs">
+            <summary>
+            Average wait time per operation in milliseconds.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ContentionMetrics.LastReset">
+            <summary>
+            Timestamp when metrics were last reset.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ContentionMetrics.SuccessfulOperations">
+            <summary>
+            Number of successful lock-free operations (no contention).
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ContentionMetrics.Reset">
+            <summary>
+            Resets all metrics to zero.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:MonadoBlade.Core.Concurrency.LockFreeEventQueue" -->
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeEventQueue.#ctor">
+            <summary>
+            Initializes a new instance of the LockFreeEventQueue class.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.LockFreeEventQueue.Count">
+            <summary>
+            Gets the number of events in the queue.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.LockFreeEventQueue.Metrics">
+            <summary>
+            Gets the contention metrics for this queue.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeEventQueue.Enqueue(System.Object)">
+            <summary>
+            Enqueues an event to the queue.
+            Thread-safe, lock-free operation.
+            </summary>
+            <param name="evt">The event to enqueue</param>
+            <exception cref="T:System.ArgumentNullException">If evt is null</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeEventQueue.TryDequeue(System.Object@)">
+            <summary>
+            Tries to dequeue an event from the queue.
+            Thread-safe, lock-free operation.
+            </summary>
+            <param name="evt">The dequeued event, or null if queue is empty</param>
+            <returns>True if an event was dequeued; false if queue is empty</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeEventQueue.GetAllEvents">
+            <summary>
+            Gets all events currently in the queue (snapshot).
+            </summary>
+            <returns>A list of events in the queue</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeEventQueue.Clear">
+            <summary>
+            Clears all events from the queue.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:MonadoBlade.Core.Concurrency.LockFreeRegistry" -->
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeRegistry.#ctor">
+            <summary>
+            Initializes a new instance of the LockFreeRegistry class.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.LockFreeRegistry.Count">
+            <summary>
+            Gets the number of registered services.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.LockFreeRegistry.Metrics">
+            <summary>
+            Gets the contention metrics for this registry.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeRegistry.Register(System.String,System.Object)">
+            <summary>
+            Registers a service in the registry.
+            Thread-safe, lock-free operation.
+            </summary>
+            <param name="key">The service key</param>
+            <param name="service">The service instance</param>
+            <exception cref="T:System.ArgumentNullException">If key or service is null</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeRegistry.TryGetService(System.String,System.Object@)">
+            <summary>
+            Tries to get a registered service.
+            Thread-safe, lock-free operation.
+            </summary>
+            <param name="key">The service key</param>
+            <param name="service">The service instance, or null if not found</param>
+            <returns>True if the service was found; false otherwise</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeRegistry.Unregister(System.String)">
+            <summary>
+            Removes a service from the registry.
+            Thread-safe, lock-free operation.
+            </summary>
+            <param name="key">The service key</param>
+            <returns>True if the service was removed; false if it didn't exist</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeRegistry.GetAllKeys">
+            <summary>
+            Gets all registered service keys.
+            </summary>
+            <returns>A list of service keys</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeRegistry.IsRegistered(System.String)">
+            <summary>
+            Checks if a service is registered.
+            </summary>
+            <param name="key">The service key</param>
+            <returns>True if the service is registered; false otherwise</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeRegistry.Clear">
+            <summary>
+            Clears all services from the registry.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:MonadoBlade.Core.Concurrency.LockFreeCachePool" -->
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeCachePool.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the LockFreeCachePool class.
+            </summary>
+            <param name="maxPoolSize">Maximum number of items to keep in the pool</param>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.LockFreeCachePool.Count">
+            <summary>
+            Gets the number of items in the pool.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.LockFreeCachePool.Metrics">
+            <summary>
+            Gets the contention metrics for this pool.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeCachePool.Return(System.Object)">
+            <summary>
+            Returns an item to the pool.
+            Thread-safe, lock-free operation.
+            </summary>
+            <param name="item">The item to return to the pool</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeCachePool.TryRent(System.Object@)">
+            <summary>
+            Tries to rent an item from the pool.
+            Thread-safe, lock-free operation.
+            </summary>
+            <param name="item">The rented item, or null if pool is empty</param>
+            <returns>True if an item was rented; false if pool is empty</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeCachePool.GetStatus">
+            <summary>
+            Gets the current state of the pool.
+            </summary>
+            <returns>Pool statistics</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeCachePool.Clear">
+            <summary>
+            Clears all items from the pool.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1" -->
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the LockFreeDataCollection class.
+            </summary>
+            <param name="maxCapacity">Maximum capacity; older items are automatically removed</param>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.Count">
+            <summary>
+            Gets the current number of items in the collection.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.Metrics">
+            <summary>
+            Gets the contention metrics for this collection.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.Add(`0)">
+            <summary>
+            Adds an item to the collection.
+            Thread-safe, lock-free operation.
+            </summary>
+            <param name="item">The item to add</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.GetAllItems">
+            <summary>
+            Gets all items in the collection (snapshot).
+            </summary>
+            <returns>A list of items</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.GetItemsAfter(System.DateTime)">
+            <summary>
+            Gets all items added after a specific date.
+            </summary>
+            <param name="afterDate">The cutoff date</param>
+            <returns>A list of items added after the specified date</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.RemoveItemsBefore(System.DateTime)">
+            <summary>
+            Removes items older than a specified date.
+            Note: This operation is not atomic; use for cleanup only.
+            </summary>
+            <param name="beforeDate">Items added before this date will be removed</param>
+            <returns>The number of items removed</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.Clear">
+            <summary>
+            Clears all items from the collection.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeDataCollection`1.CleanupOldItems">
+            <summary>
+            Cleans up old items to maintain max capacity.
+            This is called automatically when capacity is exceeded.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Concurrency.LockFreeOptimizationSummary">
+            <summary>
+            Summary of lock-free collection benefits and migration path.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.LockFreeOptimizationSummary.GetMigrationSummary">
+            <summary>
+            Gets a summary of performance improvements when migrating from lock-based to lock-free collections.
+            </summary>
+            <returns>Migration summary with expected benefits</returns>
+        </member>
+        <member name="T:MonadoBlade.Core.Concurrency.TaskBatcher`1">
+            <summary>
+            Generic task batcher that accumulates items and processes them in batches.
+            Uses timeout-based flushing and parallel dispatch for high-throughput scenarios.
+            Thread-safe implementation using ReaderWriterLockSlim for synchronization.
+            </summary>
+            <typeparam name="T">The type of items to batch process.</typeparam>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.TaskBatcher`1.BatchSize">
+            <summary>
+            Gets or sets the maximum number of items to accumulate before automatic flush.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.TaskBatcher`1.FlushInterval">
+            <summary>
+            Gets or sets the flush interval in milliseconds for timeout-based flushing.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.TaskBatcher`1.QueuedItemCount">
+            <summary>
+            Gets the current number of items queued for batch processing.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.TaskBatcher`1.#ctor(System.Action{System.Collections.Generic.List{`0}},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the TaskBatcher class.
+            </summary>
+            <param name="batchCallback">The callback action to invoke with accumulated items.</param>
+            <param name="batchSize">The maximum number of items before automatic flush. Default is 100.</param>
+            <param name="flushInterval">The timeout interval in milliseconds for automatic flush. Default is 50.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when batchCallback is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when batchSize or flushInterval is invalid.</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.TaskBatcher`1.Enqueue(`0)">
+            <summary>
+            Enqueues an item for batch processing.
+            Automatically flushes if batch size is reached.
+            </summary>
+            <param name="item">The item to enqueue.</param>
+            <exception cref="T:System.ObjectDisposedException">Thrown when the batcher has been disposed.</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.TaskBatcher`1.Flush">
+            <summary>
+            Manually flushes all accumulated items in the queue.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">Thrown when the batcher has been disposed.</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.TaskBatcher`1.Dispose">
+            <summary>
+            Disposes the task batcher and releases all resources.
+            Automatically flushes any remaining items before disposal.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.TaskBatcher`1.FlushInternal">
+            <summary>
+            Internal method to perform the actual flush operation.
+            Must be called with the write lock acquired.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.TaskBatcher`1.FlushTimerCallback(System.Object)">
+            <summary>
+            Timer callback for automatic timeout-based flushing.
+            </summary>
+        </member>
         <member name="T:MonadoBlade.Core.Configuration.ConfigurationExtensions">
             <summary>
             Configures application settings from appsettings.json files.
@@ -54,6 +738,266 @@
             Registers all core infrastructure services.
             </summary>
         </member>
+        <member name="T:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample">
+            <summary>
+            Example integration demonstrating how to use MessageCoalescer with an EventPublisher pattern.
+            This coalesces similar events by type and source, reducing the number of event publications.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.Event">
+            <summary>
+            Represents an event with type and source information.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.EventKey">
+            <summary>
+            Key for grouping events by type and source.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.#ctor">
+            <summary>
+            Initializes a new EventPublisher with event coalescing.
+            Similar events (same type and source) are batched and published together.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.PublishEvent(System.String,System.String,System.String)">
+            <summary>
+            Publishes an event. The event is accumulated with similar events and
+            dispatched when the batch is ready.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.OnEventBatchReady(MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.EventKey,System.Collections.Generic.List{MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.Event})">
+            <summary>
+            Callback invoked when a batch of events is ready for publication.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.Flush">
+            <summary>
+            Flushes any pending events immediately.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.GetMetrics">
+            <summary>
+            Gets coalescing metrics.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.EventPublisherCoalescingExample.Dispose">
+            <summary>
+            Cleans up resources.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample">
+            <summary>
+            Example integration demonstrating how to use MessageCoalescer with a notification queue.
+            This coalesces notifications by category, reducing the number of notification dispatches.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.Notification">
+            <summary>
+            Represents a notification with category, priority, and content.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.#ctor">
+            <summary>
+            Initializes a new NotificationQueue with notification coalescing.
+            Notifications are grouped by category and dispatched in batches.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.Enqueue(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Enqueues a notification. Notifications are accumulated by category.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.OnNotificationBatchReady(System.String,System.Collections.Generic.List{MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.Notification})">
+            <summary>
+            Callback invoked when a batch of notifications is ready for dispatch.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.Flush">
+            <summary>
+            Flushes any pending notifications immediately.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.GetMetrics">
+            <summary>
+            Gets coalescing metrics.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.DispatchCount">
+            <summary>
+            Gets the number of dispatch operations performed.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integrations.NotificationQueueCoalescingExample.Dispose">
+            <summary>
+            Cleans up resources.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.EventHandlerExample">
+            <summary>
+            Example integration of TaskBatcher with event handler pattern.
+            Demonstrates how to batch events before invoking handlers.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.EventHandlerExample.DomainEvent">
+            <summary>
+            Represents a domain event.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.EventHandlerExample.UserCreatedEvent">
+            <summary>
+            Example domain event.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.EventHandlerExample.BatchedEventHandler">
+            <summary>
+            Event handler using TaskBatcher for batched event processing.
+            Useful for high-volume event scenarios where batch processing is more efficient.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.EventHandlerExample.BatchedEventHandler.#ctor(System.Action{System.Collections.Generic.List{MonadoBlade.Core.Integration.Examples.EventHandlerExample.DomainEvent}},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new event handler with batched event processing.
+            </summary>
+            <param name="eventProcessor">Callback to process batches of events.</param>
+            <param name="batchSize">Number of events to accumulate before processing. Default: 100.</param>
+            <param name="flushInterval">Timeout in milliseconds for batch dispatch. Default: 50ms.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.EventHandlerExample.BatchedEventHandler.Handle(MonadoBlade.Core.Integration.Examples.EventHandlerExample.DomainEvent)">
+            <summary>
+            Handles a domain event by enqueuing it for batch processing.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.EventHandlerExample.BatchedEventHandler.ProcessEventBatch(System.Collections.Generic.List{MonadoBlade.Core.Integration.Examples.EventHandlerExample.DomainEvent})">
+            <summary>
+            Internally processes a batch of events.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Integration.Examples.EventHandlerExample.BatchedEventHandler.QueuedEventCount">
+            <summary>
+            Gets the number of queued events awaiting processing.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.EventHandlerExample.BatchedEventHandler.Flush">
+            <summary>
+            Flushes all queued events immediately.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.EventHandlerExample.ExampleUsage">
+            <summary>
+            Example usage of BatchedEventHandler.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample">
+            <summary>
+            Example integration of TaskBatcher with message dispatcher pattern.
+            Demonstrates how to batch messages before dispatching to handlers.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.Message">
+            <summary>
+            Represents a message to be dispatched.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.BatchedMessageDispatcher">
+            <summary>
+            Message dispatcher using TaskBatcher for batched message handling.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.BatchedMessageDispatcher.#ctor(System.Action{System.Collections.Generic.List{MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.Message}},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new message dispatcher with batched message handling.
+            </summary>
+            <param name="messageHandler">Callback to handle batches of messages.</param>
+            <param name="batchSize">Number of messages to accumulate before dispatch. Default: 100.</param>
+            <param name="flushInterval">Timeout in milliseconds for dispatch. Default: 50ms.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.BatchedMessageDispatcher.Dispatch(MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.Message)">
+            <summary>
+            Dispatches a message for processing.
+            The message will be batched and processed with others.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.BatchedMessageDispatcher.HandleMessageBatch(System.Collections.Generic.List{MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.Message})">
+            <summary>
+            Internally handles a batch of messages.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.BatchedMessageDispatcher.QueuedMessageCount">
+            <summary>
+            Gets the number of queued messages awaiting dispatch.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.BatchedMessageDispatcher.Flush">
+            <summary>
+            Immediately flushes all queued messages.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.MessageDispatcherExample.ExampleUsage">
+            <summary>
+            Example usage of BatchedMessageDispatcher.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample">
+            <summary>
+            Example integration of TaskBatcher with task scheduler pattern.
+            Demonstrates how to batch work items for efficient scheduled execution.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.WorkItem">
+            <summary>
+            Represents a scheduled work item.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.BatchedTaskScheduler">
+            <summary>
+            Task scheduler using TaskBatcher for batched task execution.
+            Efficiently executes work items in batches with optional prioritization.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.BatchedTaskScheduler.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new task scheduler with batched work item processing.
+            </summary>
+            <param name="batchSize">Number of work items to accumulate before dispatch. Default: 100.</param>
+            <param name="flushInterval">Timeout in milliseconds for batch dispatch. Default: 50ms.</param>
+            <param name="maxConcurrentTasks">Maximum concurrent tasks to execute. Default: 10.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.BatchedTaskScheduler.Schedule(MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.WorkItem)">
+            <summary>
+            Schedules a work item for batched execution.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.BatchedTaskScheduler.Schedule(System.String,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Schedules a work item with a delegate action.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.BatchedTaskScheduler.ExecuteWorkItemBatch(System.Collections.Generic.List{MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.WorkItem})">
+            <summary>
+            Internally executes a batch of work items with concurrency control.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.BatchedTaskScheduler.ExecuteWorkItemWithConcurrencyControl(MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.WorkItem)">
+            <summary>
+            Executes a single work item with concurrency limiting.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.BatchedTaskScheduler.QueuedWorkItemCount">
+            <summary>
+            Gets the number of queued work items.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.BatchedTaskScheduler.Flush">
+            <summary>
+            Flushes all queued work items and executes them immediately.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Integration.Examples.TaskSchedulerExample.ExampleUsage">
+            <summary>
+            Example usage of BatchedTaskScheduler.
+            </summary>
+        </member>
         <member name="T:MonadoBlade.Core.Logging.LoggingConfiguration">
             <summary>
             Configures and manages Serilog logging for the application.
@@ -68,6 +1012,423 @@
             <summary>
             Extends Microsoft.Extensions.Logging with Serilog.
             </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Messaging.MessageCoalescer`2">
+            <summary>
+            Generic message coalescer that accumulates messages by key and dispatches them in batches.
+            Reduces message throughput by combining similar messages and dispatching them together.
+            </summary>
+            <typeparam name="TMessage">The type of message being coalesced</typeparam>
+            <typeparam name="TKey">The key type for grouping messages</typeparam>
+        </member>
+        <member name="P:MonadoBlade.Core.Messaging.MessageCoalescer`2.FlushInterval">
+            <summary>
+            Gets or sets the interval (in milliseconds) after which batches are automatically flushed.
+            Default: 100ms
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Messaging.MessageCoalescer`2.BatchSizeThreshold">
+            <summary>
+            Gets or sets the maximum number of messages to accumulate before forcing a flush.
+            Default: 50 messages
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Messaging.MessageCoalescer`2.CoalescedCount">
+            <summary>
+            Gets the number of distinct keys with coalesced messages waiting to be dispatched.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Messaging.MessageCoalescer`2.TotalMessagesEnqueued">
+            <summary>
+            Gets the total number of messages that have been enqueued.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Messaging.MessageCoalescer`2.TotalBatchesDispatched">
+            <summary>
+            Gets the total number of batches that have been dispatched.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Messaging.MessageCoalescer`2.TotalMessagesReduced">
+            <summary>
+            Gets the total number of messages that were reduced through coalescing.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Messaging.MessageCoalescer`2.#ctor(System.Action{`1,System.Collections.Generic.List{`0}})">
+            <summary>
+            Initializes a new instance of the MessageCoalescer class.
+            </summary>
+            <param name="onBatchReady">Callback invoked when a batch of messages is ready for dispatch.
+            The callback receives the key and the list of coalesced messages for that key.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when onBatchReady is null</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Messaging.MessageCoalescer`2.Enqueue(`1,`0)">
+            <summary>
+            Enqueues a message with the specified key. Messages with the same key are accumulated
+            and dispatched together when either the batch size threshold is reached or the flush
+            interval expires.
+            </summary>
+            <param name="key">The key to group the message by</param>
+            <param name="message">The message to enqueue</param>
+            <exception cref="T:System.ObjectDisposedException">Thrown when the coalescer is disposed</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Messaging.MessageCoalescer`2.Flush">
+            <summary>
+            Manually flushes all accumulated batches, invoking the batch ready callback for each.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">Thrown when the coalescer is disposed</exception>
+        </member>
+        <member name="M:MonadoBlade.Core.Messaging.MessageCoalescer`2.GetMetrics">
+            <summary>
+            Gets comprehensive metrics about the coalescing efficiency.
+            </summary>
+            <returns>A dictionary containing metrics such as total messages, reduction count/percentage, 
+            batches dispatched, and reduction percentage.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Messaging.MessageCoalescer`2.ResetMetrics">
+            <summary>
+            Resets all metrics to zero.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Messaging.MessageCoalescer`2.Dispose">
+            <summary>
+            Releases all resources used by the MessageCoalescer.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.EventObject">
+            <summary>
+            Represents an event object that can be pooled and reused.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObject.EventType">
+            <summary>Gets or sets the event type.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObject.Timestamp">
+            <summary>Gets or sets the event timestamp.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObject.Data">
+            <summary>Gets or sets the event data.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObject.Source">
+            <summary>Gets or sets the event source.</summary>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.EventObject.Reset">
+            <summary>
+            Resets the event object to its initial state.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.EventObjectPool">
+            <summary>
+            Specialized object pool for event objects.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.EventObjectPool.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the EventObjectPool.
+            </summary>
+            <param name="poolSize">Maximum number of event objects to pool.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.EventObjectPool.Rent">
+            <summary>
+            Rents an event object from the pool.
+            </summary>
+            <returns>An EventObject instance.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.EventObjectPool.Return(MonadoBlade.Core.ObjectPooling.EventObject)">
+            <summary>
+            Returns an event object to the pool.
+            </summary>
+            <param name="eventObj">The event object to return.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.EventObjectPool.GetMetrics">
+            <summary>
+            Gets the current metrics for the event object pool.
+            </summary>
+            <returns>Pool metrics.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.EventObjectPool.Dispose">
+            <summary>
+            Disposes the event object pool.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.EventObjectPoolMetrics">
+            <summary>
+            Metrics for EventObjectPool.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObjectPoolMetrics.PoolHits">
+            <summary>Gets or sets pool hits.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObjectPoolMetrics.PoolMisses">
+            <summary>Gets or sets pool misses.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObjectPoolMetrics.TotalAllocations">
+            <summary>Gets or sets total allocations.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObjectPoolMetrics.AvailableCount">
+            <summary>Gets or sets available count in pool.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObjectPoolMetrics.HitRate">
+            <summary>Gets or sets pool hit rate percentage.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.EventObjectPoolMetrics.AllocationReductionPercentage">
+            <summary>Gets or sets the allocation reduction percentage.</summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.MessageBufferPool">
+            <summary>
+            Specialized object pool for message buffer objects (512 byte buffers).
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.MessageBufferPool.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the MessageBufferPool.
+            </summary>
+            <param name="poolSize">Maximum number of buffers to pool.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.MessageBufferPool.Rent">
+            <summary>
+            Rents a message buffer from the pool.
+            </summary>
+            <returns>A 512-byte buffer.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.MessageBufferPool.Return(System.Byte[])">
+            <summary>
+            Returns a message buffer to the pool.
+            </summary>
+            <param name="buffer">The buffer to return.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.MessageBufferPool.GetMetrics">
+            <summary>
+            Gets the current metrics for the message buffer pool.
+            </summary>
+            <returns>Pool metrics.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.MessageBufferPool.Dispose">
+            <summary>
+            Disposes the message buffer pool.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.MessageBufferPoolMetrics">
+            <summary>
+            Metrics for MessageBufferPool.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.MessageBufferPoolMetrics.PoolHits">
+            <summary>Gets or sets pool hits.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.MessageBufferPoolMetrics.PoolMisses">
+            <summary>Gets or sets pool misses.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.MessageBufferPoolMetrics.TotalAllocations">
+            <summary>Gets or sets total allocations.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.MessageBufferPoolMetrics.AvailableCount">
+            <summary>Gets or sets available count in pool.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.MessageBufferPoolMetrics.HitRate">
+            <summary>Gets or sets pool hit rate percentage.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.MessageBufferPoolMetrics.BufferSize">
+            <summary>Gets or sets the buffer size in bytes.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.MessageBufferPoolMetrics.AllocationReductionPercentage">
+            <summary>Gets or sets the allocation reduction percentage.</summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.ObjectPool`1">
+            <summary>
+            A thread-safe, generic object pool for reusing objects and reducing GC pressure.
+            </summary>
+            <typeparam name="T">The type of object to pool.</typeparam>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.ObjectPool`1.#ctor(System.Func{`0},System.Action{`0},System.Int32)">
+            <summary>
+            Initializes a new instance of the ObjectPool class.
+            </summary>
+            <param name="factory">Factory function to create new objects when pool is empty.</param>
+            <param name="resetAction">Optional action to reset object state when returned to pool.</param>
+            <param name="poolSize">Maximum number of objects to pool (default 500).</param>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.ObjectPool`1.PoolSize">
+            <summary>
+            Gets the current size of the pool.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.ObjectPool`1.AvailableCount">
+            <summary>
+            Gets the number of objects currently available in the pool.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.ObjectPool`1.Rent">
+            <summary>
+            Rents an object from the pool. If the pool is empty, creates a new object.
+            </summary>
+            <returns>An object of type T.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.ObjectPool`1.Return(`0)">
+            <summary>
+            Returns an object to the pool.
+            </summary>
+            <param name="item">The object to return.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.ObjectPool`1.GetMetrics">
+            <summary>
+            Gets the current pool metrics.
+            </summary>
+            <returns>A PoolMetrics object with allocation statistics.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.ObjectPool`1.Dispose">
+            <summary>
+            Disposes the pool and clears all objects.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.PoolMetrics">
+            <summary>
+            Metrics for an ObjectPool instance.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.PoolMetrics.PoolHits">
+            <summary>
+            Gets or sets the number of times an object was successfully retrieved from the pool.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.PoolMetrics.PoolMisses">
+            <summary>
+            Gets or sets the number of times a new object was created because the pool was empty.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.PoolMetrics.TotalAllocations">
+            <summary>
+            Gets or sets the total number of Rent() calls.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.PoolMetrics.TotalReturns">
+            <summary>
+            Gets or sets the total number of Return() calls.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.PoolMetrics.AvailableCount">
+            <summary>
+            Gets or sets the number of objects currently available in the pool.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.PoolMetrics.PoolSize">
+            <summary>
+            Gets or sets the maximum size of the pool.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.PoolMetrics.HitRate">
+            <summary>
+            Gets or sets the hit rate percentage.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.PoolMetrics.AllocationReductionRatio">
+            <summary>
+            Gets the allocation reduction ratio (hits / total allocations).
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.TaskObject">
+            <summary>
+            Represents a task object that can be pooled and reused.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObject.TaskId">
+            <summary>Gets or sets the task ID.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObject.TaskName">
+            <summary>Gets or sets the task name.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObject.Status">
+            <summary>Gets or sets the task status.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObject.CreatedAt">
+            <summary>Gets or sets the task creation timestamp.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObject.ExecutionTimeMs">
+            <summary>Gets or sets the task execution time in milliseconds.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObject.Payload">
+            <summary>Gets or sets the task payload.</summary>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.TaskObject.Reset">
+            <summary>
+            Resets the task object to its initial state.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.TaskStatus">
+            <summary>
+            Enumeration for task status.
+            </summary>
+        </member>
+        <member name="F:MonadoBlade.Core.ObjectPooling.TaskStatus.Pending">
+            <summary>Task is pending.</summary>
+        </member>
+        <member name="F:MonadoBlade.Core.ObjectPooling.TaskStatus.Running">
+            <summary>Task is running.</summary>
+        </member>
+        <member name="F:MonadoBlade.Core.ObjectPooling.TaskStatus.Completed">
+            <summary>Task completed successfully.</summary>
+        </member>
+        <member name="F:MonadoBlade.Core.ObjectPooling.TaskStatus.Failed">
+            <summary>Task failed.</summary>
+        </member>
+        <member name="F:MonadoBlade.Core.ObjectPooling.TaskStatus.Cancelled">
+            <summary>Task was cancelled.</summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.TaskObjectPool">
+            <summary>
+            Specialized object pool for task objects.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.TaskObjectPool.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the TaskObjectPool.
+            </summary>
+            <param name="poolSize">Maximum number of task objects to pool.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.TaskObjectPool.Rent">
+            <summary>
+            Rents a task object from the pool.
+            </summary>
+            <returns>A TaskObject instance.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.TaskObjectPool.Return(MonadoBlade.Core.ObjectPooling.TaskObject)">
+            <summary>
+            Returns a task object to the pool.
+            </summary>
+            <param name="taskObj">The task object to return.</param>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.TaskObjectPool.GetMetrics">
+            <summary>
+            Gets the current metrics for the task object pool.
+            </summary>
+            <returns>Pool metrics.</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.ObjectPooling.TaskObjectPool.Dispose">
+            <summary>
+            Disposes the task object pool.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.ObjectPooling.TaskObjectPoolMetrics">
+            <summary>
+            Metrics for TaskObjectPool.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObjectPoolMetrics.PoolHits">
+            <summary>Gets or sets pool hits.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObjectPoolMetrics.PoolMisses">
+            <summary>Gets or sets pool misses.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObjectPoolMetrics.TotalAllocations">
+            <summary>Gets or sets total allocations.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObjectPoolMetrics.AvailableCount">
+            <summary>Gets or sets available count in pool.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObjectPoolMetrics.HitRate">
+            <summary>Gets or sets pool hit rate percentage.</summary>
+        </member>
+        <member name="P:MonadoBlade.Core.ObjectPooling.TaskObjectPoolMetrics.AllocationReductionPercentage">
+            <summary>Gets or sets the allocation reduction percentage.</summary>
         </member>
     </members>
 </doc>

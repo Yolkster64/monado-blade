@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Core infrastructure and shared logic for MonadoBlade")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+023083e54e9283cc8f7ace7c09ef2079e23264b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08412be8498f918ad04b1aa4f09fcc146dbe790c")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonadoBlade.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonadoBlade.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

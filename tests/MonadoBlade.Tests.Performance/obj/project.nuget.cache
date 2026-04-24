@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "+mqOVkzTOHk=",
+  "dgSpecHash": "OoSydjxP+S8=",
   "success": true,
   "projectFilePath": "C:\\Users\\ADMIN\\MonadoBlade\\tests\\MonadoBlade.Tests.Performance\\MonadoBlade.Tests.Performance.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\benchmarkdotnet\\0.13.12\\benchmarkdotnet.0.13.12.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\benchmarkdotnet.annotations\\0.13.12\\benchmarkdotnet.annotations.0.13.12.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\benchmarkdotnet.diagnostics.windows\\0.13.12\\benchmarkdotnet.diagnostics.windows.0.13.12.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\commandlineparser\\2.9.1\\commandlineparser.2.9.1.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\gee.external.capstone\\2.3.0\\gee.external.capstone.2.3.0.nupkg.sha512",
