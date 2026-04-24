@@ -1,0 +1,341 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade.Security</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.Security.Abstractions.KeyRotationPolicy">
+            <summary>
+            Enum for key rotation policies.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.Abstractions.IEncryptionKeyManager">
+            <summary>
+            Interface for secure encryption key management.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IEncryptionKeyManager.GenerateKeyAsync(System.String,System.Int32)">
+            <summary>
+            Generates a new encryption key with specified algorithm.
+            </summary>
+            <param name="algorithm">Algorithm type: RSA, AES, etc.</param>
+            <param name="keySize">Size of the key in bits.</param>
+            <returns>The key ID of the generated key.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IEncryptionKeyManager.GetKeyAsync(System.String)">
+            <summary>
+            Retrieves an encryption key by ID.
+            </summary>
+            <param name="keyId">The key identifier.</param>
+            <returns>The encryption key data.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IEncryptionKeyManager.RotateKeyAsync(System.String,MonadoBlade.Security.Abstractions.KeyRotationPolicy)">
+            <summary>
+            Rotates an encryption key according to policy.
+            </summary>
+            <param name="keyId">The key to rotate.</param>
+            <param name="policy">The rotation policy to apply.</param>
+            <returns>The ID of the new key.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IEncryptionKeyManager.StoreKeySecurelyAsync(System.String,System.Byte[],System.String)">
+            <summary>
+            Stores an encryption key securely (DPAPI on Windows, TPM when available).
+            </summary>
+            <param name="keyId">The key identifier.</param>
+            <param name="keyData">The key data to store.</param>
+            <param name="algorithm">The algorithm type.</param>
+            <returns>True if successfully stored.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IEncryptionKeyManager.GetKeyMetadataAsync(System.String)">
+            <summary>
+            Gets key metadata including version and creation date.
+            </summary>
+            <param name="keyId">The key identifier.</param>
+            <returns>Dictionary with key metadata.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IEncryptionKeyManager.IsKeyRotationNeededAsync(System.String)">
+            <summary>
+            Checks if a key needs rotation based on its policy.
+            </summary>
+            <param name="keyId">The key identifier.</param>
+            <returns>True if key should be rotated.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IEncryptionKeyManager.ArchiveKeyAsync(System.String)">
+            <summary>
+            Archives a key after rotation.
+            </summary>
+            <param name="keyId">The key to archive.</param>
+            <returns>True if successfully archived.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IEncryptionKeyManager.GetActiveKeyAsync(System.String)">
+            <summary>
+            Gets the current active key version.
+            </summary>
+            <param name="algorithm">The algorithm to get the current key for.</param>
+            <returns>The key ID of the current active key.</returns>
+        </member>
+        <member name="T:MonadoBlade.Security.Abstractions.IInputValidator">
+            <summary>
+            Interface for secure input validation and sanitization.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IInputValidator.ValidateAndSanitizeAsync(System.String,System.String)">
+            <summary>
+            Validates and sanitizes user input against various attack vectors.
+            </summary>
+            <param name="input">The input string to validate.</param>
+            <param name="inputType">The type of input (url, html, sqlParam, etc.).</param>
+            <returns>The sanitized input string.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IInputValidator.CheckRateLimitAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Checks if a request has exceeded rate limits.
+            </summary>
+            <param name="identifier">The unique identifier for rate limiting (IP, User ID, etc.).</param>
+            <param name="maxRequests">Maximum requests allowed in the time window.</param>
+            <param name="windowSeconds">Time window in seconds.</param>
+            <returns>True if request is allowed, false if rate limit exceeded.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IInputValidator.ValidateCsrfTokenAsync(System.String,System.String)">
+            <summary>
+            Validates a CSRF token.
+            </summary>
+            <param name="token">The CSRF token to validate.</param>
+            <param name="sessionId">The session ID associated with the token.</param>
+            <returns>True if token is valid, false otherwise.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IInputValidator.GenerateCsrfTokenAsync(System.String)">
+            <summary>
+            Generates a new CSRF token for a session.
+            </summary>
+            <param name="sessionId">The session ID to generate a token for.</param>
+            <returns>A new CSRF token.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IInputValidator.ValidateFilePathAsync(System.String,System.String)">
+            <summary>
+            Validates a file path to prevent directory traversal attacks.
+            </summary>
+            <param name="path">The file path to validate.</param>
+            <param name="basePath">The allowed base directory.</param>
+            <returns>True if path is valid and within basePath, false otherwise.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IInputValidator.EncodeForXss(System.String)">
+            <summary>
+            Encodes user input to prevent XSS attacks.
+            </summary>
+            <param name="input">The input to encode.</param>
+            <returns>The XSS-safe encoded string.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.IInputValidator.EncodeForSql(System.String)">
+            <summary>
+            Encodes input for safe SQL usage (though parameterized queries are preferred).
+            </summary>
+            <param name="input">The input to encode.</param>
+            <returns>The SQL-safe encoded string.</returns>
+        </member>
+        <member name="T:MonadoBlade.Security.Abstractions.SecurityEventSeverity">
+            <summary>
+            Enum for security event severity levels.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.Abstractions.SecurityEventType">
+            <summary>
+            Enum for security event types.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.Abstractions.ISecureAuditLogger">
+            <summary>
+            Interface for secure, tamper-proof audit logging.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.ISecureAuditLogger.LogSecurityEventAsync(MonadoBlade.Security.Abstractions.SecurityEventType,MonadoBlade.Security.Abstractions.SecurityEventSeverity,System.String,System.String)">
+            <summary>
+            Logs a security event with integrity protection.
+            </summary>
+            <param name="eventType">Type of security event.</param>
+            <param name="severity">Event severity level.</param>
+            <param name="details">Event details.</param>
+            <param name="userId">User ID associated with the event (if applicable).</param>
+            <returns>The event ID assigned to this log entry.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.ISecureAuditLogger.GetSecurityEventsAsync(System.Nullable{MonadoBlade.Security.Abstractions.SecurityEventType},System.Nullable{MonadoBlade.Security.Abstractions.SecurityEventSeverity},System.Int32)">
+            <summary>
+            Retrieves security events with optional filtering.
+            </summary>
+            <param name="eventType">Filter by event type (optional).</param>
+            <param name="severity">Filter by severity level (optional).</param>
+            <param name="hoursBack">Look back this many hours (default 24).</param>
+            <returns>List of security events matching the criteria.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.ISecureAuditLogger.VerifyLogIntegrityAsync(System.String)">
+            <summary>
+            Verifies the integrity of a log entry using HMAC validation.
+            </summary>
+            <param name="eventId">The event ID to verify.</param>
+            <returns>True if log entry is valid and unmodified, false otherwise.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.ISecureAuditLogger.GenerateComplianceReportAsync(System.DateTime,System.DateTime,System.Boolean)">
+            <summary>
+            Generates a compliance report for audit purposes.
+            </summary>
+            <param name="startDate">Report start date.</param>
+            <param name="endDate">Report end date.</param>
+            <param name="includeDetails">Include detailed event information.</param>
+            <returns>Compliance report as JSON string.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.ISecureAuditLogger.GetEventStatisticsAsync(System.Int32)">
+            <summary>
+            Gets statistics about security events.
+            </summary>
+            <param name="hoursBack">Statistics for the last N hours.</param>
+            <returns>Dictionary with event statistics.</returns>
+        </member>
+        <member name="M:MonadoBlade.Security.Abstractions.ISecureAuditLogger.ArchiveOldEventsAsync(System.Int32)">
+            <summary>
+            Archives old log entries (for storage optimization).
+            </summary>
+            <param name="olderThanDays">Archive events older than this many days.</param>
+            <returns>Number of events archived.</returns>
+        </member>
+        <member name="T:MonadoBlade.Security.Abstractions.SecurityEventLog">
+            <summary>
+            Represents a security event log entry.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.Abstractions.ISecurityService">
+            <summary>
+            Marker interface for security-related services.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.EncryptionKeyManager">
+            <summary>
+            Manages encryption keys with TPM 2.0 integration, rotation policies, and secure storage.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.EncryptionKeyManager.GenerateKeyAsync(System.String,System.Int32)">
+            <summary>
+            Generates a new encryption key with specified algorithm.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.EncryptionKeyManager.GetKeyAsync(System.String)">
+            <summary>
+            Retrieves an encryption key by ID.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.EncryptionKeyManager.RotateKeyAsync(System.String,MonadoBlade.Security.Abstractions.KeyRotationPolicy)">
+            <summary>
+            Rotates an encryption key according to policy.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.EncryptionKeyManager.StoreKeySecurelyAsync(System.String,System.Byte[],System.String)">
+            <summary>
+            Stores an encryption key securely using DPAPI or TPM.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.EncryptionKeyManager.GetKeyMetadataAsync(System.String)">
+            <summary>
+            Gets key metadata including version and creation date.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.EncryptionKeyManager.IsKeyRotationNeededAsync(System.String)">
+            <summary>
+            Checks if a key needs rotation based on its policy.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.EncryptionKeyManager.ArchiveKeyAsync(System.String)">
+            <summary>
+            Archives a key after rotation.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.EncryptionKeyManager.GetActiveKeyAsync(System.String)">
+            <summary>
+            Gets the current active key version.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.EncryptionKeyManager.KeyMetadata">
+            <summary>
+            Internal metadata class for key information.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.SecureAuditLogger">
+            <summary>
+            Provides tamper-proof, thread-safe security event logging with HMAC integrity validation.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureAuditLogger.LogSecurityEventAsync(MonadoBlade.Security.Abstractions.SecurityEventType,MonadoBlade.Security.Abstractions.SecurityEventSeverity,System.String,System.String)">
+            <summary>
+            Logs a security event with cryptographic integrity protection.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureAuditLogger.GetSecurityEventsAsync(System.Nullable{MonadoBlade.Security.Abstractions.SecurityEventType},System.Nullable{MonadoBlade.Security.Abstractions.SecurityEventSeverity},System.Int32)">
+            <summary>
+            Retrieves security events with optional filtering.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureAuditLogger.VerifyLogIntegrityAsync(System.String)">
+            <summary>
+            Verifies the integrity of a log entry using HMAC validation.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureAuditLogger.GenerateComplianceReportAsync(System.DateTime,System.DateTime,System.Boolean)">
+            <summary>
+            Generates a compliance report for audit purposes in JSON format.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureAuditLogger.GetEventStatisticsAsync(System.Int32)">
+            <summary>
+            Gets statistics about security events.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureAuditLogger.ArchiveOldEventsAsync(System.Int32)">
+            <summary>
+            Archives old log entries for storage optimization.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.SecureInputValidator">
+            <summary>
+            Provides comprehensive input validation, sanitization, and protection against common web attacks.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureInputValidator.ValidateAndSanitizeAsync(System.String,System.String)">
+            <summary>
+            Validates and sanitizes user input against various attack vectors.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureInputValidator.CheckRateLimitAsync(System.String,System.Int32,System.Int32)">
+            <summary>
+            Checks if a request has exceeded rate limits using a sliding window algorithm.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureInputValidator.ValidateCsrfTokenAsync(System.String,System.String)">
+            <summary>
+            Validates a CSRF token with timing attack resistance.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureInputValidator.GenerateCsrfTokenAsync(System.String)">
+            <summary>
+            Generates a new CSRF token for a session.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureInputValidator.ValidateFilePathAsync(System.String,System.String)">
+            <summary>
+            Validates a file path to prevent directory traversal attacks.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureInputValidator.EncodeForXss(System.String)">
+            <summary>
+            Encodes user input to prevent XSS attacks with double encoding support.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Security.SecureInputValidator.EncodeForSql(System.String)">
+            <summary>
+            Encodes input for safer SQL usage (parameterized queries are preferred).
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Security.SecureInputValidator.RateLimitBucket">
+            <summary>
+            Represents a rate limit bucket with sliding window algorithm.
+            </summary>
+        </member>
+    </members>
+</doc>

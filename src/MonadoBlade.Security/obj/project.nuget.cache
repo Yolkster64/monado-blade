@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "p5ULxYAwzCk=",
+  "dgSpecHash": "j+8rgZPggUY=",
   "success": true,
   "projectFilePath": "C:\\Users\\ADMIN\\MonadoBlade\\src\\MonadoBlade.Security\\MonadoBlade.Security.csproj",
   "expectedPackageFiles": [
@@ -30,8 +30,22 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\serilog.extensions.logging\\8.0.0\\serilog.extensions.logging.8.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\serilog.sinks.console\\6.0.0\\serilog.sinks.console.6.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\serilog.sinks.file\\6.0.0\\serilog.sinks.file.6.0.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.protecteddata\\5.0.0\\system.security.cryptography.protecteddata.5.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "message": "MonadoBlade.Security depends on System.Security.Cryptography.ProtectedData (>= 4.8.0) but System.Security.Cryptography.ProtectedData 4.8.0 was not found. System.Security.Cryptography.ProtectedData 5.0.0 was resolved instead.",
+      "projectPath": "C:\\Users\\ADMIN\\MonadoBlade\\src\\MonadoBlade.Security\\MonadoBlade.Security.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\ADMIN\\MonadoBlade\\src\\MonadoBlade.Security\\MonadoBlade.Security.csproj",
+      "libraryId": "System.Security.Cryptography.ProtectedData",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

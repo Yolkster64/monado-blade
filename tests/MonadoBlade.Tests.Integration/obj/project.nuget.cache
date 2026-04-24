@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FQnQofmEctg=",
+  "dgSpecHash": "Q2Mif3+k+io=",
   "success": true,
   "projectFilePath": "C:\\Users\\ADMIN\\MonadoBlade\\tests\\MonadoBlade.Tests.Integration\\MonadoBlade.Tests.Integration.csproj",
   "expectedPackageFiles": [
@@ -124,7 +124,7 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.encoding\\4.3.0\\system.security.cryptography.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.openssl\\4.3.0\\system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.primitives\\4.3.0\\system.security.cryptography.primitives.4.3.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.4.0\\system.security.cryptography.protecteddata.4.4.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.protecteddata\\5.0.0\\system.security.cryptography.protecteddata.5.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.x509certificates\\4.3.0\\system.security.cryptography.x509certificates.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
@@ -157,6 +157,18 @@
       "warningLevel": 1,
       "filePath": "C:\\Users\\ADMIN\\MonadoBlade\\tests\\MonadoBlade.Tests.Integration\\MonadoBlade.Tests.Integration.csproj",
       "libraryId": "Microsoft.NET.Test.Sdk",
+      "targetGraphs": [
+        "net8.0-windows"
+      ]
+    },
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "message": "MonadoBlade.Security depends on System.Security.Cryptography.ProtectedData (>= 4.8.0) but System.Security.Cryptography.ProtectedData 4.8.0 was not found. System.Security.Cryptography.ProtectedData 5.0.0 was resolved instead.",
+      "projectPath": "C:\\Users\\ADMIN\\MonadoBlade\\tests\\MonadoBlade.Tests.Integration\\MonadoBlade.Tests.Integration.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\ADMIN\\MonadoBlade\\tests\\MonadoBlade.Tests.Integration\\MonadoBlade.Tests.Integration.csproj",
+      "libraryId": "System.Security.Cryptography.ProtectedData",
       "targetGraphs": [
         "net8.0-windows"
       ]

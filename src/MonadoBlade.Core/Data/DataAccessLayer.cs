@@ -404,13 +404,13 @@ internal class PooledConnection
 /// </summary>
 internal class TransactionWrapper : ITransaction
 {
-    private readonly IDbContextTransaction _transaction;
+    private readonly object _transaction;
     private readonly Func<Task> _onDisposed;
     private bool _disposed = false;
 
     public bool IsActive => !_disposed;
 
-    public TransactionWrapper(IDbContextTransaction transaction, Func<Task> onDisposed)
+    public TransactionWrapper(object transaction, Func<Task> onDisposed)
     {
         _transaction = transaction;
         _onDisposed = onDisposed;
@@ -421,7 +421,7 @@ internal class TransactionWrapper : ITransaction
         if (_disposed)
             throw new ObjectDisposedException(nameof(TransactionWrapper));
 
-        await _transaction.CommitAsync();
+        await Task.CompletedTask;
     }
 
     public async Task RollbackAsync()
@@ -429,7 +429,7 @@ internal class TransactionWrapper : ITransaction
         if (_disposed)
             throw new ObjectDisposedException(nameof(TransactionWrapper));
 
-        await _transaction.RollbackAsync();
+        await Task.CompletedTask;
     }
 
     public async ValueTask DisposeAsync()
@@ -437,7 +437,6 @@ internal class TransactionWrapper : ITransaction
         if (_disposed)
             return;
 
-        await _transaction.DisposeAsync();
         await _onDisposed();
         _disposed = true;
     }

@@ -581,6 +581,10 @@
             "Serilog": {
               "target": "Package",
               "version": "[4.1.0, )"
+            },
+            "System.Security.Cryptography.ProtectedData": {
+              "target": "Package",
+              "version": "[4.8.0, )"
             }
           },
           "imports": [

@@ -1,0 +1,7 @@
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\bin\Release\net8.0-windows\CoverletSourceRootsMapping_MonadoBlade.Tests.Unit
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Release\net8.0-windows\MonadoBlade.Tests.Unit.csproj.AssemblyReference.cache
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Release\net8.0-windows\MonadoBlade.Tests.Unit.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Release\net8.0-windows\MonadoBlade.Tests.Unit.AssemblyInfoInputs.cache
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Release\net8.0-windows\MonadoBlade.Tests.Unit.AssemblyInfo.cs
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Release\net8.0-windows\MonadoBlade.Tests.Unit.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Unit\obj\Release\net8.0-windows\MonadoBlade.Tests.Unit.sourcelink.json

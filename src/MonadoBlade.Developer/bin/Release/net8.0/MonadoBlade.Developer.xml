@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade.Developer</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.Developer.Abstractions.IDeveloperService">
+            <summary>
+            Marker interface for developer tools-related services.
+            </summary>
+        </member>
+    </members>
+</doc>

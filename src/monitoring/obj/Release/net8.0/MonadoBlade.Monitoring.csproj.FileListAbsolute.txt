@@ -1,0 +1,12 @@
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\MonadoBlade.Monitoring.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\MonadoBlade.Monitoring.AssemblyInfoInputs.cache
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\MonadoBlade.Monitoring.AssemblyInfo.cs
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\MonadoBlade.Monitoring.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\MonadoBlade.Monitoring.sourcelink.json
+C:\Users\ADMIN\MonadoBlade\src\monitoring\bin\Release\net8.0\MonadoBlade.Monitoring.deps.json
+C:\Users\ADMIN\MonadoBlade\src\monitoring\bin\Release\net8.0\MonadoBlade.Monitoring.dll
+C:\Users\ADMIN\MonadoBlade\src\monitoring\bin\Release\net8.0\MonadoBlade.Monitoring.pdb
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\MonadoBlade.Monitoring.dll
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\refint\MonadoBlade.Monitoring.dll
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\MonadoBlade.Monitoring.pdb
+C:\Users\ADMIN\MonadoBlade\src\monitoring\obj\Release\net8.0\ref\MonadoBlade.Monitoring.dll

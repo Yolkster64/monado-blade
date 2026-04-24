@@ -1,0 +1,750 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonadoBlade.Boot</name>
+    </assembly>
+    <members>
+        <member name="T:MonadoBlade.Boot.Abstractions.IBootService">
+            <summary>
+            Marker interface for boot-related services.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.ProgressReport">
+            <summary>
+            Represents progress information for display in the UI.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.Percentage">
+            <summary>
+            Overall completion percentage (0-100).
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.StepDescription">
+            <summary>
+            Current step description (e.g., "Installing GPU drivers").
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.CurrentStep">
+            <summary>
+            Current step number and total steps (e.g., "3 of 8").
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.SubStepInfo">
+            <summary>
+            Sub-step information (e.g., "Downloading drivers: 50MB / 200MB").
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.ElapsedTime">
+            <summary>
+            Time elapsed since start.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.EstimatedTimeRemaining">
+            <summary>
+            Estimated time remaining.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.StepIcon">
+            <summary>
+            Visual icon for current step (building, installing, verifying, etc).
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.IsIndeterminate">
+            <summary>
+            Whether progress is indeterminate (unknown duration).
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.TimeRemaining">
+            <summary>
+            Gets a human-readable time remaining string.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.ProgressReport.ElapsedTimeFormatted">
+            <summary>
+            Gets a human-readable elapsed time string.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.ProgressStepIcon">
+            <summary>
+            Icons representing different installation steps.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.ModernProgressUI">
+            <summary>
+            Modern progress UI manager with smooth animations and detailed status display.
+            Provides real-time progress updates with ETA calculations.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.Start">
+            <summary>
+            Starts the progress timer.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.ReportProgress(System.Double,System.String,System.Int32,System.Int32,System.String,MonadoBlade.Boot.ProgressStepIcon,System.Boolean)">
+            <summary>
+            Reports progress update with automatic ETA calculation.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.ReportStatus(System.String)">
+            <summary>
+            Reports a status message without changing progress percentage.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.GetCurrentProgress">
+            <summary>
+            Gets the current progress report snapshot.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.Stop">
+            <summary>
+            Stops the progress timer and returns final statistics.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.CalculateETA(System.Double,System.TimeSpan)">
+            <summary>
+            Calculates estimated time remaining based on progress velocity.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.GetProgressBarVisualization(System.Double,System.Int32)">
+            <summary>
+            Gets formatted progress bar visualization (visual representation).
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.GetStepIndicator(System.Int32,System.Int32)">
+            <summary>
+            Gets a formatted step indicator (e.g., "Step 3 of 8").
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.GetIconCharacter(MonadoBlade.Boot.ProgressStepIcon)">
+            <summary>
+            Gets icon character for the given step type.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.GetProgressHistory">
+            <summary>
+            Gets progress history data for analytics or display.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.ModernProgressUI.Reset">
+            <summary>
+            Resets the progress tracker.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.BackgroundUSBBuilder">
+            <summary>
+            Async background service for building USB images with intelligent caching.
+            Handles priority queueing and non-blocking notifications.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.#ctor(Microsoft.Extensions.Logging.ILogger{MonadoBlade.Boot.Services.BackgroundUSBBuilder},MonadoBlade.Boot.Services.IUSBImageCache)">
+            <summary>
+            Initializes a new instance of the BackgroundUSBBuilder class.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.BackgroundUSBBuilder.IsInitialized">
+            <summary>
+            Gets whether the service is initialized.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.InitializeAsync">
+            <summary>
+            Initializes the background builder service.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.GetMetrics">
+            <summary>
+            Gets current performance metrics.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.QueueUSBBuildAsync(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Queues a USB creation request with priority handling.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.DisposeAsync">
+            <summary>
+            Asynchronously disposes resources.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.ProcessQueueAsync(System.Threading.CancellationToken)">
+            <summary>
+            Processes the priority queue in the background.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.ProcessUSBBuildAsync(MonadoBlade.Boot.Services.USBCreationRequest,System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Processes a single USB build with caching support.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.BuildUSBImageAsync(MonadoBlade.Boot.Services.USBCreationRequest,System.Threading.CancellationToken)">
+            <summary>
+            Builds a new USB image.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.WriteCachedImageAsync(MonadoBlade.Boot.Services.USBCreationRequest,System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Writes a cached image to the target disk.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.GenerateCacheKey(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Generates a cache key from request.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.GetPriority(System.String)">
+            <summary>
+            Gets priority for a profile.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.GetBuildDuration(System.String)">
+            <summary>
+            Gets build duration for a profile in milliseconds.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.GetImageSize(System.String)">
+            <summary>
+            Gets simulated image size for a profile in bytes.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.BackgroundUSBBuilder.SendBackgroundNotification(MonadoBlade.Boot.Services.USBCreationRequest,System.TimeSpan)">
+            <summary>
+            Sends a non-blocking background notification.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.IUSBImageCache">
+            <summary>
+            Interface for USB image caching.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.IUSBImageCache.TryGetImage(System.String,System.Byte[]@)">
+            <summary>
+            Tries to get a cached USB image.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="image">The cached image data.</param>
+            <returns>True if found, false otherwise.</returns>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.IUSBImageCache.StoreImage(System.String,System.Byte[])">
+            <summary>
+            Stores a USB image in the cache.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="image">The image data to cache.</param>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.IUSBImageCache.GetStatistics">
+            <summary>
+            Gets cache statistics.
+            </summary>
+            <returns>Cache statistics.</returns>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.IUSBImageCache.Clear">
+            <summary>
+            Clears the cache.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.BackgroundBuilderMetrics">
+            <summary>
+            Metrics for the background USB builder.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.BackgroundBuilderMetrics.CacheHits">
+            <summary>
+            Gets or sets the number of cache hits.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.BackgroundBuilderMetrics.CacheMisses">
+            <summary>
+            Gets or sets the number of cache misses.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.BackgroundBuilderMetrics.CacheHitRate">
+            <summary>
+            Gets or sets the cache hit rate as a percentage.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.BackgroundBuilderMetrics.AverageBuildTimeMs">
+            <summary>
+            Gets or sets the average build time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.BackgroundBuilderMetrics.QueuedItems">
+            <summary>
+            Gets or sets the number of queued items.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.CacheStatistics">
+            <summary>
+            Statistics for the USB image cache.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheStatistics.ItemCount">
+            <summary>
+            Gets or sets the number of items in the cache.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheStatistics.TotalSizeBytes">
+            <summary>
+            Gets or sets the total size of cached items in bytes.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheStatistics.MaxSizeBytes">
+            <summary>
+            Gets or sets the maximum cache size in bytes.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheStatistics.UtilizationPercent">
+            <summary>
+            Gets or sets the cache utilization as a percentage.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.SimpleUSBWizard">
+            <summary>
+            Ultra-simplified USB creation wizard providing a single-page experience for users.
+            Hides all complexity in advanced mode (Ctrl+Shift+A).
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.SimpleUSBWizard.#ctor(Microsoft.Extensions.Logging.ILogger{MonadoBlade.Boot.Services.SimpleUSBWizard},MonadoBlade.Boot.Services.IUSBCreationOrchestrator)">
+            <summary>
+            Initializes a new instance of the SimpleUSBWizard class.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.SimpleUSBWizard.SystemHostname">
+            <summary>
+            Gets the system hostname for pre-filling the device name field.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.SimpleUSBWizard.GetAvailableRemovableDrives">
+            <summary>
+            Gets available removable media drives filtered for USB.
+            </summary>
+            <returns>List of removable drive paths.</returns>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.SimpleUSBWizard.GetAvailableProfiles">
+            <summary>
+            Gets available USB creation profiles.
+            </summary>
+            <returns>Enumeration of profile names.</returns>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.SimpleUSBWizard.CreateUSBAsync(System.String,System.String,System.String)">
+            <summary>
+            Initiates USB creation with the specified parameters.
+            </summary>
+            <param name="deviceName">The name for the USB device.</param>
+            <param name="targetDisk">The target removable drive path.</param>
+            <param name="profile">The profile to use (Gamer, Developer, AI Research, Secure, Enterprise).</param>
+            <returns>A task representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.SimpleUSBWizard.EnableAdvancedMode">
+            <summary>
+            Enables advanced mode when Ctrl+Shift+A is pressed.
+            This provides access to additional configuration options.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.SimpleUSBWizard.DisableAdvancedMode">
+            <summary>
+            Disables advanced mode.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.SimpleUSBWizard.IsAdvancedModeEnabled">
+            <summary>
+            Gets whether advanced mode is currently enabled.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.SimpleUSBWizard.GetAdvancedOptions">
+            <summary>
+            Gets extended configuration options (only available in advanced mode).
+            </summary>
+            <returns>Dictionary of advanced options with default values.</returns>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.USBCreationRequest">
+            <summary>
+            Represents a USB creation request.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBCreationRequest.DeviceName">
+            <summary>
+            Gets or sets the device name.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBCreationRequest.TargetDisk">
+            <summary>
+            Gets or sets the target disk path.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBCreationRequest.Profile">
+            <summary>
+            Gets or sets the creation profile.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBCreationRequest.AdvancedModeEnabled">
+            <summary>
+            Gets or sets whether advanced mode is enabled.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBCreationRequest.AdvancedOptions">
+            <summary>
+            Gets or sets advanced configuration options.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.IUSBCreationOrchestrator">
+            <summary>
+            Interface for USB creation orchestration.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.IUSBCreationOrchestrator.QueueUSBCreationAsync(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Queues a USB creation request for processing.
+            </summary>
+            <param name="request">The USB creation request.</param>
+            <returns>A task representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.IUSBCreationOrchestrator.GetQueueStatus">
+            <summary>
+            Gets the current queue status.
+            </summary>
+            <returns>The queue status.</returns>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.QueueStatus">
+            <summary>
+            Represents the status of the USB creation queue.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.QueueStatus.QueuedItems">
+            <summary>
+            Gets or sets the number of items in the queue.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.QueueStatus.BuildingItems">
+            <summary>
+            Gets or sets the currently building item count.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.QueueStatus.EstimatedSeconds">
+            <summary>
+            Gets or sets the estimated time to completion in seconds.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.QueueStatus.LastCompletedItem">
+            <summary>
+            Gets or sets the last completed item.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.USBCreationOrchestrator">
+            <summary>
+            Orchestrates USB creation by hiding complexity behind a clean interface.
+            Handles partition sizing, driver loading, boot configuration, and profile-specific customization.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.#ctor(Microsoft.Extensions.Logging.ILogger{MonadoBlade.Boot.Services.USBCreationOrchestrator})">
+            <summary>
+            Initializes a new instance of the USBCreationOrchestrator class.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.QueueUSBCreationAsync(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Queues a USB creation request for processing.
+            Requests are prioritized: Secure > Enterprise > Gamer > Developer > AI Research.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.GetQueueStatus">
+            <summary>
+            Gets the current queue status.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.ProcessQueueAsync">
+            <summary>
+            Processes the queue sequentially.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.BuildUSBImageAsync(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Builds the USB image with hidden complexity orchestration.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.GetPartitionConfiguration(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Gets partition configuration for the profile.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.GetProfileComponents(System.String)">
+            <summary>
+            Gets components to load for a profile.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.ConfigureBootLoader(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Configures the boot loader based on profile requirements.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.ApplyProfileCustomizationAsync(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Applies profile-specific customizations (simulated).
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.WriteToTargetDiskAsync(System.String)">
+            <summary>
+            Writes the configured USB image to the target disk.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBCreationOrchestrator.GetEstimatedBuildTime(MonadoBlade.Boot.Services.USBCreationRequest)">
+            <summary>
+            Estimates build time for a request in seconds.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.USBImageCache">
+            <summary>
+            LRU (Least Recently Used) cache implementation for USB images.
+            Maintains a maximum size limit of 50GB with automatic eviction.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.USBImageCache.CacheEntry">
+            <summary>
+            Represents a cache entry with metadata.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBImageCache.CacheEntry.ImageData">
+            <summary>
+            Gets or sets the cached image data.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBImageCache.CacheEntry.CreatedAt">
+            <summary>
+            Gets or sets when the entry was created.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBImageCache.CacheEntry.LastAccessedAt">
+            <summary>
+            Gets or sets when the entry was last accessed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBImageCache.CacheEntry.AccessCount">
+            <summary>
+            Gets or sets the access count.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.USBImageCache.CacheEntry.SizeBytes">
+            <summary>
+            Gets the size in bytes.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBImageCache.#ctor(Microsoft.Extensions.Logging.ILogger{MonadoBlade.Boot.Services.USBImageCache})">
+            <summary>
+            Initializes a new instance of the USBImageCache class.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBImageCache.TryGetImage(System.String,System.Byte[]@)">
+            <summary>
+            Tries to get a cached USB image.
+            Updates LRU order and access metadata.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBImageCache.StoreImage(System.String,System.Byte[])">
+            <summary>
+            Stores a USB image in the cache.
+            Evicts LRU entries if necessary to maintain size limit.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBImageCache.GetStatistics">
+            <summary>
+            Gets cache statistics.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBImageCache.Clear">
+            <summary>
+            Clears the cache.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBImageCache.GetCacheContents">
+            <summary>
+            Gets detailed cache contents (for diagnostics).
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.Services.USBImageCache.EvictLRUEntry">
+            <summary>
+            Evicts the least recently used entry.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.Services.CacheEntryInfo">
+            <summary>
+            Information about a cache entry.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheEntryInfo.Key">
+            <summary>
+            Gets or sets the cache key.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheEntryInfo.SizeBytes">
+            <summary>
+            Gets or sets the size in bytes.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheEntryInfo.CreatedAt">
+            <summary>
+            Gets or sets the creation time.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheEntryInfo.LastAccessedAt">
+            <summary>
+            Gets or sets the last access time.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.Services.CacheEntryInfo.AccessCount">
+            <summary>
+            Gets or sets the access count.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.InstallationTask">
+            <summary>
+            Represents a single installation task.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.InstallationTaskResult">
+            <summary>
+            Installation task result with status and logs.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.SilentInstallationManager">
+            <summary>
+            Manages silent installations with logging and retry logic.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SilentInstallationManager.ExecuteInstallationAsync(MonadoBlade.Boot.InstallationTask,System.Threading.CancellationToken)">
+            <summary>
+            Executes a single installation task with automatic retries.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SilentInstallationManager.ExecuteProcessAsync(MonadoBlade.Boot.InstallationTask,System.Threading.CancellationToken)">
+            <summary>
+            Executes an installer process silently and captures output.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SilentInstallationManager.DetermineSuccess(MonadoBlade.Boot.InstallationTask,System.String)">
+            <summary>
+            Determines if installation succeeded based on output and success indicators.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SilentInstallationManager.LogTaskResult(MonadoBlade.Boot.InstallationTaskResult,MonadoBlade.Boot.InstallationTask)">
+            <summary>
+            Logs task result to both logger and file.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SilentInstallationManager.ExportReport">
+            <summary>
+            Exports all task results to a comprehensive installation report.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SilentInstallationManager.GetLogDirectoryPath">
+            <summary>
+            Gets the path to all installation logs.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SilentInstallationManager.GetTaskResults">
+            <summary>
+            Gets all logged task results.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.PreflightCheckResult">
+            <summary>
+            Represents the result of a single pre-flight check.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.PreflightResult">
+            <summary>
+            Complete result of all pre-flight checks.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.PreflightResult.AllChecksPassed">
+            <summary>
+            Whether all checks passed successfully.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.PreflightResult.TotalChecks">
+            <summary>
+            Total number of checks performed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.PreflightResult.PassedChecks">
+            <summary>
+            Number of checks that passed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.PreflightResult.ElapsedTime">
+            <summary>
+            Total elapsed time for all checks.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Boot.PreflightResult.Results">
+            <summary>
+            List of individual check results.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Boot.SystemPreflightChecker">
+            <summary>
+            Performs comprehensive system pre-flight checks before the wizard starts.
+            Ensures all required conditions are met for a smooth installation experience.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.#ctor(Serilog.ILogger)">
+            <summary>
+            Initializes a new instance of the SystemPreflightChecker class.
+            </summary>
+            <param name="logger">Optional logger instance for diagnostic output.</param>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.RunChecksAsync">
+            <summary>
+            Runs all pre-flight checks with a timeout.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.CheckNetworkConnectivityAsync">
+            <summary>
+            Checks network connectivity via DNS and ICMP ping.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.CheckDiskSpaceAsync">
+            <summary>
+            Checks available disk space (minimum 100GB required).
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.CheckAdminPermissions">
+            <summary>
+            Checks if running with administrator privileges.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.CheckUsbPortsAsync">
+            <summary>
+            Checks for available USB 3.0 ports.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.GetUsbPortCountAsync">
+            <summary>
+            Gets the count of available USB ports asynchronously.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.CheckBitLockerStatus">
+            <summary>
+            Checks BitLocker status and warns if enabled.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.CheckAntivirusExclusionsAsync">
+            <summary>
+            Checks antivirus exclusions for installation directory.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.CheckFirewallRulesAsync">
+            <summary>
+            Checks firewall rules allow setup traffic.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.LogResults(MonadoBlade.Boot.PreflightResult)">
+            <summary>
+            Logs the results of all pre-flight checks.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Boot.SystemPreflightChecker.Dispose">
+            <summary>
+            Disposes resources used by the checker.
+            </summary>
+        </member>
+    </members>
+</doc>

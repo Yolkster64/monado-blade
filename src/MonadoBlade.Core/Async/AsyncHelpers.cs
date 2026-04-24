@@ -149,10 +149,11 @@ public class AsyncThrottler
     private readonly SemaphoreSlim _semaphore;
     private readonly int _maxConcurrency;
 
-    public AsyncThrottler(int maxConcurrency = Environment.ProcessorCount)
+    public AsyncThrottler(int? maxConcurrency = null)
     {
-        _maxConcurrency = maxConcurrency > 0 ? maxConcurrency : throw new ArgumentException("Max concurrency must be positive");
-        _semaphore = new SemaphoreSlim(maxConcurrency, maxConcurrency);
+        var concurrency = maxConcurrency ?? Environment.ProcessorCount;
+        _maxConcurrency = concurrency > 0 ? concurrency : throw new ArgumentException("Max concurrency must be positive");
+        _semaphore = new SemaphoreSlim(_maxConcurrency, _maxConcurrency);
     }
 
     /// <summary>

@@ -1,0 +1,12 @@
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MonadoBlade.GUI.csproj.AssemblyReference.cache
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MainWindow.baml
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MainWindow.g.cs
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\App.g.cs
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MonadoBlade_MarkupCompile.cache
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\Themes\MonadoLight.baml
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MonadoBlade.g.resources
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MonadoBlade.GUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MonadoBlade.GUI.AssemblyInfoInputs.cache
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MonadoBlade.GUI.AssemblyInfo.cs
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MonadoBlade.GUI.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.GUI\obj\Release\net8.0-windows\MonadoBlade.GUI.sourcelink.json

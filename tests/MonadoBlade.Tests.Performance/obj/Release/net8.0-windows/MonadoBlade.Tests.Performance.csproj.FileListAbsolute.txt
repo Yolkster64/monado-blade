@@ -1,0 +1,6 @@
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Performance\obj\Release\net8.0-windows\MonadoBlade.Tests.Performance.csproj.AssemblyReference.cache
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Performance\obj\Release\net8.0-windows\MonadoBlade.Tests.Performance.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Performance\obj\Release\net8.0-windows\MonadoBlade.Tests.Performance.AssemblyInfoInputs.cache
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Performance\obj\Release\net8.0-windows\MonadoBlade.Tests.Performance.AssemblyInfo.cs
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Performance\obj\Release\net8.0-windows\MonadoBlade.Tests.Performance.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\MonadoBlade\tests\MonadoBlade.Tests.Performance\obj\Release\net8.0-windows\MonadoBlade.Tests.Performance.sourcelink.json

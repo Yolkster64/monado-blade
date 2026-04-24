@@ -8,7 +8,7 @@ using System.Collections.Concurrent;
 /// <summary>
 /// High-performance plugin service with lock-free collections and optimizations.
 /// </summary>
-public class PluginService : ServiceBase, IPluginService, ILifecycleService
+public class PluginService : ServiceBase, ILifecycleService
 {
     private readonly LockFreeRegistry _registry;
     private readonly IntelligentCache _cache;

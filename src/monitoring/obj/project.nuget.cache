@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "e1FFJKwjWgs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ADMIN\\MonadoBlade\\src\\monitoring\\MonadoBlade.Monitoring.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ADMIN\\.nuget\\packages\\system.diagnostics.diagnosticsource\\8.0.0\\system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

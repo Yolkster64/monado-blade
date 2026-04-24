@@ -4,3 +4,12 @@ C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\MonadoBlade.C
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\MonadoBlade.Core.AssemblyInfo.cs
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\MonadoBlade.Core.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\MonadoBlade.Core.sourcelink.json
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\bin\Release\net8.0\MonadoBlade.Core.deps.json
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\bin\Release\net8.0\MonadoBlade.Core.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\bin\Release\net8.0\MonadoBlade.Core.pdb
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\bin\Release\net8.0\MonadoBlade.Core.xml
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\MonadoBlade.Core.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\refint\MonadoBlade.Core.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\MonadoBlade.Core.xml
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\MonadoBlade.Core.pdb
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Release\net8.0\ref\MonadoBlade.Core.dll

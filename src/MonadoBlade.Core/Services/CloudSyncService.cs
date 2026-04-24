@@ -10,7 +10,7 @@ using System.Diagnostics;
 /// High-performance cloud synchronization service with integrated optimizations.
 /// Features: String interning, intelligent caching, lock-free collections.
 /// </summary>
-public class CloudSyncService : ServiceBase, ICloudSyncService, ILifecycleService
+public class CloudSyncService : ServiceBase, ILifecycleService
 {
     private readonly IntelligentCache _cache;
     private readonly ConcurrentDictionary<string, SyncStatus> _syncStatuses;

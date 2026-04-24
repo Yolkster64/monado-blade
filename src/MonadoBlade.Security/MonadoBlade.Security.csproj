@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Serilog" Version="4.1.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="4.8.0" />
   </ItemGroup>
 
 </Project>
