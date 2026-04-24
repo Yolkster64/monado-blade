@@ -16,3 +16,4 @@ C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Audio\obj\Debug\net8.0\refint\MonadoB
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Audio\obj\Debug\net8.0\MonadoBlade.Audio.xml
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Audio\obj\Debug\net8.0\MonadoBlade.Audio.pdb
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Audio\obj\Debug\net8.0\ref\MonadoBlade.Audio.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Audio\obj\Debug\net8.0\MonadoBlade.Audio.sourcelink.json

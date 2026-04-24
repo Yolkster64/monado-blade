@@ -16,3 +16,4 @@ C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Developer\obj\Debug\net8.0\refint\Mon
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Developer\obj\Debug\net8.0\MonadoBlade.Developer.xml
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Developer\obj\Debug\net8.0\MonadoBlade.Developer.pdb
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Developer\obj\Debug\net8.0\ref\MonadoBlade.Developer.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Developer\obj\Debug\net8.0\MonadoBlade.Developer.sourcelink.json

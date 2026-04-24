@@ -16,3 +16,4 @@ C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Graphics\obj\Debug\net8.0-windows\ref
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Graphics\obj\Debug\net8.0-windows\MonadoBlade.Graphics.xml
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Graphics\obj\Debug\net8.0-windows\MonadoBlade.Graphics.pdb
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Graphics\obj\Debug\net8.0-windows\ref\MonadoBlade.Graphics.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Graphics\obj\Debug\net8.0-windows\MonadoBlade.Graphics.sourcelink.json

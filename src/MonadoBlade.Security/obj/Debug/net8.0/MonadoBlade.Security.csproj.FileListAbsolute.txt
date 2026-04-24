@@ -16,3 +16,4 @@ C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Security\obj\Debug\net8.0\refint\Mona
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Security\obj\Debug\net8.0\MonadoBlade.Security.xml
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Security\obj\Debug\net8.0\MonadoBlade.Security.pdb
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Security\obj\Debug\net8.0\ref\MonadoBlade.Security.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Security\obj\Debug\net8.0\MonadoBlade.Security.sourcelink.json

@@ -12,3 +12,4 @@ C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\refint\MonadoBl
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.xml
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.pdb
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\ref\MonadoBlade.Core.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.sourcelink.json

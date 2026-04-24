@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MonadoBlade.Audio")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d29375303a1cb9da5aa347967de41c1063d4be62")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4966718db39442685bc36a62151815ec1c25c7a6")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonadoBlade.Audio")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonadoBlade.Audio")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
