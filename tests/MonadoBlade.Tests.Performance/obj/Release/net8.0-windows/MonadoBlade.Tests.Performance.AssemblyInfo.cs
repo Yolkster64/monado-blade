@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MonadoBlade.Tests.Performance")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08412be8498f918ad04b1aa4f09fcc146dbe790c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b91a9809428916c2285fb4e862f42d4885f126d")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonadoBlade.Tests.Performance")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonadoBlade.Tests.Performance")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

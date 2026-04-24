@@ -713,6 +713,123 @@
             Timer callback for automatic timeout-based flushing.
             </summary>
         </member>
+        <member name="T:MonadoBlade.Core.Concurrency.ThreadSafetyValidation">
+            <summary>
+            Thread-Safety Validation for Lock-Free Collections.
+            
+            This class provides static analysis and verification that lock-free
+            collections maintain thread-safety invariants under concurrent access.
+            </summary>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.ValidateConcurrentQueueFIFO">
+            <summary>
+            Validates that ConcurrentQueue maintains FIFO ordering under concurrent access.
+            </summary>
+            <returns>Validation result with details</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.ValidateConcurrentDictionaryAtomicity">
+            <summary>
+            Validates that ConcurrentDictionary maintains atomicity of Get/Set operations.
+            </summary>
+            <returns>Validation result with details</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.ValidateConcurrentBagIntegrity">
+            <summary>
+            Validates that ConcurrentBag maintains integrity under concurrent operations.
+            </summary>
+            <returns>Validation result with details</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.ValidateNoLostUpdates">
+            <summary>
+            Validates that no lost updates occur under concurrent modification.
+            </summary>
+            <returns>Validation result with details</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.ValidateDeadlockFreedom">
+            <summary>
+            Validates deadlock-free guarantee of lock-free collections.
+            </summary>
+            <returns>Validation result with details</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.ValidateMemoryVisibility">
+            <summary>
+            Validates memory visibility and happens-before relationships.
+            </summary>
+            <returns>Validation result with details</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.ValidateConcurrentEnumeration">
+            <summary>
+            Validates that concurrent enumeration works correctly.
+            </summary>
+            <returns>Validation result with details</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.RunAllValidations">
+            <summary>
+            Runs all validation tests and generates a comprehensive report.
+            </summary>
+            <returns>Overall validation report</returns>
+        </member>
+        <member name="M:MonadoBlade.Core.Concurrency.ThreadSafetyValidation.PrintReport(MonadoBlade.Core.Concurrency.ThreadSafetyReport)">
+            <summary>
+            Prints a comprehensive thread-safety report to console.
+            </summary>
+            <param name="report">The validation report to print</param>
+        </member>
+        <member name="T:MonadoBlade.Core.Concurrency.ValidationResult">
+            <summary>
+            Result of a single validation test.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ValidationResult.Test">
+            <summary>
+            Gets or sets the name of the test.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ValidationResult.IsValid">
+            <summary>
+            Gets or sets whether the test passed.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ValidationResult.Details">
+            <summary>
+            Gets or sets detailed information about the result.
+            </summary>
+        </member>
+        <member name="T:MonadoBlade.Core.Concurrency.ThreadSafetyReport">
+            <summary>
+            Complete thread-safety validation report.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ThreadSafetyReport.ExecutedAt">
+            <summary>
+            Gets or sets when the report was generated.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ThreadSafetyReport.Results">
+            <summary>
+            Gets or sets the validation results.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ThreadSafetyReport.TotalTests">
+            <summary>
+            Gets or sets the total number of tests.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ThreadSafetyReport.PassedTests">
+            <summary>
+            Gets or sets the number of passed tests.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ThreadSafetyReport.FailedTests">
+            <summary>
+            Gets or sets the number of failed tests.
+            </summary>
+        </member>
+        <member name="P:MonadoBlade.Core.Concurrency.ThreadSafetyReport.SuccessRate">
+            <summary>
+            Gets or sets the success rate as a percentage.
+            </summary>
+        </member>
         <member name="T:MonadoBlade.Core.Configuration.ConfigurationExtensions">
             <summary>
             Configures application settings from appsettings.json files.
