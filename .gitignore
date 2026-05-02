@@ -1,5 +1,14 @@
 # Ignore system and log files
+config/
 LogFiles/
+LogFiles/WMI/
+LogFiles/WMI/RtBackup/
+DriverState/
+DriverStore/
+ProximityToast/
+RasToast/
+Tasks/
+helios-platform/
 *.etl
 *.log
 *.tmp
