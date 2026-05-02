@@ -148,6 +148,29 @@ class CircuitBreaker:
 
 class RetryPolicy:
     """Retry policy with exponential backoff"""
+
+# Provider stubs for Azure CLI, Foundry, ccodex
+class AzureCLIProvider:
+    def __init__(self, config: SDKConfig):
+        self.config = config
+    async def inference(self, request):
+        # TODO: Implement Azure CLI integration logic
+        return {"content": "Azure CLI response stub"}
+
+class FoundryProvider:
+    def __init__(self, config: SDKConfig):
+        self.config = config
+    async def inference(self, request):
+        # TODO: Implement Foundry integration logic
+        return {"content": "Foundry response stub"}
+
+class CCodexProvider:
+    def __init__(self, config: SDKConfig):
+        self.config = config
+    async def inference(self, request):
+        # TODO: Implement ccodex integration logic
+        return {"content": "ccodex response stub"}
+
     
     def __init__(
         self,

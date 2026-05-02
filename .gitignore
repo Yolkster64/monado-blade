@@ -1,0 +1,72 @@
+# Ignore system and log files
+LogFiles/
+*.etl
+*.log
+*.tmp
+WMI/
+RtBackup/
+*.dll
+*.exe
+*.sys
+*.bin
+*.dat
+*.pdb
+*.obj
+*.cache
+*.msi
+*.cab
+*.iso
+*.vhd
+*.wim
+*.bak
+*.old
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+$RECYCLE.BIN/
+System Volume Information/
+
+# Ignore build artifacts
+obj/
+bin/
+*.user
+*.suo
+*.vs/
+*.ncb
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore C# build files
+*.csproj.user
+*.csproj.vspscc
+*.vssscc
+*.sln.docstates
+
+# Ignore node_modules
+node_modules/
+
+# Ignore test output
+TestResults/
+*.trx
+*.coverage
+*.testsettings
+*.vsmdi
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.cachefile
+
+# Ignore other OS files
+ehthumbs.db
+Icon?
+Desktop.ini

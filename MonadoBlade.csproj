@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>MonadoBlade</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="src\Core\MonadoBlade.Core.csproj" />
+    <ProjectReference Include="src\Tracks\A_AIHub\MonadoBlade.AIHub.csproj" />
+    <ProjectReference Include="src\Tracks\B_CrossPartitionSDK\MonadoBlade.SDK.csproj" />
+    <ProjectReference Include="src\Security\MonadoBlade.Security.csproj" />
+  </ItemGroup>
+</Project>

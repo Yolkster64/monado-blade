@@ -112,6 +112,64 @@ public class LLMCompleteResponse
     public string StopReason { get; set; } = "end_turn";
 }
 
+// Provider stubs for Azure CLI, Foundry, ccodex
+public class AzureCLIProvider : BaseAIProviderService
+{
+    public override AIProviderCapabilities Capabilities { get; } = new(
+        SupportedModels: new[] { "azure-openai", "azure-resource-manager" },
+        MaxInputTokens: 64000,
+        MaxOutputTokens: 2048,
+        SupportsStreaming: true,
+        SupportsFunctionCalling: true,
+        SupportsVision: false);
+
+    public AzureCLIProvider(IServiceContext context) : base(context, "AzureCLI") { }
+
+    protected override Task<Result<AIInferenceResult>> OnInferenceAsync(AIInferenceRequest request, CancellationToken ct)
+    {
+        // TODO: Implement Azure CLI integration logic
+        return Task.FromResult(new AIInferenceResult(Content: "Azure CLI response stub").ToSuccess());
+    }
+}
+
+public class FoundryProvider : BaseAIProviderService
+{
+    public override AIProviderCapabilities Capabilities { get; } = new(
+        SupportedModels: new[] { "foundry-smart-contract" },
+        MaxInputTokens: 32000,
+        MaxOutputTokens: 1024,
+        SupportsStreaming: false,
+        SupportsFunctionCalling: true,
+        SupportsVision: false);
+
+    public FoundryProvider(IServiceContext context) : base(context, "Foundry") { }
+
+    protected override Task<Result<AIInferenceResult>> OnInferenceAsync(AIInferenceRequest request, CancellationToken ct)
+    {
+        // TODO: Implement Foundry integration logic
+        return Task.FromResult(new AIInferenceResult(Content: "Foundry response stub").ToSuccess());
+    }
+}
+
+public class CCodexProvider : BaseAIProviderService
+{
+    public override AIProviderCapabilities Capabilities { get; } = new(
+        SupportedModels: new[] { "ccodex-search", "ccodex-docs" },
+        MaxInputTokens: 16000,
+        MaxOutputTokens: 1024,
+        SupportsStreaming: false,
+        SupportsFunctionCalling: false,
+        SupportsVision: false);
+
+    public CCodexProvider(IServiceContext context) : base(context, "CCodex") { }
+
+    protected override Task<Result<AIInferenceResult>> OnInferenceAsync(AIInferenceRequest request, CancellationToken ct)
+    {
+        // TODO: Implement ccodex integration logic
+        return Task.FromResult(new AIInferenceResult(Content: "ccodex response stub").ToSuccess());
+    }
+}
+
 /// <summary>Task execution models</summary>
 public class DistributedTask
 {

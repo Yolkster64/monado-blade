@@ -166,7 +166,7 @@ namespace MonadoBlade.Core.Security
                     result.Confidence += 40;
                 }
 
-                if (DetectEarlyBoot Hooks())
+                if (DetectEarlyBootHooks())
                 {
                     suspiciousPatterns.Add("Early boot hooks detected");
                     result.Confidence += 35;
@@ -278,10 +278,10 @@ namespace MonadoBlade.Core.Security
                 using (var cipher = aes.CreateEncryptor())
                 {
                     var encrypted = cipher.TransformFinalBlock(data, 0, data.Length);
-                    var sealed = new byte[aes.IV.Length + encrypted.Length];
-                    Buffer.BlockCopy(aes.IV, 0, sealed, 0, aes.IV.Length);
-                    Buffer.BlockCopy(encrypted, 0, sealed, aes.IV.Length, encrypted.Length);
-                    return sealed;
+                    var sealedData = new byte[aes.IV.Length + encrypted.Length];
+Buffer.BlockCopy(aes.IV, 0, sealedData, 0, aes.IV.Length);
+Buffer.BlockCopy(encrypted, 0, sealedData, aes.IV.Length, encrypted.Length);
+return sealedData;
                 }
             }
         }

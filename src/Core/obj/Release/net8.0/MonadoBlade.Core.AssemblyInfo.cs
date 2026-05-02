@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyDescriptionAttribute(("Foundation layer for Monado Blade - enterprise-grade architecture for 4-track par" +
     "allel development"))]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.2.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.2.0+97e2888b96a989e6a5cdc946e20fbdb6df4da65b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.2.0+88068d71311af87ff57e389cf11251b1a7205ac6")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonadoBlade.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonadoBlade.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.2.0.0")]

@@ -148,6 +148,18 @@ public class AIHubService : ServiceComponentBase
     public async Task<Result> RegisterProviderAsync(IAIProvider provider, CancellationToken ct = default)
     {
         ThrowIfNotInitialized();
+        // Register built-in and new providers
+        if (!_providers.ContainsKey(provider.ProviderName))
+            _providers[provider.ProviderName] = provider;
+    }
+
+    // Register new providers for Azure CLI, Foundry, ccodex
+    public async Task RegisterDefaultProvidersAsync(IServiceContext context, CancellationToken ct = default)
+    {
+        await RegisterProviderAsync(new AzureCLIProvider(context), ct);
+        await RegisterProviderAsync(new FoundryProvider(context), ct);
+        await RegisterProviderAsync(new CCodexProvider(context), ct);
+    }
 
         var initResult = await provider.InitializeAsync(_context, ct);
         if (initResult is Result.Failure failure)
