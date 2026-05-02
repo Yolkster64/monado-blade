@@ -8,7 +8,7 @@ using System.Text;
 /// Measures string manipulation, splitting, parsing, and formatting performance.
 /// </summary>
 [MemoryDiagnoser]
-[SimpleJob(warmupCount: 3, targetCount: 5)]
+[SimpleJob]
 public class StringProcessingBenchmarks
 {
     private string _longString = null!;
@@ -173,3 +173,5 @@ public class StringProcessingBenchmarks
         return string.Format("Count: {0}, Time: {1}, Value: {2}", count, DateTime.UtcNow, Math.PI);
     }
 }
+
+

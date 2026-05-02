@@ -1,0 +1,25 @@
+<UserControl x:Class="MonadoBlade.UI.Components.Containers.Modal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+    <Grid>
+        <Rectangle Fill="#00000080" Opacity="0.5"/>
+        <Border Background="{DynamicResource SurfaceBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Width="600"
+                Height="400"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <StackPanel>
+                <TextBlock Text="Modal Dialog" Style="{DynamicResource TextH2}" Margin="24"/>
+                <TextBlock Text="This is a modal dialog with overlay backdrop." Style="{DynamicResource TextBody}" Margin="24,0,24,24" TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                <StackPanel Orientation="Horizontal" Margin="24,24" VerticalAlignment="Bottom">
+                    <Button Content="Confirm" Style="{DynamicResource ButtonPrimary}" Margin="0,0,8,0"/>
+                    <Button Content="Cancel" Style="{DynamicResource ButtonSecondary}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

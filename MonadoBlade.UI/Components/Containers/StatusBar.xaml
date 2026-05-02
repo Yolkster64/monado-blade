@@ -1,0 +1,15 @@
+<UserControl x:Class="MonadoBlade.UI.Components.Containers.StatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource SurfaceBrush}"
+             Height="32">
+    <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0">
+        <StackPanel Orientation="Horizontal" Margin="16,0" VerticalAlignment="Center">
+            <TextBlock Text="✓ Ready" Foreground="{DynamicResource SuccessBrush}" Style="{DynamicResource TextSmall}" Margin="0,0,16,0"/>
+            <TextBlock Text="Last updated: Just now" Foreground="{DynamicResource TextSecondaryBrush}" Style="{DynamicResource TextSmall}"/>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="0">
+                <TextBlock Text="Items: 42 | Memory: 256MB" Foreground="{DynamicResource TextSecondaryBrush}" Style="{DynamicResource TextSmall}"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

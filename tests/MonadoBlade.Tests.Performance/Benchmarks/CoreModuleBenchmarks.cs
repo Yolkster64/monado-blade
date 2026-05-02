@@ -12,7 +12,7 @@ using ConfigExt = MonadoBlade.Core.Configuration.ConfigurationExtensions;
 /// Measures performance of DI container, configuration, and service resolution.
 /// </summary>
 [MemoryDiagnoser]
-[SimpleJob(warmupCount: 3, targetCount: 5)]
+[SimpleJob]
 [ThreadingDiagnoser]
 public class CoreModuleBenchmarks
 {
@@ -122,3 +122,4 @@ public class CoreModuleBenchmarks
         return count;
     }
 }
+

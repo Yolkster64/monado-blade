@@ -2,14 +2,13 @@ namespace MonadoBlade.Tests.Performance.Benchmarks;
 
 using BenchmarkDotNet.Attributes;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 
 /// <summary>
 /// Benchmarks for logging overhead.
 /// Measures performance impact of different logging configurations and patterns.
 /// </summary>
 [MemoryDiagnoser]
-[SimpleJob(warmupCount: 3, targetCount: 5)]
+[SimpleJob]
 public class LoggingOverheadBenchmarks
 {
     private ILogger _logger = null!;
@@ -115,3 +114,4 @@ public class LoggingOverheadBenchmarks
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) { }
     }
 }
+

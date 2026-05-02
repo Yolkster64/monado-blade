@@ -1,0 +1,24 @@
+{
+  "drivers": [
+    {
+      "category": "GPU",
+      "vendor": "NVIDIA/AMD",
+      "url_or_notes": "Fill in vendor download page"
+    },
+    {
+      "category": "Chipset",
+      "vendor": "OEM/Intel/AMD",
+      "url_or_notes": "Fill in vendor download page"
+    },
+    {
+      "category": "Network",
+      "vendor": "OEM/Intel/Killer/Realtek",
+      "url_or_notes": "Fill in vendor download page"
+    },
+    {
+      "category": "Audio",
+      "vendor": "OEM/interface vendor",
+      "url_or_notes": "Fill in vendor download page"
+    }
+  ]
+}

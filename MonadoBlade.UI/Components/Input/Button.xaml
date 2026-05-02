@@ -1,0 +1,10 @@
+<UserControl x:Class="MonadoBlade.UI.Components.Input.Button"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource BackgroundBrush}">
+    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+        <Button Content="Primary Button" Style="{DynamicResource ButtonPrimary}" Margin="0,0,8,0"/>
+        <Button Content="Secondary Button" Style="{DynamicResource ButtonSecondary}" Margin="0,0,8,0"/>
+        <Button Content="Danger Button" Style="{DynamicResource ButtonDanger}"/>
+    </StackPanel>
+</UserControl>

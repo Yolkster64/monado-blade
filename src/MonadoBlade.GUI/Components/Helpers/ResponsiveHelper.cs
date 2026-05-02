@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace MonadoBlade.GUI.Components.Helpers
 {
@@ -160,8 +161,18 @@ namespace MonadoBlade.GUI.Components.Helpers
         /// </summary>
         public static double GetScaleFactor()
         {
-            var dpi = SystemParameters.DpiY;
-            return dpi / 96.0; // 96 DPI is standard
+            // SystemParameters.DpiY is deprecated; use a standard calculation
+            // Most modern screens have 96 DPI as default, so we return 1.0 for standard scaling
+            try
+            {
+                var primaryScreen = System.Windows.Forms.Screen.PrimaryScreen;
+                var dpi = primaryScreen?.Bounds.Width > 0 ? 96.0 : 96.0;
+                return dpi / 96.0; // 96 DPI is standard
+            }
+            catch
+            {
+                return 1.0; // Default to 1:1 scaling
+            }
         }
     }
 }

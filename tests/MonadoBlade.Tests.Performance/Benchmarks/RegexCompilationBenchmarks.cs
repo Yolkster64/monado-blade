@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 /// Measures the performance impact of compiled vs non-compiled regex patterns.
 /// </summary>
 [MemoryDiagnoser]
-[SimpleJob(warmupCount: 3, targetCount: 5)]
+[SimpleJob]
 public class RegexCompilationBenchmarks
 {
     private const string EmailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
@@ -160,3 +160,5 @@ public class RegexCompilationBenchmarks
         return _urlCompiledRegex.Split("url1|url2|url3|url4|url5");
     }
 }
+
+

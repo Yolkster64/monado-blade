@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using MonadoBlade.Core.SystemIntegration;
 
 namespace MonadoBlade.GUI.Dashboard

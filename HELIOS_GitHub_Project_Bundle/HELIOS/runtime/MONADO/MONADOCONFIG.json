@@ -1,0 +1,31 @@
+{
+  "machineName": "HELIOS-01",
+  "profiles": {
+    "SYSADMIN": true,
+    "OPSADMIN": true,
+    "WORKCORE": true,
+    "PERSONAL": true,
+    "MEDIA": true,
+    "DEV": true,
+    "GAMING": true,
+    "MUSIC": true,
+    "AUTOMATIONNODE": true,
+    "SANDBOXONLY": true
+  },
+  "letters": {
+    "CORE": "C:",
+    "DEVDRIVE": "P:",
+    "COMMON": "D:",
+    "CROSS": "X:",
+    "VAULT": "V:",
+    "GAMES": "E:",
+    "MUSICSTUDIO": "M:",
+    "WORK": "W:",
+    "MEDIA": "B:",
+    "SERVERNODE": "S:",
+    "CLEANOUT": "T:"
+  },
+  "securityMode": "Strict",
+  "devDriveEnabled": true,
+  "createHelperVault": true
+}

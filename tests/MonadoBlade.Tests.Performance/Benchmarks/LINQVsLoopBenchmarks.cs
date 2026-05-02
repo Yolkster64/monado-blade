@@ -7,7 +7,7 @@ using BenchmarkDotNet.Attributes;
 /// Validates optimization choices in collection processing.
 /// </summary>
 [MemoryDiagnoser]
-[SimpleJob(warmupCount: 3, targetCount: 5)]
+[SimpleJob]
 public class LINQVsLoopBenchmarks
 {
     private int[] _data = null!;
@@ -132,3 +132,5 @@ public class LINQVsLoopBenchmarks
         return System.Array.FindAll(_data, x => x > 5000);
     }
 }
+
+

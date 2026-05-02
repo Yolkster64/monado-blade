@@ -1,6 +1,15 @@
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\bin\Debug\net8.0\MonadoBlade.Core.deps.json
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\bin\Debug\net8.0\MonadoBlade.Core.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\bin\Debug\net8.0\MonadoBlade.Core.pdb
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\bin\Debug\net8.0\MonadoBlade.Core.xml
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.csproj.AssemblyReference.cache
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.AssemblyInfoInputs.cache
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.AssemblyInfo.cs
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.sourcelink.json
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\refint\MonadoBlade.Core.dll
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.xml
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\MonadoBlade.Core.pdb
+C:\Users\ADMIN\MonadoBlade\src\MonadoBlade.Core\obj\Debug\net8.0\ref\MonadoBlade.Core.dll

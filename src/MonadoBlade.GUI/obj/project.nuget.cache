@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UU16BvTNFQ0=",
+  "dgSpecHash": "4inuRjhjDvE=",
   "success": true,
   "projectFilePath": "C:\\Users\\ADMIN\\MonadoBlade\\src\\MonadoBlade.GUI\\MonadoBlade.GUI.csproj",
   "expectedPackageFiles": [
@@ -65,9 +65,12 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.buffers\\4.3.0\\system.buffers.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.3.0\\system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\system.diagnostics.eventlog\\8.0.0\\system.diagnostics.eventlog.8.0.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\system.diagnostics.performancecounter\\8.0.0\\system.diagnostics.performancecounter.8.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.diagnostics.tools\\4.3.0\\system.diagnostics.tools.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.diagnostics.tracing\\4.3.0\\system.diagnostics.tracing.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.globalization\\4.3.0\\system.globalization.4.3.0.nupkg.sha512",
@@ -105,7 +108,7 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.encoding\\4.3.0\\system.security.cryptography.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.openssl\\4.3.0\\system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.primitives\\4.3.0\\system.security.cryptography.primitives.4.3.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.protecteddata\\5.0.0\\system.security.cryptography.protecteddata.5.0.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.cryptography.x509certificates\\4.3.0\\system.security.cryptography.x509certificates.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
@@ -120,18 +123,5 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "message": "MonadoBlade.Security depends on System.Security.Cryptography.ProtectedData (>= 4.8.0) but System.Security.Cryptography.ProtectedData 4.8.0 was not found. System.Security.Cryptography.ProtectedData 5.0.0 was resolved instead.",
-      "projectPath": "C:\\Users\\ADMIN\\MonadoBlade\\src\\MonadoBlade.GUI\\MonadoBlade.GUI.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\ADMIN\\MonadoBlade\\src\\MonadoBlade.GUI\\MonadoBlade.GUI.csproj",
-      "libraryId": "System.Security.Cryptography.ProtectedData",
-      "targetGraphs": [
-        "net8.0-windows"
-      ]
-    }
-  ]
+  "logs": []
 }

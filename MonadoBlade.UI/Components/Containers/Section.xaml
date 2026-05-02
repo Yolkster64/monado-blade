@@ -1,0 +1,19 @@
+<UserControl x:Class="MonadoBlade.UI.Components.Containers.Section"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource BackgroundBrush}">
+    <Expander Background="{DynamicResource SurfaceBrush}"
+              Foreground="{DynamicResource TextBrush}"
+              BorderBrush="{DynamicResource BorderBrush}"
+              BorderThickness="1"
+              IsExpanded="True"
+              Margin="0,0,0,16">
+        <Expander.Header>
+            <TextBlock Text="Collapsible Section" Style="{DynamicResource TextH3}"/>
+        </Expander.Header>
+        <StackPanel Margin="16">
+            <TextBlock Text="This section can be collapsed and expanded." Style="{DynamicResource TextBody}" TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}"/>
+            <TextBlock Text="Content is hidden when collapsed to save space." Style="{DynamicResource TextBody}" TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,8,0,0"/>
+        </StackPanel>
+    </Expander>
+</UserControl>

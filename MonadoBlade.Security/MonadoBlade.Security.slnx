@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MonadoBlade.Security.Tests/MonadoBlade.Security.Tests.csproj" />
+  <Project Path="MonadoBlade.Security/MonadoBlade.Security.csproj" />
+</Solution>

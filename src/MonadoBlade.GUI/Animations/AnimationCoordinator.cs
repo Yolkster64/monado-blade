@@ -129,7 +129,7 @@ namespace MonadoBlade.GUI.Animations
                 Duration = new Duration(Durations.Slow),
                 AutoReverse = true,
                 RepeatBehavior = RepeatBehavior.Forever,
-                EasingFunction = new SineEase { EasingMode = EasingMode.InOut }
+                EasingFunction = new SineEase { EasingMode = EasingMode.EaseInOut }
             };
 
             Storyboard.SetTarget(animation, element);
@@ -178,7 +178,7 @@ namespace MonadoBlade.GUI.Animations
                 From = 0,
                 To = 360,
                 Duration = new Duration(TimeSpan.FromSeconds(1)),
-                EasingFunction = new LinearEase()
+                EasingFunction = new PowerEase { Power = 1.0 }
             };
 
             Storyboard.SetTarget(animation, element);

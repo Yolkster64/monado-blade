@@ -17,7 +17,7 @@ using MonadoBlade.Core.Concurrency;
 public class LockContentionBenchmark
 {
     private const int OPERATION_COUNT = 100_000;
-    private const int CONCURRENT_TASKS = Environment.ProcessorCount;
+    private static readonly int CONCURRENT_TASKS = Environment.ProcessorCount;
 
     /// <summary>
     /// Runs all benchmarks and displays results.

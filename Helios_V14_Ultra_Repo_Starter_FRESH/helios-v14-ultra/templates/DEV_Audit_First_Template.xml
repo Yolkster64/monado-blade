@@ -1,0 +1,4 @@
+<AppLockerPolicy Version="1">
+  <RuleCollection Type="Script" EnforcementMode="AuditOnly"/>
+  <RuleCollection Type="Exe" EnforcementMode="AuditOnly"/>
+</AppLockerPolicy>

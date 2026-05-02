@@ -1,0 +1,16 @@
+<UserControl x:Class="MonadoBlade.UI.Components.DataDisplay.DataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource BackgroundBrush}">
+    <Border Style="{DynamicResource CardStyle}">
+        <DataGrid Background="{DynamicResource SurfaceBrush}"
+                  Foreground="{DynamicResource TextBrush}"
+                  BorderBrush="{DynamicResource BorderBrush}"
+                  AlternatingRowBackground="{DynamicResource BackgroundBrush}"
+                  AutoGenerateColumns="True"
+                  RowHeight="36">
+            <!-- Virtualized grid with sorting/filtering support -->
+            <!-- Columns will be bound at runtime -->
+        </DataGrid>
+    </Border>
+</UserControl>

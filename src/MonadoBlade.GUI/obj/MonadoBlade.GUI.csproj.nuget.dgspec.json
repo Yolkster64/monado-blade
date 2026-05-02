@@ -254,6 +254,14 @@
             "Serilog.Sinks.File": {
               "target": "Package",
               "version": "[6.0.0, )"
+            },
+            "System.Diagnostics.PerformanceCounter": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "System.Security.Cryptography.ProtectedData": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
@@ -704,7 +712,7 @@
             },
             "System.Security.Cryptography.ProtectedData": {
               "target": "Package",
-              "version": "[4.8.0, )"
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

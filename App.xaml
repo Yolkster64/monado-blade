@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <![CDATA[<!-- MONADO BLADE v3.4.0 - APPLICATION XAML ROOT -->
 <!-- File: App.xaml -->
 
@@ -48,3 +49,14 @@
 
 </Application>
 ]]>
+=======
+<Application x:Class="MonadoBlade.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MonadoBlade"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
+>>>>>>> 90fcaa527cc75dde4f0b97595a23bbacbc3f49a6

@@ -13,7 +13,7 @@ namespace MonadoBlade.GUI.Animations
     {
         public static class EasingFunctions
         {
-            public static IEasingFunction Linear => new LinearEasingFunction();
+            public static IEasingFunction Linear => new PowerEase { Power = 1.0 };
             public static IEasingFunction EaseInCubic => new CubicEase { EasingMode = EasingMode.EaseIn };
             public static IEasingFunction EaseOutCubic => new CubicEase { EasingMode = EasingMode.EaseOut };
             public static IEasingFunction EaseInOutCubic => new CubicEase { EasingMode = EasingMode.EaseInOut };

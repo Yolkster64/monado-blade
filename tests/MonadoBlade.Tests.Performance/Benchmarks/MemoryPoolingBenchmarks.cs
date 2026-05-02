@@ -8,7 +8,7 @@ using System.Buffers;
 /// Measures the performance improvement from using ArrayPool vs allocating new arrays.
 /// </summary>
 [MemoryDiagnoser]
-[SimpleJob(warmupCount: 3, targetCount: 5)]
+[SimpleJob]
 [ThreadingDiagnoser]
 public class MemoryPoolingBenchmarks
 {
@@ -119,3 +119,5 @@ public class MemoryPoolingBenchmarks
         return total;
     }
 }
+
+

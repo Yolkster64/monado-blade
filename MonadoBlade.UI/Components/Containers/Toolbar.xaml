@@ -1,0 +1,15 @@
+<UserControl x:Class="MonadoBlade.UI.Components.Containers.Toolbar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource SurfaceBrush}"
+             Height="50">
+    <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+        <StackPanel Orientation="Horizontal" Margin="16" VerticalAlignment="Center" Spacing="8">
+            <Button Style="{DynamicResource ButtonSecondary}" Padding="8" ToolTip="Save">💾</Button>
+            <Button Style="{DynamicResource ButtonSecondary}" Padding="8" ToolTip="Undo">↶</Button>
+            <Button Style="{DynamicResource ButtonSecondary}" Padding="8" ToolTip="Redo">↷</Button>
+            <Separator Background="{DynamicResource BorderBrush}" Width="1" Margin="8,0"/>
+            <Button Style="{DynamicResource ButtonPrimary}" Content="Export" Margin="0"/>
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -1,0 +1,22 @@
+<UserControl x:Class="MonadoBlade.UI.Components.Navigation.SidebarNav"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource BackgroundBrush}"
+             Width="200">
+    <Grid>
+        <StackPanel Margin="0">
+            <TextBlock Text="Navigation" Style="{DynamicResource TextH3}" Margin="16"/>
+            <ListBox Background="Transparent" BorderThickness="0">
+                <ListBoxItem Foreground="{DynamicResource PrimaryBrush}">
+                    <TextBlock Text="Dashboard" Style="{DynamicResource TextBody}"/>
+                </ListBoxItem>
+                <ListBoxItem Foreground="{DynamicResource TextBrush}">
+                    <TextBlock Text="Components" Style="{DynamicResource TextBody}"/>
+                </ListBoxItem>
+                <ListBoxItem Foreground="{DynamicResource TextBrush}">
+                    <TextBlock Text="Settings" Style="{DynamicResource TextBody}"/>
+                </ListBoxItem>
+            </ListBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

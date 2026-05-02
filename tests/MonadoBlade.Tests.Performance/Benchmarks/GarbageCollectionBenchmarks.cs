@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// Measures the effectiveness of object pooling and allocation reduction strategies.
 /// </summary>
 [MemoryDiagnoser]
-[SimpleJob(warmupCount: 3, targetCount: 5)]
+[SimpleJob]
 public class GarbageCollectionBenchmarks
 {
     private const int Iterations = 1000;
@@ -176,3 +176,5 @@ public class GarbageCollectionBenchmarks
         return count;
     }
 }
+
+

@@ -1,0 +1,44 @@
+{
+  "core": [
+    {
+      "id": "Bitwarden.Bitwarden",
+      "name": "Bitwarden"
+    },
+    {
+      "id": "Malwarebytes.Malwarebytes",
+      "name": "Malwarebytes"
+    },
+    {
+      "id": "Microsoft.OneDrive",
+      "name": "OneDrive"
+    },
+    {
+      "id": "Google.Drive",
+      "name": "Google Drive"
+    },
+    {
+      "id": "Microsoft.VisualStudioCode",
+      "name": "VS Code"
+    },
+    {
+      "id": "Git.Git",
+      "name": "Git"
+    },
+    {
+      "id": "Docker.DockerDesktop",
+      "name": "Docker Desktop"
+    }
+  ],
+  "optional_gaming": [
+    {
+      "id": "Valve.Steam",
+      "name": "Steam"
+    }
+  ],
+  "optional_dev": [
+    {
+      "id": "GitHub.cli",
+      "name": "GitHub CLI"
+    }
+  ]
+}
