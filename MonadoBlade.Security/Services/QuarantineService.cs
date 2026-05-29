@@ -14,15 +14,21 @@ public class QuarantineService : IQuarantineService
     private readonly Dictionary<string, QuarantineEntry> _quarantineItems = new();
     private readonly string _quarantinePath;
 
-    public QuarantineService(ILogger<QuarantineService> logger, string quarantinePath = @"D:\Monado\Containers\Quarantine")
+    public QuarantineService(ILogger<QuarantineService> logger, string? quarantinePath = null)
     {
         _logger = logger;
-        _quarantinePath = quarantinePath;
+        _quarantinePath = quarantinePath ?? GetDefaultQuarantinePath();
         
         if (!Directory.Exists(_quarantinePath))
         {
             Directory.CreateDirectory(_quarantinePath);
         }
+    }
+
+    private static string GetDefaultQuarantinePath()
+    {
+        string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        return Path.Combine(localAppData, "Monado", "Containers", "Quarantine");
     }
 
     public async Task<QuarantineEntry> QuarantineFileAsync(string filePath, string threatLevel, string reason, CancellationToken cancellationToken = default)

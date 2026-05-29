@@ -1,0 +1,380 @@
+{
+  "inputs": [
+    {
+      "id": "arg0",
+      "type": "promptString",
+      "description": "",
+      "default": ""
+    },
+    {
+      "id": "arg1",
+      "type": "promptString",
+      "description": "",
+      "default": ""
+    },
+    {
+      "id": "arg2",
+      "type": "promptString",
+      "description": "Optional: GitHub token for testing models for free with rate limits.",
+      "default": "",
+      "password": true
+    },
+    {
+      "id": "arg3",
+      "type": "promptString",
+      "description": "Your Azure AI Search endpoint (https://<service>.search.windows.net/). Required for knowledge tools.",
+      "default": ""
+    },
+    {
+      "id": "arg4",
+      "type": "promptString",
+      "description": "API version (defaults to 2025-03-01-preview).",
+      "default": ""
+    },
+    {
+      "id": "arg5",
+      "type": "promptString",
+      "description": "Authentication method: 'service-principal' or 'api-search-key'.",
+      "default": ""
+    },
+    {
+      "id": "arg6",
+      "type": "promptString",
+      "description": "Required if using service-principal auth.",
+      "default": ""
+    },
+    {
+      "id": "arg7",
+      "type": "promptString",
+      "description": "Required if using service-principal auth.",
+      "default": ""
+    },
+    {
+      "id": "arg8",
+      "type": "promptString",
+      "description": "Required if using service-principal auth.",
+      "default": "",
+      "password": true
+    },
+    {
+      "id": "arg9",
+      "type": "promptString",
+      "description": "Required if using api-search-key auth.",
+      "default": "",
+      "password": true
+    },
+    {
+      "id": "arg10",
+      "type": "promptString",
+      "description": "Path to JSONL datasets for evaluation tools.",
+      "default": ""
+    },
+    {
+      "id": "arg11",
+      "type": "promptString",
+      "description": "Endpoint for text-quality evaluators (optional).",
+      "default": ""
+    },
+    {
+      "id": "arg12",
+      "type": "promptString",
+      "description": "API key for the above endpoint (optional).",
+      "default": "",
+      "password": true
+    },
+    {
+      "id": "arg13",
+      "type": "promptString",
+      "description": "Deployment name (e.g., gpt-4o) used by evaluators (optional).",
+      "default": ""
+    },
+    {
+      "id": "arg14",
+      "type": "promptString",
+      "description": "API version for Azure OpenAI (optional).",
+      "default": ""
+    },
+    {
+      "id": "arg15",
+      "type": "promptString",
+      "description": "Azure AI Project endpoint for agent tools (optional).",
+      "default": ""
+    },
+    {
+      "id": "arg16",
+      "type": "promptString",
+      "description": "",
+      "default": ""
+    },
+    {
+      "id": "arg17",
+      "type": "promptString",
+      "description": "Path to a .env file to load (e.g., ${workspaceFolder}/.env).",
+      "default": ""
+    },
+    {
+      "id": "arg18",
+      "type": "promptString",
+      "description": "Azure DevOps organization name (e.g., contoso).",
+      "default": ""
+    },
+    {
+      "id": "arg19",
+      "type": "promptString",
+      "description": "",
+      "default": ""
+    },
+    {
+      "id": "arg20",
+      "type": "promptString",
+      "description": "Repeat to enable specific domains: core, work, work-items, search, test-plans, repositories, wiki, pipelines, advanced-security.",
+      "default": ""
+    },
+    {
+      "id": "arg21",
+      "type": "promptString",
+      "description": "For service principal / WI auth.",
+      "default": ""
+    },
+    {
+      "id": "arg22",
+      "type": "promptString",
+      "description": "Service principal or managed identity client ID.",
+      "default": ""
+    },
+    {
+      "id": "arg23",
+      "type": "promptString",
+      "description": "Service principal client secret.",
+      "default": "",
+      "password": true
+    },
+    {
+      "id": "arg24",
+      "type": "promptString",
+      "description": "Workload Identity token file path.",
+      "default": ""
+    },
+    {
+      "id": "arg25",
+      "type": "promptString",
+      "description": "Optional: sets active subscription.",
+      "default": ""
+    },
+    {
+      "id": "arg26",
+      "type": "promptString",
+      "description": "Set to 'system' to use system-assigned MI.",
+      "default": ""
+    },
+    {
+      "id": "arg27",
+      "type": "promptString",
+      "description": "Apify API token for authentication with Apify platform services. For example 'Bearer <apify-api-token>'",
+      "default": "",
+      "password": true
+    }
+  ],
+  "servers": {
+    "com.wix/mcp": {
+      "type": "http",
+      "url": "https://mcp.wix.com/sse",
+      "internalMetadata": {
+        "description": "A Model Context Protocol server for Wix AI tools",
+        "version": "1.0.2",
+        "repository": "https://github.com/wix/wix-mcp",
+        "displayName": "Wix",
+        "owner_avatar_url": "https://avatars.githubusercontent.com/u/686511?v=4",
+        "updatedDate": "5/12/2026 10:56:08 AM",
+        "registry": "https://api.mcp.github.com/v0.1/servers/",
+        "registryDisplayName": "GitHub MCP Registry",
+        "publisher": "wix",
+        "stargazerCount": "13"
+      }
+    },
+    "io.github.github/github-mcp-server": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "internalMetadata": {
+        "description": "Connect AI assistants to GitHub - manage repos, issues, PRs, and workflows through natural language.",
+        "version": "1.0.4",
+        "repository": "https://github.com/github/github-mcp-server",
+        "displayName": "GitHub",
+        "owner_avatar_url": "https://avatars.githubusercontent.com/u/9919?v=4",
+        "updatedDate": "5/12/2026 10:56:41 AM",
+        "registry": "https://api.mcp.github.com/v0.1/servers/",
+        "registryDisplayName": "GitHub MCP Registry",
+        "publisher": "github",
+        "stargazerCount": "29K"
+      }
+    },
+    "co.axiom/mcp": {
+      "type": "http",
+      "url": "https://mcp.axiom.co/sse",
+      "internalMetadata": {
+        "description": "List datasets, schemas, run APL queries, and use prompts for exploration, anomalies, and monitoring.",
+        "version": "1.0.0",
+        "repository": "https://github.com/axiomhq/mcp",
+        "displayName": "Axiom",
+        "owner_avatar_url": "https://avatars.githubusercontent.com/u/21122348?v=4",
+        "updatedDate": "5/12/2026 10:55:36 AM",
+        "registry": "https://api.mcp.github.com/v0.1/servers/",
+        "registryDisplayName": "GitHub MCP Registry",
+        "publisher": "axiomhq",
+        "stargazerCount": "12"
+      }
+    },
+    "microsoft/azure-devops-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@azure-devops/mcp@latest",
+        "${input:arg18}",
+        "-d",
+        "${input:arg19}",
+        "${input:arg20}"
+      ],
+      "internalMetadata": {
+        "description": "Interact with Azure DevOps services like repositories, work items, builds, releases, test plans, and code search.",
+        "version": "1.0.0",
+        "repository": "https://github.com/microsoft/azure-devops-mcp",
+        "displayName": "Azure DevOps",
+        "owner_avatar_url": "https://avatars.githubusercontent.com/u/6154722?v=4",
+        "updatedDate": "1/19/2026 7:18:06 AM",
+        "registry": "https://api.mcp.github.com/v0.1/servers/",
+        "registryDisplayName": "GitHub MCP Registry",
+        "publisher": "microsoft",
+        "stargazerCount": "1K"
+      }
+    },
+    "azure/aks-mcp": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "AZURE_TENANT_ID",
+        "-e",
+        "AZURE_CLIENT_ID",
+        "-e",
+        "AZURE_CLIENT_SECRET",
+        "-e",
+        "AZURE_FEDERATED_TOKEN_FILE",
+        "-e",
+        "AZURE_SUBSCRIPTION_ID",
+        "-e",
+        "AZURE_MANAGED_IDENTITY",
+        "ghcr.io/azure/aks-mcp:latest",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "AZURE_TENANT_ID": "${input:arg21}",
+        "AZURE_CLIENT_ID": "${input:arg22}",
+        "AZURE_CLIENT_SECRET": "${input:arg23}",
+        "AZURE_FEDERATED_TOKEN_FILE": "${input:arg24}",
+        "AZURE_SUBSCRIPTION_ID": "${input:arg25}",
+        "AZURE_MANAGED_IDENTITY": "${input:arg26}"
+      },
+      "internalMetadata": {
+        "description": "Interact with Azure Kubernetes Service (AKS) from MCP clients.",
+        "version": "1.0.0",
+        "repository": "https://github.com/Azure/aks-mcp",
+        "displayName": "Azure Kubernetes Service",
+        "owner_avatar_url": "https://avatars.githubusercontent.com/u/6844498?v=4",
+        "updatedDate": "1/22/2026 1:05:22 PM",
+        "registry": "https://api.mcp.github.com/v0.1/servers/",
+        "registryDisplayName": "GitHub MCP Registry",
+        "publisher": "Azure",
+        "stargazerCount": "132"
+      }
+    },
+    "azure-ai-foundry/mcp-foundry": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--prerelease=allow",
+        "${input:arg0}",
+        "--from",
+        "${input:arg1}",
+        "git+https://github.com/azure-ai-foundry/mcp-foundry.git",
+        "run-azure-ai-foundry-mcp",
+        "--envFile",
+        "${input:arg16}",
+        "${input:arg17}"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${input:arg2}",
+        "AZURE_AI_SEARCH_ENDPOINT": "${input:arg3}",
+        "AZURE_AI_SEARCH_API_VERSION": "${input:arg4}",
+        "SEARCH_AUTHENTICATION_METHOD": "${input:arg5}",
+        "AZURE_TENANT_ID": "${input:arg6}",
+        "AZURE_CLIENT_ID": "${input:arg7}",
+        "AZURE_CLIENT_SECRET": "${input:arg8}",
+        "AZURE_AI_SEARCH_API_KEY": "${input:arg9}",
+        "EVAL_DATA_DIR": "${input:arg10}",
+        "AZURE_OPENAI_ENDPOINT": "${input:arg11}",
+        "AZURE_OPENAI_API_KEY": "${input:arg12}",
+        "AZURE_OPENAI_DEPLOYMENT": "${input:arg13}",
+        "AZURE_OPENAI_API_VERSION": "${input:arg14}",
+        "AZURE_AI_PROJECT_ENDPOINT": "${input:arg15}"
+      },
+      "internalMetadata": {
+        "description": "An experimental MCP server implementation for Azure AI Foundry that exposes unified tools for models, knowledge, evaluation and deployment.",
+        "version": "1.0.0",
+        "repository": "https://github.com/azure-ai-foundry/mcp-foundry",
+        "displayName": "Azure AI Foundry",
+        "owner_avatar_url": "https://avatars.githubusercontent.com/u/202016865?v=4",
+        "updatedDate": "1/19/2026 6:20:49 AM",
+        "registry": "https://api.mcp.github.com/v0.1/servers/",
+        "registryDisplayName": "GitHub MCP Registry",
+        "publisher": "microsoft-foundry",
+        "stargazerCount": "245"
+      }
+    },
+    "com.apify/apify-mcp-server": {
+      "type": "http",
+      "url": "https://mcp.apify.com/",
+      "headers": {
+        "Authorization": "${input:arg27}"
+      },
+      "internalMetadata": {
+        "description": "Extract data from any website with thousands of scrapers, crawlers, and automations on Apify Store ⚡",
+        "version": "0.10.2",
+        "repository": "https://github.com/apify/apify-mcp-server",
+        "displayName": "Apify",
+        "owner_avatar_url": "https://avatars.githubusercontent.com/u/24586296?v=4",
+        "updatedDate": "5/12/2026 10:55:38 AM",
+        "registry": "https://api.mcp.github.com/v0.1/servers/",
+        "registryDisplayName": "GitHub MCP Registry",
+        "publisher": "apify",
+        "stargazerCount": "1K"
+      }
+    },
+    "io.github.microsoft/awesome-copilot": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "ghcr.io/microsoft/mcp-dotnet-samples/awesome-copilot:1.0.2026051203"
+      ],
+      "internalMetadata": {
+        "description": "An MCP server that stores Copilot customizations from the Awesome Copilot repository",
+        "version": "1.0.2026051203",
+        "repository": "https://github.com/microsoft/mcp-dotnet-samples",
+        "displayName": "Awesome Copilot MCP Server",
+        "owner_avatar_url": "https://avatars.githubusercontent.com/u/6154722?v=4",
+        "updatedDate": "5/12/2026 10:56:53 AM",
+        "registry": "https://api.mcp.github.com/v0.1/servers/",
+        "registryDisplayName": "GitHub MCP Registry",
+        "publisher": "microsoft",
+        "stargazerCount": "183"
+      }
+    }
+  }
+}

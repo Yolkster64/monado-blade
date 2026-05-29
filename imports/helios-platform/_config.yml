@@ -1,0 +1,18 @@
+theme: slate
+title: HELIOS Platform - Enterprise Windows Optimization
+description: Complete modular Windows workstation optimization, security, and automation system
+show_downloads: true
+repository: M0nado/helios-platform
+repository_url: https://github.com/M0nado/helios-platform
+
+# GitHub Pages settings
+plugins:
+  - jekyll-seo-tag
+
+# Site-wide settings
+github:
+  is_project_page: true
+  repository_url: https://github.com/M0nado/helios-platform
+  
+# Google Analytics (uncomment and update when ready)
+# google_analytics: UA-XXXXXXXXX-X

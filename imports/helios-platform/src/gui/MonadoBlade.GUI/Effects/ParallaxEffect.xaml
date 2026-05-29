@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================================
+         PARALLAX EFFECT DEFINITIONS
+         Multi-layer background scrolling
+         ============================================ -->
+
+    <!-- Base Parallax Container Style -->
+    <Style x:Key="ParallaxContainerStyle" TargetType="Canvas">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+    </Style>
+
+    <!-- Parallax Layer 1 - Far Background (Slowest) -->
+    <Style x:Key="ParallaxLayerDistant" TargetType="FrameworkElement">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="0" Y="0"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Opacity" Value="0.4"/>
+    </Style>
+
+    <!-- Parallax Layer 2 - Mid Background -->
+    <Style x:Key="ParallaxLayerMid" TargetType="FrameworkElement">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="0" Y="0"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Opacity" Value="0.6"/>
+    </Style>
+
+    <!-- Parallax Layer 3 - Close Background (Fastest) -->
+    <Style x:Key="ParallaxLayerClose" TargetType="FrameworkElement">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="0" Y="0"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Foreground Layer -->
+    <Style x:Key="ParallaxLayerForeground" TargetType="FrameworkElement">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="0" Y="0"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Opacity" Value="1.0"/>
+    </Style>
+
+    <!-- Storyboards for Parallax Animation -->
+    
+    <!-- Horizontal Parallax (Left-Right) - Distant Layer -->
+    <Storyboard x:Key="ParallaxHorizontalDistant" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="0"
+            To="30"
+            Duration="0:0:6"
+            EasingFunction="{StaticResource CubicEaseInOut}"/>
+    </Storyboard>
+
+    <!-- Horizontal Parallax - Mid Layer -->
+    <Storyboard x:Key="ParallaxHorizontalMid" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="0"
+            To="50"
+            Duration="0:0:4"
+            EasingFunction="{StaticResource CubicEaseInOut}"/>
+    </Storyboard>
+
+    <!-- Horizontal Parallax - Close Layer -->
+    <Storyboard x:Key="ParallaxHorizontalClose" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="0"
+            To="80"
+            Duration="0:0:2"
+            EasingFunction="{StaticResource CubicEaseInOut}"/>
+    </Storyboard>
+
+    <!-- Vertical Parallax (Up-Down) - Distant Layer -->
+    <Storyboard x:Key="ParallaxVerticalDistant" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+            From="0"
+            To="20"
+            Duration="0:0:8"
+            EasingFunction="{StaticResource CubicEaseInOut}"/>
+    </Storyboard>
+
+    <!-- Vertical Parallax - Mid Layer -->
+    <Storyboard x:Key="ParallaxVerticalMid" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+            From="0"
+            To="40"
+            Duration="0:0:5"
+            EasingFunction="{StaticResource CubicEaseInOut}"/>
+    </Storyboard>
+
+    <!-- Vertical Parallax - Close Layer -->
+    <Storyboard x:Key="ParallaxVerticalClose" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+            From="0"
+            To="60"
+            Duration="0:0:3"
+            EasingFunction="{StaticResource CubicEaseInOut}"/>
+    </Storyboard>
+
+    <!-- Subtle Gentle Sway Animation -->
+    <Storyboard x:Key="ParallaxGentleSway" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="-10"
+            To="10"
+            Duration="0:0:4"
+            EasingFunction="{StaticResource SineEaseInOut}"/>
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+            From="-5"
+            To="5"
+            Duration="0:0:5"
+            EasingFunction="{StaticResource SineEaseInOut}"/>
+    </Storyboard>
+
+    <!-- Fast Parallax for Dynamic Scenes -->
+    <Storyboard x:Key="ParallaxFastScroll" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="0"
+            To="120"
+            Duration="0:0:3"
+            EasingFunction="{StaticResource LinearEase}"/>
+    </Storyboard>
+
+    <!-- Slow Parallax for Ambient Background -->
+    <Storyboard x:Key="ParallaxSlowScroll" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="0"
+            To="20"
+            Duration="0:0:10"
+            EasingFunction="{StaticResource LinearEase}"/>
+    </Storyboard>
+
+    <!-- Easing Functions for Smooth Animation -->
+    <CubicEase x:Key="CubicEaseInOut" EasingMode="EaseInOut"/>
+    <SineEase x:Key="SineEaseInOut" EasingMode="EaseInOut"/>
+    <LinearEase x:Key="LinearEase"/>
+    <QuarticEase x:Key="QuarticEaseInOut" EasingMode="EaseInOut"/>
+
+    <!-- Mouse Tracking Transform Group for Interactive Parallax -->
+    <TransformGroup x:Key="ParallaxInteractiveTransform">
+        <TranslateTransform X="0" Y="0"/>
+        <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+    </TransformGroup>
+
+    <!-- Depth-based Opacity Definitions -->
+    <system:Double x:Key="ParallaxOpacityLayer1">0.3</system:Double>
+    <system:Double x:Key="ParallaxOpacityLayer2">0.5</system:Double>
+    <system:Double x:Key="ParallaxOpacityLayer3">0.7</system:Double>
+    <system:Double x:Key="ParallaxOpacityLayer4">0.9</system:Double>
+    <system:Double x:Key="ParallaxOpacityForeground">1.0</system:Double>
+
+    <!-- Parallax Speed Multipliers -->
+    <system:Double x:Key="ParallaxSpeedSlow">0.3</system:Double>
+    <system:Double x:Key="ParallaxSpeedNormal">0.6</system:Double>
+    <system:Double x:Key="ParallaxSpeedFast">1.0</system:Double>
+
+    <!-- Parallax Configuration for Common Scenarios -->
+    
+    <!-- Cloud parallax effect -->
+    <Storyboard x:Key="ParallaxClouds" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="0"
+            To="40"
+            Duration="0:0:12"
+            EasingFunction="{StaticResource LinearEase}"/>
+    </Storyboard>
+
+    <!-- Stars/Particles parallax -->
+    <Storyboard x:Key="ParallaxParticles" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="0"
+            To="15"
+            Duration="0:0:15"
+            EasingFunction="{StaticResource LinearEase}"/>
+    </Storyboard>
+
+    <!-- Complex Parallax combining horizontal and vertical -->
+    <Storyboard x:Key="ParallaxComplex" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+            From="0"
+            To="35"
+            Duration="0:0:7"
+            EasingFunction="{StaticResource QuarticEaseInOut}"/>
+        <DoubleAnimation
+            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+            From="0"
+            To="25"
+            Duration="0:0:8"
+            EasingFunction="{StaticResource QuarticEaseInOut}"/>
+    </Storyboard>
+
+    <!-- Namespace for system types -->
+    <xmlns:system="clr-namespace:System;assembly=mscorlib"/>
+
+</ResourceDictionary>

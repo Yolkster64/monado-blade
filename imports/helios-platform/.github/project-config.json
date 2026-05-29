@@ -1,0 +1,82 @@
+{
+  "name": "HELIOS Deployment Platform",
+  "description": "Production deployment platform for HELIOS system with 7 phases, 6 agents, 8 security layers, and 42 validation tests",
+  "visibility": "public",
+  "template": "table",
+  "fields": [
+    {
+      "name": "Phase",
+      "type": "single_select",
+      "options": ["Phase 0", "Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6"]
+    },
+    {
+      "name": "Component",
+      "type": "single_select",
+      "options": ["Storage", "Security", "Software", "Configuration", "Optimization", "Verification", "All"]
+    },
+    {
+      "name": "Status",
+      "type": "single_select",
+      "options": ["Inbox", "Ready", "In Progress", "Done", "Verified"]
+    },
+    {
+      "name": "Priority",
+      "type": "single_select",
+      "options": ["Critical", "High", "Medium", "Low"]
+    },
+    {
+      "name": "Time (min)",
+      "type": "number"
+    },
+    {
+      "name": "Complexity",
+      "type": "single_select",
+      "options": ["Low", "Medium", "High", "Critical"]
+    },
+    {
+      "name": "Risk Level",
+      "type": "single_select",
+      "options": ["Low", "Medium", "High", "Critical"]
+    },
+    {
+      "name": "Tests",
+      "type": "number"
+    },
+    {
+      "name": "Services",
+      "type": "number"
+    },
+    {
+      "name": "Disk Impact",
+      "type": "text"
+    },
+    {
+      "name": "Security Layers",
+      "type": "number"
+    },
+    {
+      "name": "Performance Impact",
+      "type": "single_select",
+      "options": ["Positive", "Neutral", "Negative"]
+    },
+    {
+      "name": "Cost Savings",
+      "type": "text"
+    },
+    {
+      "name": "Dependencies",
+      "type": "text"
+    },
+    {
+      "name": "Owner",
+      "type": "text"
+    }
+  ],
+  "columns": [
+    { "name": "Inbox", "order": 1 },
+    { "name": "Ready", "order": 2 },
+    { "name": "In Progress", "order": 3 },
+    { "name": "Done", "order": 4 },
+    { "name": "Verified", "order": 5 }
+  ]
+}

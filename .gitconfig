@@ -1,0 +1,10 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Yolkster64
+	email = thepatman64@gmail.com
+[safe]
+	directory = C:/Windows/System32

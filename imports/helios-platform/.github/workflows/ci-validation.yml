@@ -1,0 +1,175 @@
+name: CI - Code Validation & Testing
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    name: PowerShell Syntax Validation
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup PowerShell
+        uses: actions/setup-powershell@v2
+        with:
+          powershell-version: '7.3'
+      
+      - name: Check PowerShell Syntax
+        run: |
+          $failures = 0
+          Get-ChildItem -Path '.' -Filter '*.ps1' -Recurse -ErrorAction SilentlyContinue | ForEach-Object {
+            $file = $_.FullName
+            Write-Host "Checking: $file"
+            try {
+              $content = Get-Content -Path $file
+              [scriptblock]::Create($content) | Out-Null
+              Write-Host "✅ OK" -ForegroundColor Green
+            } catch {
+              Write-Host "❌ FAILED: $_" -ForegroundColor Red
+              $failures++
+            }
+          }
+          if ($failures -gt 0) {
+            Write-Host "Syntax check failed for $failures files" -ForegroundColor Red
+            exit 1
+          }
+
+  markdown-check:
+    runs-on: ubuntu-latest
+    name: Markdown Validation
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run markdownlint
+        uses: nosborn/github-action-markdown-cli@v3.3.0
+        with:
+          files: .
+          config_file: .markdownlint.json
+        continue-on-error: true
+
+  documentation-check:
+    runs-on: ubuntu-latest
+    name: Documentation Completeness
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check Required Documentation
+        run: |
+          required_docs=(
+            "README.md"
+          )
+          
+          missing=0
+          for doc in "${required_docs[@]}"; do
+            if [ ! -f "$doc" ]; then
+              echo "❌ Missing required documentation: $doc"
+              missing=$((missing + 1))
+            else
+              echo "✅ Found: $doc"
+            fi
+          done
+          
+          if [ $missing -eq 0 ]; then
+            echo "✅ All required documentation present!"
+          else
+            echo "⚠️  Some documentation missing (non-blocking)"
+          fi
+
+  test-scripts:
+    runs-on: ubuntu-latest
+    name: Test PowerShell Scripts
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup PowerShell
+        uses: actions/setup-powershell@v2
+      
+      - name: Run Unit Tests
+        run: |
+          if (Test-Path -Path "src/tests" -ErrorAction SilentlyContinue) {
+            Get-ChildItem -Path "src/tests" -Filter "*.tests.ps1" -Recurse -ErrorAction SilentlyContinue | ForEach-Object {
+              Write-Host "Running: $($_.FullName)" -ForegroundColor Cyan
+              & $_.FullName
+            }
+          } else {
+            Write-Host "No tests directory found" -ForegroundColor Yellow
+          }
+        shell: pwsh
+        continue-on-error: true
+
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Scanning
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Trivy Vulnerability Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+        continue-on-error: true
+      
+      - name: Upload Trivy Results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+        continue-on-error: true
+
+  file-integrity:
+    runs-on: ubuntu-latest
+    name: File Structure Validation
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate Directory Structure
+        run: |
+          required_dirs=(
+            "src"
+            "docs"
+          )
+          
+          missing=0
+          for dir in "${required_dirs[@]}"; do
+            if [ ! -d "$dir" ]; then
+              echo "❌ Missing required directory: $dir"
+              missing=$((missing + 1))
+            else
+              echo "✅ Found: $dir"
+            fi
+          done
+          
+          if [ $missing -eq 0 ]; then
+            echo "✅ Directory structure is valid!"
+          else
+            exit 1
+          fi
+
+  validation-summary:
+    name: Validation Summary
+    if: always()
+    needs: [syntax-check, markdown-check, documentation-check, test-scripts, security-scan, file-integrity]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report Status
+        run: |
+          echo "## Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Syntax Check: ${{ needs.syntax-check.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Markdown Check: ${{ needs.markdown-check.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Documentation: ${{ needs.documentation-check.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Script Tests: ${{ needs.test-scripts.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Security Scan: ${{ needs.security-scan.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- File Integrity: ${{ needs.file-integrity.result }}" >> $GITHUB_STEP_SUMMARY

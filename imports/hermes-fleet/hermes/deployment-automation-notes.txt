@@ -1,0 +1,8 @@
+Hermes deployment automation: PowerShell and bash scripts for one-click install, rollback, and upgrade will be placed in the deployment/ directory. Scripts will:
+- Detect environment (local, cloud, hybrid)
+- Install required drivers/utilities (Steam, Synapse/Chroma, Intel Arc, NVIDIA, THX, etc.)
+- Validate signatures
+- Register with upgrade manager
+- Support profile migration and rollback
+- Log all actions for troubleshooting
+

@@ -1,0 +1,21 @@
+  Determining projects to restore...
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102: Unable to find package NAudio.Vorbis with version (>= 1.6.0)
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102:   - Found 6 version(s) in nuget.org [ Nearest version: 1.5.0 ]
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102:   - Found 0 version(s) in Microsoft Visual Studio Offline Packages
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102:   - Found 0 version(s) in C:\Program Files\dotnet\library-packs
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102:   - Found 0 version(s) in github
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : warning NU1902: Package 'KubernetesClient' 14.0.2 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-w7r3-mgwf-4mqq
+  Failed to restore C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj (in 725 ms).
+
+Build FAILED.
+
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : warning NU1902: Package 'KubernetesClient' 14.0.2 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-w7r3-mgwf-4mqq
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102: Unable to find package NAudio.Vorbis with version (>= 1.6.0)
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102:   - Found 6 version(s) in nuget.org [ Nearest version: 1.5.0 ]
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102:   - Found 0 version(s) in Microsoft Visual Studio Offline Packages
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102:   - Found 0 version(s) in C:\Program Files\dotnet\library-packs
+C:\Users\ADMIN\helios-platform\src\core\HELIOS.Platform\HELIOS.Platform.csproj : error NU1102:   - Found 0 version(s) in github
+    1 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:01.14

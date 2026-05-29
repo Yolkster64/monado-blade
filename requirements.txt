@@ -1,0 +1,8 @@
+# requirements.txt for Hermes Agent System
+psutil
+numpy
+scikit-learn
+tk
+openai
+sqlalchemy
+torch

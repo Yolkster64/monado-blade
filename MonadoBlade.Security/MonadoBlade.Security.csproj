@@ -16,4 +16,10 @@
     <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="MonadoBlade.Security.Tests\**\*.cs" />
+    <None Remove="MonadoBlade.Security.Tests\**\*" />
+    <EmbeddedResource Remove="MonadoBlade.Security.Tests\**\*" />
+  </ItemGroup>
+
 </Project>

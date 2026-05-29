@@ -1,51 +1,58 @@
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Ww][Ii][Nn]32/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-[Ll]ogs/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
 
-# Visual Studio cache/options
-.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+# .NET / build artifacts
+bin/
+obj/
+dist/
+build/
+out/
 
-# Test Results
-TestResults/
-*.trx
-*.coverage
+# Node / frontend
+node_modules/
+.next/
+.nuxt/
+_nuxt/
+.cache/
+.cache-loader/
 
-# NuGet
-*.nupkg
-*.snupkg
-.nuget/
+# Coverage and logs
+.coverage
+htmlcov/
+coverage/
+.nyc_output/
+logs/
+*.log
 
-# Local environment
+# Environment and secrets
 .env
-*.local
-appsettings.*.json
+.env.*
+local.settings.json
+appsettings.development.json
+appsettings.production.json
+secrets/
+*.key
+*.pem
 
-# OS
-.DS_Store
-Thumbs.db
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
 
-# IDEs
+# IDE and OS
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# Backup files
-*.bak
-*~
+.DS_Store
+Thumbs.db

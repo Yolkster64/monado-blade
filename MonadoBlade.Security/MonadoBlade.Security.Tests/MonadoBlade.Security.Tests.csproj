@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../MonadoBlade.Security/MonadoBlade.Security.csproj" />
+    <ProjectReference Include="..\MonadoBlade.Security.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,17 +16,23 @@ public class VaultService : IVaultService
     private readonly Dictionary<string, VaultContainer> _vaults = new();
     private readonly string _vaultsBasePath;
 
-    public VaultService(ILogger<VaultService> logger, IVhdxService vhdxService, IBitLockerService bitLockerService)
+    public VaultService(ILogger<VaultService> logger, IVhdxService vhdxService, IBitLockerService bitLockerService, string? vaultsBasePath = null)
     {
         _logger = logger;
         _vhdxService = vhdxService;
         _bitLockerService = bitLockerService;
-        _vaultsBasePath = @"D:\Monado\Containers\Vaults";
+        _vaultsBasePath = vaultsBasePath ?? GetDefaultVaultsPath();
         
         if (!Directory.Exists(_vaultsBasePath))
         {
             Directory.CreateDirectory(_vaultsBasePath);
         }
+    }
+
+    private static string GetDefaultVaultsPath()
+    {
+        string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        return Path.Combine(localAppData, "Monado", "Containers", "Vaults");
     }
 
     public async Task<VaultContainer> CreateVaultAsync(string name, long sizeGb, VhdxEncryptionType encryptionType, CancellationToken cancellationToken = default)
