@@ -7,7 +7,7 @@
     "deliveryBridge": "azure-devops",
     "authentication": "entra-workload-identity-oidc",
     "agentPolicy": "tiered-pr-first",
-    "copilots": ["github-copilot", "codex", "microsoft-365-copilot", "copilot-studio", "azure-ai-foundry"],
+    "copilots": ["github-copilot", "codex", "microsoft-365-copilot", "copilot-studio", "microsoft-foundry-agent-service"],
     "repositories": ["Yolkster64/monado-blade", "M0nado/helios-platform"],
     "secretPolicy": "key-vault-or-local-vault-never-repository"
   },
@@ -17,12 +17,13 @@
     "slack": { "workspace": "Helios", "channel": "helios-ops", "channelId": "C0BH4FBB0RX", "enabled": true },
     "teams": { "team": "Helios", "teamId": "63311034-cc8f-4a5f-bb8e-459342f0575c", "channel": "Helios Ops", "channelId": "19:d860092598794564808e4d58f87a47d4@thread.tacv2", "enabled": true },
     "sharepoint": { "tenant": "heli0s", "library": "OneDrive", "driveId": "b!IBQFjZaxFUqHSaosSbwKK6Qw9rGlb3pGuQGkWbRSSz3axJYbgla3T4nIcsLsHvBR", "folder": "Helios/Governance", "enabled": true },
-    "huggingFace": { "account": "yolkster1", "repository": "yolkster1/helios-control", "state": "create-required", "enabled": false }
+    "microsoftAgents": { "registry": "entra-agent-registry", "manifest": "config/microsoft-agents.json", "runtime": "microsoft-foundry-agent-service", "channels": ["microsoft-365-copilot", "teams"], "enabled": true }
   },
   "routing": [
     { "event": "github.workflow.failed", "targets": ["linear", "slack", "teams"] },
     { "event": "linear.issue.updated", "targets": ["github", "slack", "teams"] },
-    { "event": "huggingface.model.published", "targets": ["github", "sharepoint", "slack", "teams"] },
+    { "event": "hermes.training.candidate", "targets": ["microsoftAgents", "sharepoint"] },
+    { "event": "hermes.training.approved", "targets": ["github", "microsoftAgents", "slack", "teams"] },
     { "event": "sharepoint.document.updated", "targets": ["linear"] }
   ]
 }
