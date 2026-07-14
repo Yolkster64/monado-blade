@@ -15,5 +15,5 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: '22' }
       - run: npm install --global @microsoft/m365agentstoolkit-cli
-      - run: atk doctor
+      - run: atk --version
       - run: python -m json.tool monado/helios-control/appPackage/manifest.json >/dev/null
