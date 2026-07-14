@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "name": "helios-monado-integration-control-plane",
+  "defaultMode": "observe",
+  "systems": {
+    "github": {"enabled": true, "mode": "source-ci-pr"},
+    "slack": {"enabled": true, "channel": "helios-ops", "mode": "operations-notices"},
+    "sharepoint": {"enabled": false, "mode": "approved-runbook-mirror"},
+    "openaiPlatform": {"enabled": true, "mode": "secret-backed-aihub"},
+    "azure": {"enabled": false, "mode": "oidc-what-if"},
+    "localWindows": {"enabled": false, "mode": "dry-run-plan"},
+    "wsl2": {"enabled": false, "mode": "isolated-trainer"},
+    "docker": {"enabled": false, "mode": "isolated-services"},
+    "hyperv": {"enabled": false, "mode": "security-isolation"}
+  },
+  "gates": [
+    {"id": "observe", "approvalRequired": false, "destructive": false},
+    {"id": "stage", "approvalRequired": false, "destructive": false},
+    {"id": "apply-guarded", "approvalRequired": true, "destructive": true},
+    {"id": "operate", "approvalRequired": true, "destructive": false}
+  ],
+  "validation": {
+    "json": true,
+    "pythonCompile": true,
+    "dotnetBuild": true,
+    "powershellParse": true,
+    "secretScan": true,
+    "destructiveCommandGuardScan": true
+  },
+  "evidence": {
+    "artifactRetentionDays": 30,
+    "includeLogs": true,
+    "includeManifests": true,
+    "includeChecksums": true,
+    "redactSecrets": true
+  },
+  "security": {
+    "rawSecretsInRepository": false,
+    "rawSecretsInSlack": false,
+    "rawSecretsInSharePoint": false,
+    "azureAuthentication": "github-oidc",
+    "localSecretStore": "dpapi-or-credential-manager"
+  }
+}
