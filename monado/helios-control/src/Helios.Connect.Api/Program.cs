@@ -6,6 +6,7 @@ using Helios.Connect.Api;
 using Helios.Connect.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient<OpenAiResponsesProvider>();
 var app = builder.Build();
 var deliveries = new ConcurrentDictionary<string, DateTimeOffset>(StringComparer.Ordinal);
 
