@@ -10,9 +10,9 @@ solution pipelines.
 
 - Azure CLI, `azd`, and Bicep manage Azure resources through OIDC or interactive developer identity.
 - Power Platform CLI moves versioned Copilot Studio solutions between environments.
-- Microsoft 365 Agents Toolkit packages published agents for Copilot and Teams.
+- Microsoft 365 Agents Toolkit (`atk`) packages published agents for Copilot and Teams; new work does not use deprecated TeamsFx.
 - GitHub CLI and Copilot work through branches and pull requests.
-- Azure DevOps MCP is read-scoped first; write tools require a higher agent tier.
+- Azure DevOps remote MCP is configured read-only for supported local VS Code/Visual Studio clients. Broader Foundry or Copilot Studio support is not assumed while the remote server remains preview-limited.
 - Azure Functions exposes the Helios MCP endpoint at `/runtime/webhooks/mcp`.
 - Foundry Hosted Agents run Hermes orchestration code with dedicated Entra identities.
 
@@ -33,3 +33,7 @@ source control or agent memory.
 6. Deploy Hermes/XCore agents into a development Foundry project.
 7. Evaluate and trace before publishing to Microsoft 365 Copilot or Teams.
 8. Export Copilot Studio solutions and promote through governed environments.
+
+Published Foundry agents receive dedicated identities. Development RBAC does not
+silently transfer to published versions; production permissions are reassigned
+explicitly after publication and before traffic promotion.
