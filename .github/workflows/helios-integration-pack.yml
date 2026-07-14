@@ -8,8 +8,7 @@ on:
       - 'infra/bicep/**'
       - '.github/workflows/helios-integration-pack.yml'
   push:
-    branches:
-      - agent/integration-apps-drivers
+    branches: [agent/integration-apps-drivers]
     paths:
       - 'integration/apps-drivers/**'
       - 'tests/HELIOS.IntegrationPack.Tests/**'
@@ -33,8 +32,10 @@ permissions:
   contents: read
 
 env:
-  PACK_ARCHIVE: integration/apps-drivers/helios_integration_apps_drivers_pack.zip
+  PACK_ARCHIVE: integration/apps-drivers/reconstructed/helios_integration_apps_drivers_pack.zip
   PACK_ROOT: integration/apps-drivers/extracted/helios_integration_apps_drivers_pack
+  EXPECTED_SHA256: 575e0760852f6bf690a297611c1ccef502100e1390cd4b18d53787ef65a5cffe
+  EXPECTED_SIZE: '42487'
   EXPECTED_FILE_COUNT: '37'
 
 jobs:
@@ -42,30 +43,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Discover repository archive hash
-        id: archive
+      - name: Reconstruct checksum-locked archive
         shell: bash
         run: |
           set -euo pipefail
-          expected="$(awk 'NR==1 {print tolower($1)}' integration/apps-drivers/SHA256SUMS)"
-          actual="$(sha256sum "$PACK_ARCHIVE" | awk '{print tolower($1)}')"
+          mkdir -p "$(dirname "$PACK_ARCHIVE")"
+          cat \
+            integration/apps-drivers/base64/part-000.b64 \
+            integration/apps-drivers/base64/part-001.b64 \
+            integration/apps-drivers/base64/part-002.b64 \
+            integration/apps-drivers/base64/part-003.b64 \
+            integration/apps-drivers/base64/part-004a.b64 \
+            integration/apps-drivers/base64/part-004b.b64 \
+            integration/apps-drivers/base64/part-004c.b64 \
+            integration/apps-drivers/base64/part-004d.b64 \
+            | tr -d '\r\n' | base64 --decode > "$PACK_ARCHIVE"
+          actual="$(sha256sum "$PACK_ARCHIVE" | awk '{print $1}')"
           size="$(stat -c '%s' "$PACK_ARCHIVE")"
-          printf 'expected_sha256=%s\nactual_sha256=%s\narchive_size=%s\n' "$expected" "$actual" "$size" | tee archive-integrity.txt
-          echo "expected=$expected" >> "$GITHUB_OUTPUT"
-          echo "actual=$actual" >> "$GITHUB_OUTPUT"
-          echo "size=$size" >> "$GITHUB_OUTPUT"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: archive-integrity-diagnostic
-          path: archive-integrity.txt
-          if-no-files-found: error
-          retention-days: 7
-      - name: Validate ZIP structure
-        run: unzip -t "$PACK_ARCHIVE"
-      - name: Validate ZIP file count
+          echo "sha256=$actual"
+          echo "size=$size"
+          test "$actual" = "$EXPECTED_SHA256"
+          test "$size" = "$EXPECTED_SIZE"
+      - name: Validate ZIP structure and file count
         shell: bash
         run: |
           set -euo pipefail
+          unzip -t "$PACK_ARCHIVE"
           count="$(unzip -Z1 "$PACK_ARCHIVE" | grep -v '/$' | wc -l | tr -d ' ')"
           echo "archive_file_count=$count"
           test "$count" = "$EXPECTED_FILE_COUNT"
@@ -82,50 +85,49 @@ jobs:
         run: |
           dotnet build "$PACK_ROOT/src/HELIOS.HardwareDetection/HELIOS.HardwareDetection.csproj" --configuration Release
           dotnet build "$PACK_ROOT/src/HELIOS.SoftwareCatalog/HELIOS.SoftwareCatalog.csproj" --configuration Release
-      - name: Enforce repository checksum lock
-        shell: bash
-        run: test '${{ steps.archive.outputs.actual }}' = '${{ steps.archive.outputs.expected }}'
+      - name: Publish immutable validation evidence
+        run: |
+          mkdir -p validation-evidence
+          printf '%s  %s\n' "$EXPECTED_SHA256" "helios_integration_apps_drivers_pack.zip" > validation-evidence/SHA256SUMS
+          printf 'commit=%s\nfiles=%s\nsize=%s\n' "$GITHUB_SHA" "$EXPECTED_FILE_COUNT" "$EXPECTED_SIZE" > validation-evidence/build.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: helios-integration-validation
+          path: validation-evidence
+          retention-days: 30
 
   powershell-parse:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Discover Windows archive hash
-        id: archive
+      - name: Reconstruct and verify archive
         shell: pwsh
         run: |
-          $expected = ((Get-Content 'integration/apps-drivers/SHA256SUMS' | Select-Object -First 1) -split '\s+')[0].ToLowerInvariant()
-          $actual = (Get-FileHash -Algorithm SHA256 -Path $env:PACK_ARCHIVE).Hash.ToLowerInvariant()
-          $size = (Get-Item $env:PACK_ARCHIVE).Length
-          Write-Host "expected_sha256=$expected"
-          Write-Host "actual_sha256=$actual"
-          Write-Host "archive_size=$size"
-          "expected=$expected" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          "actual=$actual" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-      - name: Extract integration pack
-        shell: pwsh
-        run: Expand-Archive -Path $env:PACK_ARCHIVE -DestinationPath 'integration/apps-drivers/extracted' -Force
-      - name: Validate extracted file count
-        shell: pwsh
-        run: |
+          $parts = @(
+            'part-000.b64','part-001.b64','part-002.b64','part-003.b64',
+            'part-004a.b64','part-004b.b64','part-004c.b64','part-004d.b64'
+          )
+          $base = 'integration/apps-drivers/base64'
+          $encoded = ($parts | ForEach-Object { Get-Content (Join-Path $base $_) -Raw }) -join ''
+          $bytes = [Convert]::FromBase64String(($encoded -replace '\s',''))
+          New-Item -ItemType Directory -Path (Split-Path $env:PACK_ARCHIVE) -Force | Out-Null
+          [IO.File]::WriteAllBytes($env:PACK_ARCHIVE, $bytes)
+          $actual = (Get-FileHash -Algorithm SHA256 $env:PACK_ARCHIVE).Hash.ToLowerInvariant()
+          if ($actual -ne $env:EXPECTED_SHA256) { throw "SHA mismatch: $actual" }
+          if ((Get-Item $env:PACK_ARCHIVE).Length -ne [int64]$env:EXPECTED_SIZE) { throw 'Archive size mismatch' }
+          Expand-Archive $env:PACK_ARCHIVE -DestinationPath 'integration/apps-drivers/extracted' -Force
           $count = (Get-ChildItem $env:PACK_ROOT -File -Recurse).Count
-          Write-Host "archive_file_count=$count"
           if ($count -ne [int]$env:EXPECTED_FILE_COUNT) { throw "Expected $env:EXPECTED_FILE_COUNT files, got $count" }
       - name: Parse PowerShell scripts
         shell: pwsh
         run: |
           $errors = @()
           Get-ChildItem "$env:PACK_ROOT/scripts" -Recurse -Filter *.ps1 | ForEach-Object {
-            $tokens = $null
-            $parseErrors = $null
-            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$parseErrors)
+            $tokens = $null; $parseErrors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$parseErrors)
             if ($parseErrors) { $errors += $parseErrors }
           }
-          if ($errors.Count -gt 0) { $errors | Format-List | Out-String | Write-Error; exit 1 }
-      - name: Enforce repository checksum lock
-        shell: pwsh
-        run: |
-          if ('${{ steps.archive.outputs.actual }}' -ne '${{ steps.archive.outputs.expected }}') { throw 'SHA256SUMS does not match repository archive bytes.' }
+          if ($errors.Count) { $errors | Format-List | Out-String | Write-Error; exit 1 }
 
   bicep-static-validation:
     runs-on: ubuntu-latest
@@ -144,12 +146,32 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -f integration/apps-drivers/SHA256SUMS
-          test -f .github/workflows/helios-integration-pack.yml
+          for f in part-000 part-001 part-002 part-003 part-004a part-004b part-004c part-004d; do
+            test -s "integration/apps-drivers/base64/$f.b64"
+          done
           grep -q 'azure-oidc-what-if' .github/workflows/helios-integration-pack.yml
           grep -q 'powershell-parse' .github/workflows/helios-integration-pack.yml
           grep -q 'manifests-and-unit-tests' .github/workflows/helios-integration-pack.yml
-          echo 'Copilot/subagent contract validated: diagnose -> test -> review -> promote.'
+          echo 'Copilot/subagent contract validated: reconstruct -> diagnose -> test -> review -> promote.'
+
+  promotion-readiness:
+    if: always()
+    needs: [manifests-and-unit-tests, powershell-parse, bicep-static-validation, copilot-automation-contract]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce all promotion gates
+        env:
+          MANIFESTS: ${{ needs.manifests-and-unit-tests.result }}
+          POWERSHELL: ${{ needs.powershell-parse.result }}
+          BICEP: ${{ needs.bicep-static-validation.result }}
+          COPILOT: ${{ needs.copilot-automation-contract.result }}
+        run: |
+          echo "manifests=$MANIFESTS powershell=$POWERSHELL bicep=$BICEP copilot=$COPILOT"
+          test "$MANIFESTS" = success
+          test "$POWERSHELL" = success
+          test "$BICEP" = success
+          test "$COPILOT" = success
+          echo "promotion_sha=$GITHUB_SHA"
 
   azure-oidc-what-if:
     if: github.event_name == 'workflow_dispatch' && inputs.run_azure_what_if
@@ -160,22 +182,16 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - name: Azure login with OIDC
-        uses: azure/login@v2
+      - uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      - name: Resource-group what-if only
-        uses: azure/cli@v2
+      - uses: azure/cli@v2
         env:
           RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
           ENVIRONMENT_NAME: ${{ inputs.environment_name }}
         with:
           inlineScript: |
             test -n "$RESOURCE_GROUP"
-            az deployment group what-if \
-              --resource-group "$RESOURCE_GROUP" \
-              --template-file infra/bicep/main.bicep \
-              --parameters environmentName="$ENVIRONMENT_NAME" \
-              --no-pretty-print
+            az deployment group what-if --resource-group "$RESOURCE_GROUP" --template-file infra/bicep/main.bicep --parameters environmentName="$ENVIRONMENT_NAME" --no-pretty-print
