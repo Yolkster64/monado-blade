@@ -55,8 +55,10 @@ jobs:
             integration/apps-drivers/base64/part-003.b64 \
             integration/apps-drivers/base64/part-004a.b64 \
             integration/apps-drivers/base64/part-004b.b64 \
-            integration/apps-drivers/base64/part-004c.b64 \
-            integration/apps-drivers/base64/part-004d.b64 \
+            integration/apps-drivers/base64/part-004c0.b64 \
+            integration/apps-drivers/base64/part-004c1.b64 \
+            integration/apps-drivers/base64/part-004d0.b64 \
+            integration/apps-drivers/base64/part-004d1.b64 \
             | tr -d '\r\n' | base64 --decode > "$PACK_ARCHIVE"
           actual="$(sha256sum "$PACK_ARCHIVE" | awk '{print $1}')"
           size="$(stat -c '%s' "$PACK_ARCHIVE")"
@@ -105,7 +107,8 @@ jobs:
         run: |
           $parts = @(
             'part-000.b64','part-001.b64','part-002.b64','part-003.b64',
-            'part-004a.b64','part-004b.b64','part-004c.b64','part-004d.b64'
+            'part-004a.b64','part-004b.b64','part-004c0.b64','part-004c1.b64',
+            'part-004d0.b64','part-004d1.b64'
           )
           $base = 'integration/apps-drivers/base64'
           $encoded = ($parts | ForEach-Object { Get-Content (Join-Path $base $_) -Raw }) -join ''
@@ -146,7 +149,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for f in part-000 part-001 part-002 part-003 part-004a part-004b part-004c part-004d; do
+          for f in part-000 part-001 part-002 part-003 part-004a part-004b part-004c0 part-004c1 part-004d0 part-004d1; do
             test -s "integration/apps-drivers/base64/$f.b64"
           done
           grep -q 'azure-oidc-what-if' .github/workflows/helios-integration-pack.yml
