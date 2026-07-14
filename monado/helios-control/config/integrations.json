@@ -2,6 +2,15 @@
   "schemaVersion": 1,
   "executionMode": "dry-run",
   "identity": { "azureCredential": "managed-identity", "secretStore": "key-vault" },
+  "enterprise": {
+    "codeAuthority": "github-enterprise",
+    "deliveryBridge": "azure-devops",
+    "authentication": "entra-workload-identity-oidc",
+    "agentPolicy": "tiered-pr-first",
+    "copilots": ["github-copilot", "codex", "microsoft-365-copilot", "copilot-studio", "azure-ai-foundry"],
+    "repositories": ["Yolkster64/monado-blade", "M0nado/helios-platform"],
+    "secretPolicy": "key-vault-or-local-vault-never-repository"
+  },
   "destinations": {
     "github": { "account": "Yolkster64", "repository": "Yolkster64/monado-blade", "path": "monado/helios-control", "enabled": true },
     "linear": { "team": "John", "teamId": "53b850e1-eb80-4c7f-942c-9b2c63a9399b", "project": "Helios Integration Fabric", "projectId": "89a5cdf8-f7a2-409f-b275-49ae37e39d6d", "enabled": true },
