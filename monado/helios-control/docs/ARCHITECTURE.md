@@ -26,6 +26,29 @@ flowchart TD
 - Azure provides managed identity, Key Vault, Service Bus, Container Apps, Storage, and monitoring.
 - Local MCP exposes the same allowlisted actions to Codex and the Monado GUI.
 
+## Enterprise and multi-repository plane
+
+- `Yolkster64/monado-blade` contains the C# engine and `monado/helios-control` integration gateway.
+- `M0nado/helios-platform` remains a repository of gravity for installer, GUI, Phase10, and platform deployment work.
+- A command-center/orchestrator repository coordinates product repositories through versioned contracts; product repositories remain independently buildable and releasable.
+- GitHub Enterprise is the primary code and pull-request surface. Azure DevOps is a bridged enterprise delivery surface for Boards, Pipelines, Artifacts, environments, and regulated approvals—not a competing source of truth.
+- GitHub Actions and Azure Pipelines authenticate to Azure through Entra workload identity federation/OIDC. Long-lived PATs are migration-only and live in Key Vault when unavoidable.
+- GitHub Copilot, Codex, Microsoft 365 Copilot, Copilot Studio, Azure AI Foundry, Azure OpenAI, and local providers connect through AIHub provider contracts and permission tiers rather than receiving unrestricted repository or tenant access.
+- Azure API Management fronts enterprise APIs; Container Apps/AKS host services; ACR stores images; Cosmos DB/Data Lake hold learning and event data; Application Insights and Log Analytics provide unified observability.
+- Entra groups, Conditional Access, managed devices, Purview classification, retention, audit, and selected-site Microsoft Graph permissions form the business governance edge.
+
+### Agent permission tiers
+
+| Tier | Capability | Default control |
+| --- | --- | --- |
+| 0 | Read public metadata | Automatic |
+| 1 | Read approved private context | Audited allowlist |
+| 2 | Draft code, issues, documents, and messages | Human review |
+| 3 | Create branches, PRs, test runs, and staged deployments | Policy gates |
+| 4 | Production, tenant, security, or destructive changes | Explicit approval and break-glass controls |
+
+Agents prefer pull requests over direct pushes. No raw Bitwarden exports, recovery keys, access tokens, or production secrets enter repositories, messages, model artifacts, or logs.
+
 ## Contracts
 
 Every event has `id`, `type`, `source`, `subject`, `occurredAt`, `correlationId`,
@@ -48,3 +71,4 @@ Every event has `id`, `type`, `source`, `subject`, `occurredAt`, `correlationId`
 3. Knowledge slice: SharePoint change -> indexed document reference; HF release -> governed model card.
 4. Azure hardening: Key Vault, Service Bus, Container Apps, App Insights, private endpoints.
 5. GUI: Monado status, route toggles, replay, approvals, and audit explorer.
+6. Enterprise federation: Azure DevOps bridge, GitHub multi-repo release graph, Copilot/Foundry agent registry, Entra/Purview governance, and business continuity controls.
