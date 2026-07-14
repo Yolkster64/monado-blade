@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
   "runtime": "microsoft-foundry-agent-service",
-  "distribution": ["microsoft-365-copilot", "microsoft-teams", "entra-agent-registry"],
+  "distribution": ["microsoft-365-copilot", "microsoft-teams", "agent-365-registry"],
   "sharedToolbox": {
     "protocol": "mcp",
     "endpoint": "azure-functions:/runtime/webhooks/mcp",
     "authentication": "entra-managed-identity",
-    "tools": ["hermes.get_status", "hermes.generate_task", "hermes.run_sandbox", "hermes.evaluate", "hermes.propose_promotion", "github.create_pr", "azuredevops.read_work_item"]
+    "tools": ["hermes.get_status", "hermes.list_routes", "hermes.list_candidates", "github.read_pr", "azuredevops.read_work_item"]
   },
   "agents": [
     {
