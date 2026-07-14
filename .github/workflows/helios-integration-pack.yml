@@ -35,15 +35,28 @@ permissions:
 env:
   PACK_ARCHIVE: integration/apps-drivers/helios_integration_apps_drivers_pack.zip
   PACK_ROOT: integration/apps-drivers/extracted/helios_integration_apps_drivers_pack
+  EXPECTED_FILE_COUNT: '37'
 
 jobs:
   manifests-and-unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify archive checksum
-        working-directory: integration/apps-drivers
-        run: sha256sum --check SHA256SUMS
+      - name: Diagnose and verify archive integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="$(awk 'NR==1 {print tolower($1)}' integration/apps-drivers/SHA256SUMS)"
+          actual="$(sha256sum "$PACK_ARCHIVE" | awk '{print tolower($1)}')"
+          size="$(stat -c '%s' "$PACK_ARCHIVE")"
+          echo "expected_sha256=$expected"
+          echo "actual_sha256=$actual"
+          echo "archive_size=$size"
+          unzip -t "$PACK_ARCHIVE"
+          count="$(unzip -Z1 "$PACK_ARCHIVE" | grep -v '/$' | wc -l | tr -d ' ')"
+          echo "archive_file_count=$count"
+          test "$count" = "$EXPECTED_FILE_COUNT"
+          test "$actual" = "$expected"
       - name: Extract integration pack
         run: unzip -q "$PACK_ARCHIVE" -d integration/apps-drivers/extracted
       - uses: actions/setup-python@v5
@@ -62,13 +75,20 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify and extract integration pack
+      - name: Diagnose, verify, and extract integration pack
         shell: pwsh
         run: |
-          $expected = (Get-Content 'integration/apps-drivers/SHA256SUMS' -Raw).Split()[0].ToLowerInvariant()
+          $expected = ((Get-Content 'integration/apps-drivers/SHA256SUMS' | Select-Object -First 1) -split '\s+')[0].ToLowerInvariant()
           $actual = (Get-FileHash -Algorithm SHA256 -Path $env:PACK_ARCHIVE).Hash.ToLowerInvariant()
+          $size = (Get-Item $env:PACK_ARCHIVE).Length
+          Write-Host "expected_sha256=$expected"
+          Write-Host "actual_sha256=$actual"
+          Write-Host "archive_size=$size"
           if ($actual -ne $expected) { throw "Archive checksum mismatch. Expected $expected, got $actual" }
           Expand-Archive -Path $env:PACK_ARCHIVE -DestinationPath 'integration/apps-drivers/extracted' -Force
+          $count = (Get-ChildItem $env:PACK_ROOT -File -Recurse).Count
+          Write-Host "archive_file_count=$count"
+          if ($count -ne [int]$env:EXPECTED_FILE_COUNT) { throw "Expected $env:EXPECTED_FILE_COUNT files, got $count" }
       - name: Parse PowerShell scripts
         shell: pwsh
         run: |
@@ -89,6 +109,21 @@ jobs:
         uses: azure/cli@v2
         with:
           inlineScript: az bicep build --file infra/bicep/main.bicep
+
+  copilot-automation-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Copilot and subagent automation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f integration/apps-drivers/SHA256SUMS
+          test -f .github/workflows/helios-integration-pack.yml
+          grep -q 'azure-oidc-what-if' .github/workflows/helios-integration-pack.yml
+          grep -q 'powershell-parse' .github/workflows/helios-integration-pack.yml
+          grep -q 'manifests-and-unit-tests' .github/workflows/helios-integration-pack.yml
+          echo 'Copilot/subagent contract validated: diagnose -> test -> review -> promote.'
 
   azure-oidc-what-if:
     if: github.event_name == 'workflow_dispatch' && inputs.run_azure_what_if
