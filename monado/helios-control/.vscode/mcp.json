@@ -1,0 +1,23 @@
+{
+  "servers": {
+    "helios-local": {
+      "type": "http",
+      "url": "http://127.0.0.1:5080/runtime/webhooks/mcp"
+    },
+    "azure-devops-readonly": {
+      "type": "http",
+      "url": "https://mcp.dev.azure.com/${input:azureDevOpsOrganization}",
+      "headers": {
+        "X-MCP-Toolsets": "repos,wit,pipelines",
+        "X-MCP-Readonly": "true"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "id": "azureDevOpsOrganization",
+      "type": "promptString",
+      "description": "Azure DevOps organization name"
+    }
+  ]
+}
