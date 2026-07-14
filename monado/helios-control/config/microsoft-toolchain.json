@@ -3,11 +3,11 @@
   "policy": "pinned-declarative-pr-first",
   "tools": [
     { "id": "azure-cli", "command": "az", "channel": "stable", "purpose": "Azure resource and identity operations" },
-    { "id": "azure-developer-cli", "command": "azd", "channel": "stable", "purpose": "Environment provisioning and application deployment" },
+    { "id": "azure-developer-cli", "command": "azd", "minimumVersion": "1.25.3", "purpose": "Environment provisioning and application deployment" },
     { "id": "bicep", "command": "az bicep", "channel": "azure-cli-managed", "purpose": "Infrastructure as code" },
     { "id": "azure-functions-core-tools", "command": "func", "channel": "4", "purpose": "Local MCP and webhook Functions runtime" },
     { "id": "power-platform-cli", "command": "pac", "channel": "stable", "purpose": "Copilot Studio and Power Platform solution lifecycle" },
-    { "id": "microsoft-365-agents-toolkit", "command": "atk", "channel": "stable", "purpose": "Microsoft 365 and Teams agent packaging" },
+    { "id": "microsoft-365-agents-toolkit", "command": "atk", "package": "@microsoft/m365agentstoolkit-cli", "channel": "stable", "purpose": "Microsoft 365 and Teams agent packaging" },
     { "id": "github-cli", "command": "gh", "channel": "stable", "purpose": "PR, Actions, Codespaces, and Copilot workflows" },
     { "id": "dotnet-sdk", "command": "dotnet", "channel": "8.0", "purpose": "Helios C# spine" },
     { "id": "powershell", "command": "pwsh", "channel": "7", "purpose": "Hash-verified Windows and Azure adapters" },
@@ -40,7 +40,8 @@
   "tenantApps": [
     "microsoft-365-copilot",
     "copilot-studio",
-    "entra-agent-registry",
+    "agent-365-registry",
+    "entra-agent-id",
     "azure-devops-mcp",
     "sharepoint",
     "teams"
