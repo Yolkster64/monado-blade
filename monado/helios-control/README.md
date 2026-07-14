@@ -1,7 +1,7 @@
 # Helios Connect
 
 Helios Connect is the local-first integration control plane for GitHub, Linear,
-Slack, Microsoft Teams, SharePoint, Hugging Face, Azure, and MCP.
+Slack, Microsoft Teams, SharePoint, Microsoft Copilot/Foundry, Azure, and MCP.
 
 It uses one normalized event envelope, an allowlisted router, idempotency keys,
 and per-connector workers. Secrets never live in source control: local secrets
