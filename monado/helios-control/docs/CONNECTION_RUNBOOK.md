@@ -2,7 +2,7 @@
 
 ## Safe order
 
-1. Resolve the GitHub repository, SharePoint library, and Hugging Face repo.
+1. Resolve the GitHub repository, SharePoint library, Microsoft Foundry project, and Entra Agent Registry.
 2. Register a GitHub App with repository metadata, checks, issues, pull requests,
    and webhook read access; grant contents write only if release automation needs it.
 3. Create Slack and Teams app identities. Subscribe only to required events.
@@ -15,8 +15,8 @@
 
 ## Webhook endpoints
 
-`POST /webhooks/github`, `/linear`, `/slack`, `/teams`, `/sharepoint`, and
-`/huggingface`. Public ingress should terminate TLS and pass through Azure WAF.
+`POST /webhooks/github`, `/linear`, `/slack`, `/teams`, `/sharepoint`, `/foundry`,
+and `/copilot`. Public ingress should terminate TLS and pass through Azure WAF.
 
 ## Local MCP
 
