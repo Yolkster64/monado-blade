@@ -79,3 +79,11 @@ TestResults/
 ehthumbs.db
 Icon?
 Desktop.ini
+# Helios local credentials and Azure Developer CLI state
+.env
+.env.*
+!.env.example
+.azure/
+**/.azure/
+**/runtime/
+**/artifacts/
