@@ -1,0 +1,170 @@
+name: HELIOS Integration Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - main
+      - "setup/**"
+      - "integration/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate manifests and source
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Validate JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          failures = []
+          files = sorted(Path('.').rglob('*.json'))
+          for path in files:
+              if any(part in {'.git', 'bin', 'obj', 'node_modules'} for part in path.parts):
+                  continue
+              try:
+                  json.loads(path.read_text(encoding='utf-8'))
+              except Exception as exc:
+                  failures.append(f"{path}: {exc}")
+          print(f"Validated {len(files)} JSON files")
+          if failures:
+              raise SystemExit('\n'.join(failures))
+          PY
+
+      - name: Compile Python without execution
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q .
+
+      - name: Restore and build .NET projects
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t projects < <(find . -type f \( -name '*.sln' -o -name '*.csproj' \) \
+            -not -path '*/bin/*' -not -path '*/obj/*' | sort)
+          if [ "${#projects[@]}" -eq 0 ]; then
+            echo "No .NET projects found; skipping."
+            exit 0
+          fi
+          for project in "${projects[@]}"; do
+            echo "Building $project"
+            dotnet build "$project" --configuration Release --nologo
+          done
+
+      - name: Parse PowerShell scripts
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $errorsFound = @()
+          Get-ChildItem -Path . -Recurse -File -Include *.ps1,*.psm1 | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors)
+            if ($errors.Count -gt 0) {
+              $errorsFound += $errors | ForEach-Object { "$($_.Extent.File):$($_.Extent.StartLineNumber): $($_.Message)" }
+            }
+          }
+          if ($errorsFound.Count -gt 0) {
+            $errorsFound | Write-Error
+            exit 1
+          }
+
+      - name: Scan for likely committed secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          patterns = {
+              'OpenAI-style key': re.compile(r'\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b'),
+              'GitHub token': re.compile(r'\bgh[pousr]_[A-Za-z0-9]{20,}\b'),
+              'Azure client secret assignment': re.compile(r'(?i)(client_secret|azure_client_secret)\s*[:=]\s*["\'][^"\']{12,}["\']'),
+              'Private key': re.compile(r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'),
+          }
+          allowed_suffixes = {'.md', '.txt', '.json', '.yml', '.yaml', '.py', '.ps1', '.psm1', '.cs', '.csproj', '.sln', '.xml', '.toml'}
+          findings = []
+          for path in Path('.').rglob('*'):
+              if not path.is_file() or path.suffix.lower() not in allowed_suffixes:
+                  continue
+              if any(part in {'.git', 'bin', 'obj', 'node_modules'} for part in path.parts):
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8', errors='ignore')
+              except OSError:
+                  continue
+              for name, pattern in patterns.items():
+                  if pattern.search(text):
+                      findings.append(f'{path}: {name}')
+          if findings:
+              raise SystemExit('Potential secrets detected:\n' + '\n'.join(findings))
+          print('No obvious committed secrets detected.')
+          PY
+
+      - name: Check destructive PowerShell commands for guard language
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          destructive = re.compile(r'(?i)\b(Clear-Disk|Remove-Partition|Format-Volume|Remove-Item\s+[^\n]*-Recurse|Disable-BitLocker|Stop-Computer|Restart-Computer)\b')
+          guard = re.compile(r'(?i)(confirm|whatif|dryrun|shouldprocess|approval|restore point|recovery|guard)')
+          findings = []
+          for path in Path('.').rglob('*.ps1'):
+              text = path.read_text(encoding='utf-8', errors='ignore')
+              if destructive.search(text) and not guard.search(text):
+                  findings.append(str(path))
+          if findings:
+              raise SystemExit('Destructive commands without visible guard language:\n' + '\n'.join(findings))
+          print('PowerShell destructive-command guard scan passed.')
+          PY
+
+      - name: Build validation evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/validation
+          {
+            echo "repository=${GITHUB_REPOSITORY}"
+            echo "ref=${GITHUB_REF}"
+            echo "sha=${GITHUB_SHA}"
+            echo "run_id=${GITHUB_RUN_ID}"
+            echo "generated_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } > artifacts/validation/run-evidence.txt
+          find config docs scripts src python -type f 2>/dev/null | sort | sha256sum > artifacts/validation/file-checksums.sha256 || true
+
+      - name: Upload validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: helios-validation-evidence-${{ github.run_id }}
+          path: artifacts/validation
+          retention-days: 30
