@@ -3,10 +3,15 @@ name: HELIOS integration pack
 on:
   pull_request:
     paths:
-      - 'config/**'
-      - 'scripts/**'
-      - 'src/HELIOS.HardwareDetection/**'
-      - 'src/HELIOS.SoftwareCatalog/**'
+      - 'integration/apps-drivers/**'
+      - 'tests/HELIOS.IntegrationPack.Tests/**'
+      - 'infra/bicep/**'
+      - '.github/workflows/helios-integration-pack.yml'
+  push:
+    branches:
+      - agent/integration-apps-drivers
+    paths:
+      - 'integration/apps-drivers/**'
       - 'tests/HELIOS.IntegrationPack.Tests/**'
       - 'infra/bicep/**'
       - '.github/workflows/helios-integration-pack.yml'
@@ -27,30 +32,48 @@ on:
 permissions:
   contents: read
 
+env:
+  PACK_ARCHIVE: integration/apps-drivers/helios_integration_apps_drivers_pack.zip
+  PACK_ROOT: integration/apps-drivers/extracted/helios_integration_apps_drivers_pack
+
 jobs:
   manifests-and-unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verify archive checksum
+        working-directory: integration/apps-drivers
+        run: sha256sum --check SHA256SUMS
+      - name: Extract integration pack
+        run: unzip -q "$PACK_ARCHIVE" -d integration/apps-drivers/extracted
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Run manifest unit tests
+        env:
+          HELIOS_PACK_ROOT: ${{ github.workspace }}/${{ env.PACK_ROOT }}
         run: python -m unittest discover -s tests/HELIOS.IntegrationPack.Tests -p 'test_*.py' -v
       - name: Build .NET integration projects
         run: |
-          dotnet build src/HELIOS.HardwareDetection/HELIOS.HardwareDetection.csproj --configuration Release
-          dotnet build src/HELIOS.SoftwareCatalog/HELIOS.SoftwareCatalog.csproj --configuration Release
+          dotnet build "$PACK_ROOT/src/HELIOS.HardwareDetection/HELIOS.HardwareDetection.csproj" --configuration Release
+          dotnet build "$PACK_ROOT/src/HELIOS.SoftwareCatalog/HELIOS.SoftwareCatalog.csproj" --configuration Release
 
   powershell-parse:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verify and extract integration pack
+        shell: pwsh
+        run: |
+          $expected = (Get-Content 'integration/apps-drivers/SHA256SUMS' -Raw).Split()[0].ToLowerInvariant()
+          $actual = (Get-FileHash -Algorithm SHA256 -Path $env:PACK_ARCHIVE).Hash.ToLowerInvariant()
+          if ($actual -ne $expected) { throw "Archive checksum mismatch. Expected $expected, got $actual" }
+          Expand-Archive -Path $env:PACK_ARCHIVE -DestinationPath 'integration/apps-drivers/extracted' -Force
       - name: Parse PowerShell scripts
         shell: pwsh
         run: |
           $errors = @()
-          Get-ChildItem scripts -Recurse -Filter *.ps1 | ForEach-Object {
+          Get-ChildItem "$env:PACK_ROOT/scripts" -Recurse -Filter *.ps1 | ForEach-Object {
             $tokens = $null
             $parseErrors = $null
             [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$parseErrors)
