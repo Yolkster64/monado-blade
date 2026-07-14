@@ -1,5 +1,6 @@
 {
   "name": "Helios Microsoft Agent Fabric",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/monado/helios-control",
   "image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
   "features": {
     "ghcr.io/devcontainers/features/azure-cli:1": {},
@@ -21,6 +22,6 @@
       ]
     }
   },
-  "postCreateCommand": "pwsh -NoLogo -File scripts/Bootstrap-MicrosoftToolchain.ps1 -Mode Verify",
+  "postCreateCommand": "pwsh -NoLogo -File ./scripts/Bootstrap-MicrosoftToolchain.ps1 -Mode Verify",
   "remoteUser": "vscode"
 }
