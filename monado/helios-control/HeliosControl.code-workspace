@@ -1,0 +1,17 @@
+{
+  "folders": [{ "path": "." }],
+  "settings": {
+    "chat.mcp.enabled": true,
+    "dotnet.defaultSolution": "Helios.Connect.sln"
+  },
+  "extensions": {
+    "recommendations": [
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-azuretools.azure-dev",
+      "ms-azuretools.vscode-bicep",
+      "ms-dotnettools.csdevkit",
+      "teamsdevapp.ms-teams-vscode-extension"
+    ]
+  }
+}
