@@ -1,0 +1,11 @@
+name: helios-control
+metadata:
+  template: helios-microsoft-agent-fabric@0.1.0
+infra:
+  provider: bicep
+  path: infra
+services:
+  api:
+    project: src/Helios.Connect.Api
+    language: dotnet
+    host: containerapp
