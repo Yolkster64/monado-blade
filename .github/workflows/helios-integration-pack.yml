@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Discover repository archive hash and validate ZIP
+      - name: Discover repository archive hash
         id: archive
         shell: bash
         run: |
@@ -51,20 +51,24 @@ jobs:
           actual="$(sha256sum "$PACK_ARCHIVE" | awk '{print tolower($1)}')"
           size="$(stat -c '%s' "$PACK_ARCHIVE")"
           printf 'expected_sha256=%s\nactual_sha256=%s\narchive_size=%s\n' "$expected" "$actual" "$size" | tee archive-integrity.txt
+          echo "expected=$expected" >> "$GITHUB_OUTPUT"
           echo "actual=$actual" >> "$GITHUB_OUTPUT"
-          unzip -t "$PACK_ARCHIVE"
-          count="$(unzip -Z1 "$PACK_ARCHIVE" | grep -v '/$' | wc -l | tr -d ' ')"
-          echo "archive_file_count=$count" | tee -a archive-integrity.txt
-          test "$count" = "$EXPECTED_FILE_COUNT"
-          if [ "$actual" != "$expected" ]; then
-            echo '::warning::SHA256SUMS is stale; content validation will continue and the lockfile must be updated to actual_sha256.'
-          fi
+          echo "size=$size" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
         with:
           name: archive-integrity-diagnostic
           path: archive-integrity.txt
           if-no-files-found: error
           retention-days: 7
+      - name: Validate ZIP structure
+        run: unzip -t "$PACK_ARCHIVE"
+      - name: Validate ZIP file count
+        shell: bash
+        run: |
+          set -euo pipefail
+          count="$(unzip -Z1 "$PACK_ARCHIVE" | grep -v '/$' | wc -l | tr -d ' ')"
+          echo "archive_file_count=$count"
+          test "$count" = "$EXPECTED_FILE_COUNT"
       - name: Extract integration pack
         run: unzip -q "$PACK_ARCHIVE" -d integration/apps-drivers/extracted
       - uses: actions/setup-python@v5
@@ -78,12 +82,16 @@ jobs:
         run: |
           dotnet build "$PACK_ROOT/src/HELIOS.HardwareDetection/HELIOS.HardwareDetection.csproj" --configuration Release
           dotnet build "$PACK_ROOT/src/HELIOS.SoftwareCatalog/HELIOS.SoftwareCatalog.csproj" --configuration Release
+      - name: Enforce repository checksum lock
+        shell: bash
+        run: test '${{ steps.archive.outputs.actual }}' = '${{ steps.archive.outputs.expected }}'
 
   powershell-parse:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate and extract integration pack
+      - name: Discover Windows archive hash
+        id: archive
         shell: pwsh
         run: |
           $expected = ((Get-Content 'integration/apps-drivers/SHA256SUMS' | Select-Object -First 1) -split '\s+')[0].ToLowerInvariant()
@@ -92,8 +100,14 @@ jobs:
           Write-Host "expected_sha256=$expected"
           Write-Host "actual_sha256=$actual"
           Write-Host "archive_size=$size"
-          if ($actual -ne $expected) { Write-Warning "SHA256SUMS is stale; continuing content validation for lockfile repair." }
-          Expand-Archive -Path $env:PACK_ARCHIVE -DestinationPath 'integration/apps-drivers/extracted' -Force
+          "expected=$expected" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "actual=$actual" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+      - name: Extract integration pack
+        shell: pwsh
+        run: Expand-Archive -Path $env:PACK_ARCHIVE -DestinationPath 'integration/apps-drivers/extracted' -Force
+      - name: Validate extracted file count
+        shell: pwsh
+        run: |
           $count = (Get-ChildItem $env:PACK_ROOT -File -Recurse).Count
           Write-Host "archive_file_count=$count"
           if ($count -ne [int]$env:EXPECTED_FILE_COUNT) { throw "Expected $env:EXPECTED_FILE_COUNT files, got $count" }
@@ -108,6 +122,10 @@ jobs:
             if ($parseErrors) { $errors += $parseErrors }
           }
           if ($errors.Count -gt 0) { $errors | Format-List | Out-String | Write-Error; exit 1 }
+      - name: Enforce repository checksum lock
+        shell: pwsh
+        run: |
+          if ('${{ steps.archive.outputs.actual }}' -ne '${{ steps.archive.outputs.expected }}') { throw 'SHA256SUMS does not match repository archive bytes.' }
 
   bicep-static-validation:
     runs-on: ubuntu-latest
