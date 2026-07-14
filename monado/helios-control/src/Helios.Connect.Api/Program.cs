@@ -10,7 +10,7 @@ app.MapGet("/health", () => Results.Ok(new { service = "helios-connect", status 
 
 app.MapPost("/webhooks/{provider}", async (string provider, HttpRequest request) =>
 {
-    var supported = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "github", "linear", "slack", "teams", "sharepoint", "huggingface" };
+    var supported = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "github", "linear", "slack", "teams", "sharepoint", "foundry", "copilot" };
     if (!supported.Contains(provider)) return Results.NotFound();
 
     using var reader = new StreamReader(request.Body, Encoding.UTF8);
