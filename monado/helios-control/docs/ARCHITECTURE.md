@@ -21,7 +21,7 @@ flowchart TD
 - GitHub owns code, CI, releases, and deployment manifests.
 - Linear owns planned work and delivery status.
 - SharePoint owns human-facing governed documents.
-- Hugging Face owns model, dataset, Space, and evaluation artifacts.
+- Microsoft Foundry Agent Service hosts governed Hermes/XCore agents, evaluations, tools, memory, and stable endpoints; Microsoft 365 Copilot and Teams are distribution surfaces.
 - Slack and Teams are notification and interaction surfaces, never source-of-truth stores.
 - Azure provides managed identity, Key Vault, Service Bus, Container Apps, Storage, and monitoring.
 - Local MCP exposes the same allowlisted actions to Codex and the Monado GUI.
@@ -72,3 +72,4 @@ Every event has `id`, `type`, `source`, `subject`, `occurredAt`, `correlationId`
 4. Azure hardening: Key Vault, Service Bus, Container Apps, App Insights, private endpoints.
 5. GUI: Monado status, route toggles, replay, approvals, and audit explorer.
 6. Enterprise federation: Azure DevOps bridge, GitHub multi-repo release graph, Copilot/Foundry agent registry, Entra/Purview governance, and business continuity controls.
+7. Hermes learning plane: weakness-aware task generation, sandbox execution, evaluation, human/policy approval, versioned promotion, and monitored rollback.
