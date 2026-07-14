@@ -13,10 +13,10 @@
   },
   "destinations": {
     "github": { "account": "Yolkster64", "repository": "Yolkster64/monado-blade", "path": "monado/helios-control", "enabled": true },
-    "linear": { "team": "John", "teamId": "53b850e1-eb80-4c7f-942c-9b2c63a9399b", "project": "Helios Integration Fabric", "projectId": "89a5cdf8-f7a2-409f-b275-49ae37e39d6d", "enabled": true },
-    "slack": { "workspace": "Helios", "channel": "helios-ops", "channelId": "C0BH4FBB0RX", "enabled": true },
-    "teams": { "team": "Helios", "teamId": "63311034-cc8f-4a5f-bb8e-459342f0575c", "channel": "Helios Ops", "channelId": "19:d860092598794564808e4d58f87a47d4@thread.tacv2", "enabled": true },
-    "sharepoint": { "tenant": "heli0s", "library": "OneDrive", "driveId": "b!IBQFjZaxFUqHSaosSbwKK6Qw9rGlb3pGuQGkWbRSSz3axJYbgla3T4nIcsLsHvBR", "folder": "Helios/Governance", "enabled": true },
+    "linear": { "team": "${LINEAR_TEAM_NAME}", "project": "${LINEAR_PROJECT_NAME}", "enabled": true },
+    "slack": { "workspace": "${SLACK_WORKSPACE_NAME}", "channel": "${SLACK_CHANNEL_NAME}", "enabled": true },
+    "teams": { "team": "${TEAMS_TEAM_NAME}", "channel": "${TEAMS_CHANNEL_NAME}", "enabled": true },
+    "sharepoint": { "tenant": "${SHAREPOINT_TENANT_HOST}", "library": "${SHAREPOINT_LIBRARY}", "folder": "${SHAREPOINT_GOVERNANCE_FOLDER}", "enabled": true },
     "microsoftAgents": { "registry": "entra-agent-registry", "manifest": "config/microsoft-agents.json", "toolchain": "config/microsoft-toolchain.json", "runtime": "microsoft-foundry-agent-service", "channels": ["microsoft-365-copilot", "teams"], "enabled": true }
   },
   "routing": [
